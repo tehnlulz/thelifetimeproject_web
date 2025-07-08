@@ -1,0 +1,3621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lifetime Project - Where Ancient Wisdom Meets Modern Science</title>
+    <meta name="description"
+        content="The ultimate personal development platform for men. Synthesizing wisdom from Marcus Aurelius to modern neuroscience, personalized just for you with AI-generated daily practices.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+
+    <style>
+        @font-face {
+            font-family: 'Funnel Sans';
+            src: url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+            font-display: swap;
+        }
+
+        :root {
+            /* App Color Scheme */
+            --canvas: #FAFAFC;
+            --surface: #FFFFFF;
+            --surface-dark: #F0F0F5;
+            --text-primary: #1F2937;
+            --text-secondary: #4B5563;
+            --text-tertiary: #9CA3AF;
+            --text-on-dark: #FFFFFF;
+            --accent-gold: #E2B93B;
+            --accent-mint: #47B5A5;
+            --accent-beige: #F5E8C7;
+            --success: #16A34A;
+            --error: #DC2626;
+            --warning: #D97706;
+            --info: #2563EB;
+            --border: rgba(31,41,55,0.10);
+            --disabled: rgba(31,41,55,0.20);
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(31, 41, 55, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(31, 41, 55, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(31, 41, 55, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(31, 41, 55, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', 'Funnel Sans', sans-serif;
+            background: var(--canvas);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            /* Prevent overscroll bounce effect */
+            overscroll-behavior: none;
+            -webkit-overflow-scrolling: auto;
+        }
+        
+        html {
+            overflow-x: hidden;
+            /* Prevent overscroll bounce effect */
+            overscroll-behavior: none;
+            position: relative;
+            height: 100%;
+        }
+
+        /* Full-width wrapper */
+        .full-width-wrapper {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+        
+        /* Ensure all sections stretch full width */
+        section, footer {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+
+        .serif {
+            font-family: 'Crimson Text', serif;
+        }
+
+        /* Hero gradient background */
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--canvas) 0%, var(--surface-dark) 50%, var(--accent-beige) 100%);
+            position: relative;
+        }
+
+        /* Subtle floating shapes */
+        .float-shape {
+            position: absolute;
+            opacity: 0.05;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(20px) rotate(240deg); }
+        }
+
+        /* Primary button style */
+        .primary-btn {
+            background: var(--accent-gold);
+            color: var(--text-primary);
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .primary-btn:hover {
+            background: #1D4ED8;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Card styles */
+        .wisdom-card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .wisdom-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--accent-gold);
+        }
+
+        /* Feature icon */
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-mint) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            color: var(--accent-gold); /* Fallback color */
+            display: inline-block; /* Ensures gradient works properly */
+        }
+
+        /* Journey visualization */
+        .journey-line {
+            position: absolute;
+            left: 28px;
+            top: 60px;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-gold), var(--accent-mint));
+            opacity: 0.3;
+        }
+
+        .journey-dot {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--accent-gold);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Audio wave animation */
+        .audio-wave {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 32px;
+        }
+
+        .audio-wave span {
+            width: 3px;
+            background: var(--accent-gold);
+            border-radius: 3px;
+            animation: wave 1.5s ease-in-out infinite;
+        }
+
+        .audio-wave span:nth-child(1) { height: 16px; animation-delay: 0s; }
+        .audio-wave span:nth-child(2) { height: 24px; animation-delay: 0.1s; }
+        .audio-wave span:nth-child(3) { height: 20px; animation-delay: 0.2s; }
+        .audio-wave span:nth-child(4) { height: 28px; animation-delay: 0.3s; }
+        .audio-wave span:nth-child(5) { height: 22px; animation-delay: 0.4s; }
+
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.7); }
+            50% { transform: scaleY(1); }
+        }
+
+        /* Trust badges */
+        .trust-badge {
+            background: #F0F9FF;
+            border: 1px solid #DBEAFE;
+            border-radius: 999px;
+            padding: 8px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--accent-gold);
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Cinematic day timeline */
+        .cinematic-timeline {
+            position: relative;
+            background: var(--text-primary);
+            overflow: hidden;
+            width: 100%;
+            padding: 0;
+        }
+
+        .cinematic-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            pointer-events: none;
+        }
+
+        .timeline-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0;
+            animation: glowPulse 4s ease-in-out infinite;
+            pointer-events: none !important;
+            z-index: -1 !important;
+            will-change: auto !important;
+            transform-style: flat !important;
+        }
+        
+        /* Force all timeline glows to never interfere */
+        .timeline-glow,
+        .timeline-glow::before,
+        .timeline-glow::after {
+            pointer-events: none !important;
+            z-index: -10 !important;
+        }
+        
+        /* Completely disable glow elements that interfere with character selection */
+        .cinematic-timeline > .timeline-glow {
+            visibility: hidden !important;
+            pointer-events: none !important;
+            z-index: -1000 !important;
+            display: none !important;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.15; transform: scale(1); }
+            50% { opacity: 0.25; transform: scale(1.1); }
+        }
+
+        .timeline-title {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .timeline-title.visible {
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .timeline-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .timeline-subtitle.visible {
+            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-path {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                rgba(255,255,255,0.1) 2%, 
+                rgba(255,255,255,0.2) 10%, 
+                rgba(255,255,255,0.2) 90%, 
+                rgba(255,255,255,0.1) 98%, 
+                transparent 100%
+            );
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+
+        .timeline-progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(to bottom, 
+                rgba(37, 99, 235, 0) 0%, 
+                rgba(37, 99, 235, 0.8) 20%, 
+                rgba(16, 185, 129, 0.8) 80%, 
+                rgba(16, 185, 129, 0) 100%
+            );
+            height: 0%;
+            transition: height 2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
+        }
+
+        .timeline-moment {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            opacity: 0;
+            transform: scale(0.9);
+            width: 100%;
+        }
+
+        .timeline-moment.active {
+            animation: momentReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes momentReveal {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .moment-time {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10rem;
+            font-weight: 900;
+            color: rgba(255,255,255,0.15);
+            z-index: 2;
+            letter-spacing: -0.05em;
+            text-shadow: 
+                0 0 80px rgba(255,255,255,0.1),
+                0 0 40px rgba(255,255,255,0.05);
+            background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        @media (max-width: 768px) {
+            .moment-time {
+                font-size: 4rem;
+                top: 20px;
+            }
+        }
+
+        .moment-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        @media (min-width: 768px) {
+            .moment-content {
+                padding: 60px;
+            }
+        }
+
+        .moment-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-mint));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        .conversation-bubble {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 16px 0;
+            position: relative;
+            opacity: 0;
+            transform: translateX(-40px);
+            max-width: 85%;
+        }
+        
+        /* Marcus AI messages */
+        .conversation-bubble:not(.you):not(.boss) {
+            background: linear-gradient(135deg, rgba(226, 185, 59, 0.08), rgba(226, 185, 59, 0.05));
+            border-color: rgba(226, 185, 59, 0.2);
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+        }
+
+        .conversation-bubble.visible {
+            animation: bubbleAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .conversation-bubble.boss {
+            transform: translateX(-40px);
+            background: rgba(239, 68, 68, 0.05);
+            border-color: rgba(239, 68, 68, 0.2);
+            margin-right: auto;
+            margin-left: 0;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 16px;
+        }
+
+        .conversation-bubble.you {
+            transform: translateX(40px);
+            background: rgba(71, 181, 165, 0.05);
+            border-color: rgba(71, 181, 165, 0.2);
+            margin-left: auto;
+            margin-right: 0;
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius: 16px;
+        }
+
+        @keyframes bubbleAppear {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .timeline-node {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 4px solid var(--accent-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.2);
+            z-index: 3;
+        }
+
+        .timeline-node.pulse {
+            animation: nodePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes nodePulse {
+            0%, 100% { 
+                box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.2);
+                transform: translateX(-50%) scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 0 16px rgba(37, 99, 235, 0.1);
+                transform: translateX(-50%) scale(1.2);
+            }
+        }
+
+        .outcome-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(37, 99, 235, 0.1));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .outcome-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--accent-mint), 
+                var(--accent-gold), 
+                var(--accent-mint)
+            );
+            border-radius: 16px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.5s ease;
+        }
+
+        .outcome-card:hover::before {
+            opacity: 0.3;
+            animation: shimmer 2s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Character selection for mobile */
+        .character-select-btn {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            color: white;
+            min-width: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            position: relative !important;
+            z-index: 10000 !important;
+            pointer-events: auto !important;
+        }
+
+        .character-select-btn:hover,
+        .character-select-btn:active {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .character-select-btn.active {
+            border-color: var(--accent-gold);
+            background: rgba(226, 185, 59, 0.2);
+            box-shadow: 0 0 20px rgba(226, 185, 59, 0.3);
+        }
+        
+        .character-select-btn span {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        /* Mobile character carousel */
+        .character-carousel {
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .character-carousel .character-select-btn {
+            scroll-snap-align: center;
+            min-width: 120px;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide non-selected character on mobile */
+        @media (max-width: 768px) {
+            .character-card {
+                display: none;
+            }
+            
+            .character-card.show-mobile {
+                display: block;
+            }
+
+            .timeline-character {
+                display: none;
+            }
+
+            .timeline-character.show-mobile {
+                display: block;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .wisdom-card {
+                padding: 24px;
+            }
+            
+            .feature-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+            }
+
+            /* Cinematic timeline mobile adjustments */
+            .timeline-moment {
+                padding: 60px 16px;
+                min-height: auto;
+            }
+
+            .timeline-path {
+                display: none;
+            }
+
+            .timeline-title {
+                font-size: 2.5rem;
+            }
+
+            .timeline-subtitle {
+                font-size: 1.125rem;
+            }
+
+            .moment-content {
+                padding: 24px;
+            }
+
+            .moment-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 w-full bg-[#FAFAFC]/95 backdrop-blur-md border-b border-[rgba(31,41,55,0.10)] z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <img src="logo.svg" alt="The Lifetime Project" class="w-12 h-12">
+                    <span class="text-gray-900 font-bold text-lg">The Lifetime Project</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#wisdom" class="text-gray-600 hover:text-gray-900 transition font-medium">Our Approach</a>
+                    <a href="#how" class="text-gray-600 hover:text-gray-900 transition font-medium">How It Works</a>
+                    <a href="#journey" class="text-gray-600 hover:text-gray-900 transition font-medium">Your Journey</a>
+                    <a href="#testimonials" class="text-gray-600 hover:text-gray-900 transition font-medium">Success Stories</a>
+                </div>
+                
+                <button class="primary-btn">
+                    <span class="hidden sm:inline">Start Your Journey</span>
+                    <span class="sm:hidden">Start</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient min-h-screen flex items-center pt-20">
+        <!-- Subtle geometric shapes -->
+        <div class="float-shape w-96 h-96 rounded-full bg-[#E2B93B]" style="top: 10%; left: -10%;"></div>
+        <div class="float-shape w-64 h-64 rounded-full bg-[#47B5A5]" style="bottom: 20%; right: -5%; animation-delay: 5s;"></div>
+        <div class="float-shape w-48 h-48 rounded-full bg-[#F5E8C7]" style="top: 60%; left: 80%; animation-delay: 10s;"></div>
+        
+        <div class="container mx-auto px-6 py-20 relative z-10">
+            <div class="max-w-5xl mx-auto text-center">
+                <!-- Trust indicator -->
+                <div class="inline-flex items-center gap-2 bg-[#F5E8C7] px-4 py-2 rounded-full mb-8">
+                    <i class="fas fa-users text-[#E2B93B]"></i>
+                    <span class="text-[#1F2937] text-sm font-medium">Men are already leveling up</span>
+                </div>
+                
+                <!-- Main headline -->
+                <h1 class="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+                    Cut Through The Noise.<br>
+                    <span class="gradient-text">Become The Man</span><br>
+                    You Know You Can Be
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed">
+                    Deep down, you know you're capable of more. But between work pressure, family needs, 
+                    and conflicting advice everywhere – you've lost sight of who you really are. 
+                    Time to reconnect with the man you're meant to be.
+                </p>
+
+                <!-- Value props -->
+                <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+                    <div class="flex items-center justify-center space-x-3 text-left">
+                        <i class="fas fa-brain text-2xl text-[#E2B93B]"></i>
+                        <div>
+                            <p class="font-semibold text-[#1F2937]">Not One System</p>
+                            <p class="text-sm text-[#4B5563]">Synthesizes all frameworks</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center space-x-3 text-left">
+                        <i class="fas fa-magic text-2xl text-[#47B5A5]"></i>
+                        <div>
+                            <p class="font-semibold text-[#1F2937]">100% Personalized</p>
+                            <p class="text-sm text-[#4B5563]">AI creates unique content daily</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center space-x-3 text-left">
+                        <i class="fas fa-chart-line text-2xl text-[#16A34A]"></i>
+                        <div>
+                            <p class="font-semibold text-[#1F2937]">Real Growth</p>
+                            <p class="text-sm text-[#4B5563]">Structured journey system</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA section -->
+                <div class="space-y-4">
+                    <button class="primary-btn text-lg px-12 py-6">
+                        Take the Assessment - It's Free
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <p class="text-sm text-[#4B5563]">
+                        <i class="fas fa-check text-[#16A34A] mr-2"></i>No credit card required
+                        <i class="fas fa-check text-[#16A34A] mx-2"></i>7-day free trial
+                        <i class="fas fa-check text-[#16A34A] mx-2"></i>Cancel anytime
+                    </p>
+                </div>
+            </div>
+            
+            <!-- App Screenshots -->
+            <div class="absolute top-1/2 -translate-y-1/2 -right-[100px] hidden xl:block">
+                <div class="relative">
+                    <!-- iPhone mockup -->
+                    <div class="iphone-mockup">
+                        <div class="iphone-power-button"></div>
+                        <div class="iphone-screen-wrapper">
+                            <img src="home_screen.png" alt="Home Screen" class="iphone-screen">
+                        </div>
+                    </div>
+                    <!-- Second phone slightly behind -->
+                    <div class="iphone-mockup absolute -left-24 top-10 -z-10">
+                        <div class="iphone-power-button"></div>
+                        <div class="iphone-screen-wrapper">
+                            <img src="home2.png" alt="Home Screen 2" class="iphone-screen">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Focus on You Section -->
+    <section class="py-32 bg-gradient-to-b from-white to-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                        When was the last time<br>
+                        <span class="gradient-text">you focused on YOU?</span>
+                    </h2>
+                    <p class="text-xl text-gray-600">Not your roles. Not your responsibilities. Just you.</p>
+                </div>
+                
+                <!-- Physics visualization -->
+                <div class="relative mx-auto" id="physics-wrapper" style="max-width: 800px; height: 500px;">
+                    <canvas id="physics-canvas" style="width: 100%; height: 100%; border-radius: 20px; background: linear-gradient(to bottom, #f8f8f8, #e8e8e8);"></canvas>
+                    
+                    <!-- Hover instruction -->
+                    <div class="hover-hint absolute bottom-4 left-0 right-0 text-center pointer-events-none">
+                        <p class="text-sm text-gray-500 italic">Click to break free</p>
+                    </div>
+                </div>
+                
+                <p class="text-lg text-gray-600 mt-16 max-w-2xl mx-auto transition-opacity duration-500" id="bottom-message">
+                    Everything pulls at you except your own growth. It's time to put yourself at the center.
+                </p>
+                
+                <p class="text-lg text-gray-600 mt-16 max-w-2xl mx-auto opacity-0 transition-opacity duration-500 hidden" id="breakthrough-message">
+                    <strong class="text-[#E2B93B]">That's the power of focusing on yourself.</strong> Break through the noise and reclaim your center.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        /* Physics canvas styles */
+        #physics-wrapper {
+            cursor: pointer;
+        }
+        
+        #physics-canvas {
+            display: block;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hover-hint {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        
+        #physics-wrapper.activated .hover-hint {
+            opacity: 0;
+        }
+        
+        /* iPhone Mockup - Desktop First */
+        .iphone-mockup {
+            position: relative;
+            margin: 0 auto;
+            border: 14px solid #1a1a1a;
+            background-color: #1a1a1a;
+            border-radius: 2.5rem;
+            height: 600px;
+            width: 300px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            flex-shrink: 0;
+            z-index: 0;
+        }
+        
+        /* Notch */
+        .iphone-mockup::before {
+            content: '';
+            width: 148px;
+            height: 18px;
+            background-color: #1a1a1a;
+            top: 0;
+            border-radius: 0 0 1rem 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            position: absolute;
+        }
+        
+        /* Volume buttons */
+        .iphone-mockup::after {
+            content: '';
+            height: 46px;
+            width: 3px;
+            background-color: #1a1a1a;
+            position: absolute;
+            left: -17px;
+            top: 124px;
+            border-radius: 0.5rem 0 0 0.5rem;
+            box-shadow: 0 46px 0 0 #1a1a1a, 0 100px 0 0 #1a1a1a;
+        }
+        
+        /* Power button */
+        .iphone-power-button {
+            height: 64px;
+            width: 3px;
+            background-color: #1a1a1a;
+            position: absolute;
+            right: -17px;
+            top: 142px;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        .iphone-screen-wrapper {
+            border-radius: 2rem;
+            overflow: hidden;
+            width: 272px;
+            height: 572px;
+            background: black;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+        }
+        
+        /* MOBILE OVERRIDES - Completely reset for mobile */
+        @media (max-width: 768px) {
+            .iphone-mockup {
+                width: 160px !important;
+                height: 320px !important;
+                min-width: 160px !important;
+                max-width: 160px !important;
+                border: 6px solid #1a1a1a;
+                border-radius: 1.5rem;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                flex-shrink: 0 !important;
+                flex-grow: 0 !important;
+                flex-basis: 160px !important;
+            }
+            
+            .iphone-screen-wrapper {
+                width: 148px;
+                height: 308px;
+                border-radius: 1.2rem;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            
+            .iphone-mockup::before {
+                width: 70px;
+                height: 10px;
+                border-radius: 0 0 0.5rem 0.5rem;
+            }
+            
+            .iphone-power-button {
+                height: 30px;
+                width: 2px;
+                right: -8px;
+                top: 80px;
+            }
+            
+            .iphone-mockup::after {
+                height: 25px;
+                width: 2px;
+                left: -8px;
+                top: 70px;
+                box-shadow: 0 25px 0 0 #1a1a1a, 0 50px 0 0 #1a1a1a;
+            }
+        }
+        
+        /* VERY SMALL MOBILE */
+        @media (max-width: 480px) {
+            .iphone-mockup {
+                width: 140px !important;
+                height: 280px !important;
+                min-width: 140px !important;
+                max-width: 140px !important;
+                border: 5px solid #1a1a1a;
+                flex-shrink: 0 !important;
+                flex-grow: 0 !important;
+                flex-basis: 140px !important;
+            }
+            
+            .iphone-screen-wrapper {
+                width: 130px;
+                height: 270px;
+            }
+            
+            .iphone-mockup::before {
+                width: 60px;
+                height: 8px;
+            }
+            
+            .iphone-power-button {
+                height: 25px;
+                right: -7px;
+                top: 70px;
+            }
+            
+            .iphone-mockup::after {
+                height: 20px;
+                left: -7px;
+                top: 60px;
+                box-shadow: 0 20px 0 0 #1a1a1a, 0 42px 0 0 #1a1a1a;
+            }
+        }
+    </style>
+
+    <!-- The Problem (Reframed) -->
+    <section id="wisdom" class="py-32 bg-white full-width">
+        <div class="container mx-auto px-6">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8">
+                        You Know You're Not<br>
+                        <span class="text-gray-400">Living Up To Your Potential</span>
+                    </h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 mb-20">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-[#F5E8C7] rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-random text-3xl text-[#1F2937]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">The Weight of Expectations</h3>
+                        <p class="text-gray-600">Provider, protector, present father, passionate lover – but when do you focus on you?</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-[#F5E8C7] rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-puzzle-piece text-3xl text-[#1F2937]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Lost In The Noise</h3>
+                        <p class="text-gray-600">Career, family, health, purpose – everything pulls at you except your own growth</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-[#F5E8C7] rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-times-circle text-3xl text-[#1F2937]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">That Inner Voice</h3>
+                        <p class="text-gray-600">You know you're meant for more, but have no roadmap to get there</p>
+                    </div>
+                </div>
+
+                <!-- The shift -->
+                <div class="bg-gradient-to-br from-[#F5E8C7] to-[#FAFAFC] rounded-2xl p-12 text-center">
+                    <p class="text-2xl font-medium mb-4">It's time to bridge the gap</p>
+                    <p class="text-3xl md:text-4xl font-bold gradient-text">
+                        Between Who You Are And Who You Know You Can Be
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Unique Approach -->
+    <section class="py-32 bg-[#F0F0F5]">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <div class="inline-flex items-center gap-2 bg-[#F5E8C7] px-4 py-2 rounded-full mb-6">
+                        <i class="fas fa-lightbulb text-[#E2B93B]"></i>
+                        <span class="text-[#1F2937] text-sm font-medium">A Revolutionary Approach</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8">
+                        Ready To Inject Some<br>
+                        <span class="gradient-text">Energy Into Your Life?</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Between extreme role models and conflicting advice, men are more lost than ever. 
+                        We synthesize timeless wisdom with modern psychology to give you a clear path – 
+                        one that honors both your strength and your humanity.
+                    </p>
+                </div>
+
+                <!-- Wisdom sources grid -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+                    <div class="wisdom-card">
+                        <div class="w-16 h-16 bg-[#F5E8C7] rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-scroll text-2xl text-[#E2B93B]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-[#1F2937]">Ancient Philosophy</h3>
+                        <p class="text-[#4B5563] mb-4">Stoic wisdom from Marcus Aurelius, Seneca, and Epictetus for modern challenges</p>
+                        <p class="text-sm font-medium text-[#E2B93B]">Time-tested principles</p>
+                    </div>
+
+                    <div class="wisdom-card">
+                        <div class="w-16 h-16 bg-[#F5E8C7] rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-brain text-2xl text-[#47B5A5]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-[#1F2937]">Modern Psychology</h3>
+                        <p class="text-[#4B5563] mb-4">Attachment theory, CBT, neuroscience, and evidence-based therapeutic approaches</p>
+                        <p class="text-sm font-medium text-[#47B5A5]">Science-backed methods</p>
+                    </div>
+
+                    <div class="wisdom-card">
+                        <div class="w-16 h-16 bg-[#F5E8C7] rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-briefcase text-2xl text-[#1F2937]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-[#1F2937]">Business Excellence</h3>
+                        <p class="text-[#4B5563] mb-4">Leadership frameworks from top executives and organizational psychology</p>
+                        <p class="text-sm font-medium text-[#1F2937]">Professional mastery</p>
+                    </div>
+
+                    <div class="wisdom-card">
+                        <div class="w-16 h-16 bg-[#F5E8C7] rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-heart text-2xl text-[#E2B93B]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-[#1F2937]">Relationship Science</h3>
+                        <p class="text-[#4B5563] mb-4">Research on attachment, communication, and building lasting connections</p>
+                        <p class="text-sm font-medium text-[#E2B93B]">Deep connections</p>
+                    </div>
+
+                    <div class="wisdom-card">
+                        <div class="w-16 h-16 bg-[#F5E8C7] rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-sync text-2xl text-[#16A34A]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-[#1F2937]">Habit Formation</h3>
+                        <p class="text-[#4B5563] mb-4">Atomic Habits, behavioral psychology, and sustainable change strategies</p>
+                        <p class="text-sm font-medium text-[#16A34A]">Lasting change</p>
+                    </div>
+
+                    <div class="wisdom-card">
+                        <div class="w-16 h-16 bg-[#F5E8C7] rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-infinity text-2xl text-[#47B5A5]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-[#1F2937]">Depth Psychology</h3>
+                        <p class="text-[#4B5563] mb-4">Jungian archetypes, shadow work, and integrative approaches to wholeness</p>
+                        <p class="text-sm font-medium text-[#47B5A5]">Deep transformation</p>
+                    </div>
+                </div>
+
+                <!-- The synthesis -->
+                <div class="bg-[#FFFFFF] rounded-2xl p-12 text-center shadow-lg border border-[rgba(31,41,55,0.10)]">
+                    <div class="max-w-3xl mx-auto">
+                        <h3 class="text-3xl font-bold mb-6">Your Personal Wisdom Synthesizer</h3>
+                        <p class="text-lg text-gray-600 mb-8">
+                            Marcus AI doesn't just regurgitate information. It intelligently combines insights 
+                            from 2,000+ books and 500+ hours of content to create exactly what YOU need to 
+                            hear today, based on your unique situation.
+                        </p>
+                        <div class="audio-wave justify-center flex mb-6">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <p class="text-sm text-gray-500 italic">
+                            "Like having every great book filtered through the lens of your specific challenges"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how" class="py-32 bg-white full-width">
+        <div class="container mx-auto px-6">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8">
+                        Your Transformation in<br>
+                        <span class="gradient-text">Four Simple Steps</span>
+                    </h2>
+                </div>
+
+                <div class="space-y-16">
+                    <!-- Step 1 -->
+                    <div class="flex flex-col md:flex-row items-center gap-12">
+                        <div class="md:w-1/2 relative z-10">
+                            <div class="journey-dot text-2xl mb-6">1</div>
+                            <h3 class="text-2xl font-bold mb-4">Deep Self-Discovery</h3>
+                            <p class="text-gray-600 mb-6">
+                                Start with our comprehensive assessment that goes beyond personality types. 
+                                We evaluate your leadership style, attachment patterns, communication preferences, 
+                                and yes, archetypal patterns too.
+                            </p>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>Takes just 15 minutes</li>
+                                <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>Scientifically validated questions</li>
+                                <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>Instant AI interpretation</li>
+                            </ul>
+                        </div>
+                        <div class="md:w-1/2 flex gap-4 justify-center overflow-visible">
+                            <div class="iphone-mockup transform rotate-3">
+                                <div class="iphone-power-button"></div>
+                                <div class="iphone-screen-wrapper">
+                                    <img src="assessment_summary.png" alt="Assessment Summary" class="iphone-screen">
+                                </div>
+                            </div>
+                            <div class="iphone-mockup transform -rotate-3 mt-8">
+                                <div class="iphone-power-button"></div>
+                                <div class="iphone-screen-wrapper">
+                                    <img src="assessment_summary2.png" alt="Assessment Results" class="iphone-screen">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                        <div class="md:w-1/2 relative z-10">
+                            <div class="journey-dot text-2xl mb-6">2</div>
+                            <h3 class="text-2xl font-bold mb-4">Set Your Epic</h3>
+                            <p class="text-gray-600 mb-6">
+                                Define your 6-month transformational goal. Not a to-do list, but something 
+                                meaningful like "Become the leader my team needs" or "Rebuild intimacy in my marriage."
+                            </p>
+                            <p class="text-gray-600">
+                                The app breaks this down into monthly themes and weekly actionable goals, 
+                                creating a clear path forward.
+                            </p>
+                        </div>
+                        <div class="md:w-1/2 flex gap-4 justify-center overflow-visible">
+                            <div class="iphone-mockup transform -rotate-2">
+                                <div class="iphone-power-button"></div>
+                                <div class="iphone-screen-wrapper">
+                                    <img src="Epics.png" alt="Epic Goals" class="iphone-screen">
+                                </div>
+                            </div>
+                            <div class="iphone-mockup transform rotate-2 mt-8">
+                                <div class="iphone-power-button"></div>
+                                <div class="iphone-screen-wrapper">
+                                    <img src="weekly.png" alt="Weekly Goals" class="iphone-screen">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="flex flex-col md:flex-row items-center gap-12">
+                        <div class="md:w-1/2 relative z-10">
+                            <div class="journey-dot text-2xl mb-6">3</div>
+                            <h3 class="text-2xl font-bold mb-4">Daily Personalized Guidance</h3>
+                            <p class="text-gray-600 mb-6">
+                                Every morning, Marcus AI creates a completely unique 10-30 minute audio session 
+                                just for you. This isn't a library – it's generated fresh based on:
+                            </p>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-[#E2B93B] mr-2"></i>What you're facing today</li>
+                                <li><i class="fas fa-arrow-right text-[#E2B93B] mr-2"></i>Your current goals</li>
+                                <li><i class="fas fa-arrow-right text-[#E2B93B] mr-2"></i>Yesterday's progress</li>
+                                <li><i class="fas fa-arrow-right text-[#E2B93B] mr-2"></i>Your unique psychology</li>
+                            </ul>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="iphone-mockup mx-auto">
+                                <div class="iphone-power-button"></div>
+                                <div class="iphone-screen-wrapper">
+                                    <img src="yourpath.png" alt="Your Path Audio" class="iphone-screen">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                        <div class="md:w-1/2 relative z-10">
+                            <div class="journey-dot text-2xl mb-6">4</div>
+                            <h3 class="text-2xl font-bold mb-4">Always-Available AI Coach</h3>
+                            <p class="text-gray-600 mb-6">
+                                Need guidance? Marcus AI is always there. Unlike generic chatbots, it knows 
+                                your entire journey, your patterns, and provides support specifically for 
+                                men's challenges.
+                            </p>
+                            <div class="bg-[#F5E8C7] rounded-lg p-4 text-sm">
+                                <p class="font-medium text-[#1F2937] mb-2">Example:</p>
+                                <p class="text-[#4B5563]">
+                                    "I notice you tend to withdraw when criticized. Let's work on a response 
+                                    for tonight's conversation with your partner..."
+                                </p>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 flex flex-col items-center gap-4">
+                            <div class="iphone-mockup" style="flex-shrink: 0;">
+                                <div class="iphone-power-button"></div>
+                                <div class="iphone-screen-wrapper">
+                                    <img src="chat1.png" alt="AI Chat" class="iphone-screen">
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500">Marcus AI thinking...</p>
+                            <div class="iphone-mockup" style="flex-shrink: 0;">
+                                <div class="iphone-power-button"></div>
+                                <div class="iphone-screen-wrapper">
+                                    <img src="chat2.png" alt="AI Response" class="iphone-screen">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Makes Marcus AI Different -->
+    <section class="py-32 bg-gradient-to-br from-[#F5E8C7]/20 via-white to-[#47B5A5]/10 full-width">
+        <div class="container mx-auto px-6">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-20">
+                    <div class="trust-badge mx-auto mb-6">
+                        <i class="fas fa-fire"></i>
+                        <span>Built For Men Who Want More</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8">
+                        Most Men Die With<br>
+                        <span class="gradient-text">Their Potential Locked Inside</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Not because they're weak. Because they never had proper support. 
+                        Marcus AI delivers daily guidance that actually understands what it means 
+                        to be a man in 2024.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cinematic Day Timeline (Full Width) -->
+    <section class="cinematic-timeline relative">
+        <!-- Background glows -->
+        <div class="timeline-glow bg-[#E2B93B]/15" style="top: 20%; left: 10%; right: auto; pointer-events: none !important; z-index: -100 !important; transform-style: flat !important;"></div>
+        <div class="timeline-glow bg-[#47B5A5]/15" style="bottom: 30%; right: 15%; left: auto; pointer-events: none !important; z-index: -100 !important; transform-style: flat !important;"></div>
+        
+        <!-- Opening -->
+        <div class="min-h-screen flex items-center justify-center relative px-6">
+            <div class="text-center text-white max-w-6xl mx-auto w-full">
+                <h2 class="timeline-title text-white">As Unique As You Are.</h2>
+                <p class="timeline-subtitle text-gray-300 max-w-3xl mx-auto mt-6">
+                    Marcus AI creates completely personalized content that adapts to your exact situation. 
+                    No two people ever receive the same guidance. Let's see how.
+                </p>
+            </div>
+        </div>
+
+        <!-- Character Introduction -->
+        <div class="min-h-screen flex items-center justify-center relative timeline-moment" style="z-index: 20000; position: relative;">
+            <div class="container mx-auto px-6" style="z-index: 20001; position: relative;">
+                <!-- Mobile Character Selection - Scrollable Carousel -->
+                <div class="md:hidden text-center" style="position: relative; z-index: 20002; isolation: isolate;">
+                    <h3 class="text-2xl font-bold text-white mb-6">Who do you relate to?</h3>
+                    <div class="character-carousel-container mb-8" style="position: relative; z-index: 20003; isolation: isolate;">
+                        <div class="character-carousel flex gap-4 overflow-x-auto pb-4 px-4 scrollbar-hide">
+                            <button onclick="selectCharacter('jake')" class="character-select-btn flex-shrink-0" data-character="jake" style="pointer-events: auto; z-index: 20004 !important; position: relative; isolation: isolate;">
+                                <img src="jake.png" alt="Jake" class="w-20 h-20 rounded-full border-3 border-white/20" style="pointer-events: none;">
+                                <span style="pointer-events: none;">Jake</span>
+                                <span class="text-xs text-gray-300 mt-1" style="pointer-events: none;">New Dad</span>
+                            </button>
+                            <button onclick="selectCharacter('andy')" class="character-select-btn flex-shrink-0" data-character="andy" style="pointer-events: auto; z-index: 20004 !important; position: relative; isolation: isolate;">
+                                <img src="andy.png" alt="Andy" class="w-20 h-20 rounded-full border-3 border-white/20" style="pointer-events: none;">
+                                <span style="pointer-events: none;">Andy</span>
+                                <span class="text-xs text-gray-300 mt-1" style="pointer-events: none;">Tech Lead</span>
+                            </button>
+                            <button onclick="selectCharacter('adam')" class="character-select-btn flex-shrink-0" data-character="adam" style="pointer-events: auto; z-index: 20004 !important; position: relative; isolation: isolate;">
+                                <img src="colleague.jpeg" alt="Adam" class="w-20 h-20 rounded-full border-3 border-white/20 object-cover" style="pointer-events: none;">
+                                <span style="pointer-events: none;">Adam</span>
+                                <span class="text-xs text-gray-300 mt-1" style="pointer-events: none;">Searching</span>
+                            </button>
+                            <button onclick="selectCharacter('jason')" class="character-select-btn flex-shrink-0" data-character="jason" style="pointer-events: auto; z-index: 20004 !important; position: relative; isolation: isolate;">
+                                <img src="wife.png" alt="Jason" class="w-20 h-20 rounded-full border-3 border-white/20 object-cover" style="pointer-events: none;">
+                                <span style="pointer-events: none;">Jason</span>
+                                <span class="text-xs text-gray-300 mt-1" style="pointer-events: none;">Stuck</span>
+                            </button>
+                        </div>
+                        <!-- Scroll indicators -->
+                        <div class="flex justify-center gap-2 mt-2">
+                            <i class="fas fa-chevron-left text-white/50 text-sm"></i>
+                            <span class="text-white/50 text-xs">Scroll to see more</span>
+                            <i class="fas fa-chevron-right text-white/50 text-sm"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Continue button that appears after selection -->
+                    <div id="continue-button" class="mt-8 hidden" style="position: relative; z-index: 20005;">
+                        <button onclick="document.querySelector('.timeline-moment[data-time=\'7:00 AM\']').scrollIntoView({behavior: 'smooth'})" 
+                                class="bg-[#E2B93B] hover:bg-[#E2B93B]/80 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 mx-auto animate-bounce">
+                            See Your Personalized Day
+                            <i class="fas fa-arrow-down"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto character-intro-grid">
+                    <!-- Jake -->
+                    <div class="moment-content text-center character-card" data-character="jake">
+                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-[#E2B93B]/50 shadow-2xl md:block hidden">
+                            <img src="jake.png" alt="Jake" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mb-4">Jake</h3>
+                        <div class="text-lg space-y-2">
+                            <p class="text-gray-300">
+                                <span class="font-semibold">34, Marketing Director</span>
+                            </p>
+                            <p class="text-gray-300">
+                                Working on: <span class="text-[#E2B93B] font-medium">Reconnecting with his wife after baby</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Andy -->
+                    <div class="moment-content text-center character-card" data-character="andy">
+                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-[#47B5A5]/50 shadow-2xl md:block hidden">
+                            <img src="andy.png" alt="Andy" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mb-4">Andy</h3>
+                        <div class="text-lg space-y-2">
+                            <p class="text-gray-300">
+                                <span class="font-semibold">38, Tech Lead</span>
+                            </p>
+                            <p class="text-gray-300">
+                                Working on: <span class="text-[#47B5A5] font-medium">Asking for the raise he deserves</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Adam -->
+                    <div class="moment-content text-center character-card" data-character="adam">
+                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-[#E2B93B]/50 shadow-2xl md:block hidden">
+                            <img src="colleague.jpeg" alt="Adam" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mb-4">Adam</h3>
+                        <div class="text-lg space-y-2">
+                            <p class="text-gray-300">
+                                <span class="font-semibold">31, Operations Manager</span>
+                            </p>
+                            <p class="text-gray-300">
+                                Working on: <span class="text-[#E2B93B] font-medium">Finding his true purpose beyond the paycheck</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Jason -->
+                    <div class="moment-content text-center character-card" data-character="jason">
+                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-[#47B5A5]/50 shadow-2xl md:block hidden">
+                            <img src="wife.png" alt="Jason" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mb-4">Jason</h3>
+                        <div class="text-lg space-y-2">
+                            <p class="text-gray-300">
+                                <span class="font-semibold">29, Sales Associate</span>
+                            </p>
+                            <p class="text-gray-300">
+                                Working on: <span class="text-[#47B5A5] font-medium">Breaking through procrastination and staying consistent</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline Path - only visible after character intro -->
+        <div class="relative" style="position: absolute; top: 100vh; bottom: 0; left: 0; right: 0;">
+            <div class="timeline-path">
+                <div class="timeline-progress"></div>
+            </div>
+        </div>
+
+        <!-- 7:00 AM - Morning -->
+        <div class="timeline-moment" data-time="7:00 AM">
+            <div class="moment-time">7:00 AM</div>
+            <div class="timeline-node" style="top: 50%;"></div>
+            
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold text-white text-center mb-12">Morning Preparation</h3>
+                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    <!-- Jake's Morning -->
+                    <div class="moment-content timeline-character" data-character="jake">
+                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
+                            <span class="text-[#E2B93B] mr-3">Jake</span>
+                            <span class="text-sm font-normal text-gray-400">Learning the BREATHE Protocol</span>
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            <i class="fas fa-play-circle text-[#E2B93B] mr-2"></i>
+                                            "Jake, tonight's date night. Your anxious attachment is going to push you to over-explain 
+                                            and fix. Let's practice the BREATHE protocol."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "I always do that. I just word-vomit when I'm nervous. What's BREATHE?"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "It's your emergency brake. B-R-E-A-T-H-E: Belly breath 3 times, Recognize the emotion, 
+                                            Express using 'I feel', Allow silence, Take your time, Hold eye contact, Exit if overwhelmed. 
+                                            Let's practice. What do you want to tell Sarah?"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "That I'm scared we're becoming roommates instead of lovers..."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Good. Now say it using BREATHE. First, three belly breaths. Put your hand on your stomach..."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-3 mt-3">
+                            <p class="text-xs text-gray-300">
+                                <strong>Today's Tool:</strong> BREATHE Protocol emergency card saved to Jake's phone
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Andy's Morning -->
+                    <div class="moment-content timeline-character" data-character="andy">
+                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
+                            <span class="text-[#47B5A5] mr-3">Andy</span>
+                            <span class="text-sm font-normal text-gray-400">Building the WORTH Framework</span>
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            <i class="fas fa-play-circle text-[#47B5A5] mr-2"></i>
+                                            "Andy, you've been putting off this raise conversation for 18 months. Your avoidant 
+                                            pattern makes you minimize achievements. Today we use the WORTH framework."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "I hate talking about money. Feels greedy. What if they think I'm ungrateful?"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "That's your father's voice, not market reality. WORTH: Win documentation, Outcomes quantified, 
+                                            Research market rates, Take up space, Hold your number. Let's start. Name three wins from this year."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Well, the team did okay, I helped a bit with—"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Stop. You're minimizing. Stand up. Feet shoulder-width apart. Hands on hips. 
+                                            Now tell me what YOU achieved. Not the team. You."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "I... I led the migration that saved $2M. I trained 5 developers. I reduced deployment time by 60%."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Better. Now hold that posture for 2 minutes while we build your WORTH script..."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-3 mt-3">
+                            <p class="text-xs text-gray-300">
+                                <strong>Today's Tool:</strong> WORTH negotiation script with exact numbers saved to Andy's notes
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Adam's Morning -->
+                    <div class="moment-content timeline-character" data-character="adam">
+                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
+                            <span class="text-[#E2B93B] mr-3">Adam</span>
+                            <span class="text-sm font-normal text-gray-400">The PURPOSE Protocol</span>
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            <i class="fas fa-play-circle text-[#E2B93B] mr-2"></i>
+                                            "Adam, you're successful but empty. The hedonic treadmill has you trapped. 
+                                            Today we explore what lights you up beyond the paycheck using Viktor Frankl's logotherapy."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="colleague.jpeg" alt="Adam" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 flex-shrink-0">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "I make good money, but I feel like I'm just going through the motions. 
+                                            Is this really what success looks like?"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-3 mt-3">
+                            <p class="text-xs text-gray-300">
+                                <strong>Today's Exercise:</strong> PURPOSE assessment - identifying meaning beyond material success
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Jason's Morning -->
+                    <div class="moment-content timeline-character" data-character="jason">
+                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
+                            <span class="text-[#47B5A5] mr-3">Jason</span>
+                            <span class="text-sm font-normal text-gray-400">Breaking the Procrastination Loop</span>
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            <i class="fas fa-play-circle text-[#47B5A5] mr-2"></i>
+                                            "Jason, your dopamine system is hijacked. You start strong then fade. 
+                                            Today we use the 2-minute rule to rewire your habit loops."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="wife.png" alt="Jason" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "I keep making plans to go to the gym and eat better, but I always give up after a few days. 
+                                            How do I stick to things?"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-3 mt-3">
+                            <p class="text-xs text-gray-300">
+                                <strong>Today's System:</strong> 2-minute habit stack designed for Jason's specific routine
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 12:00 PM - Midday -->
+        <div class="timeline-moment" data-time="12:00 PM">
+            <div class="moment-time">12:00 PM</div>
+            <div class="timeline-node" style="top: 50%;"></div>
+            
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold text-white text-center mb-12">Midday Check-In</h3>
+                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    <!-- Jake's Check-in -->
+                    <div class="moment-content timeline-character" data-character="jake">
+                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
+                            <span class="text-[#E2B93B] mr-3">Jake</span>
+                            <span class="text-sm font-normal text-gray-400">Anxiety Rising</span>
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            <i class="fas fa-bell text-[#E2B93B] mr-2"></i>
+                                            "Jake, how are you feeling? Your heart rate is elevated."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Can't stop thinking about tonight. What if Sarah shuts down? What if I make it worse?"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Your anxious attachment is spinning stories. Let's ground you. Name 3 things you see right now."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "My coffee cup. The plant on my desk. Photo of Sarah and the baby..."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Good. That photo - what do you see in Sarah's face?"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "She's... she's looking at me with love. We were happy."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "That love is still there, Jake. Tonight isn't about fixing anything. It's about reconnecting 
+                                            with that love. Practice BREATHE one more time. You've got this."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-3 mt-4">
+                            <p class="text-xs text-gray-300">
+                                <i class="fas fa-heart-rate text-[#E2B93B] mr-2"></i>
+                                <strong>Grounding complete:</strong> Heart rate decreased by 15 BPM
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Andy's Check-in -->
+                    <div class="moment-content timeline-character" data-character="andy">
+                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
+                            <span class="text-[#47B5A5] mr-3">Andy</span>
+                            <span class="text-sm font-normal text-gray-400">Last Minute Doubts</span>
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            <i class="fas fa-bell text-[#47B5A5] mr-2"></i>
+                                            "Andy, your meeting is in 2 hours. Quick check - what's your number?"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "25%... but maybe I should start at 20% and see what happens?"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "There's the avoidant pattern - pre-negotiating against yourself. What did your research show?"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Market rate is 120-150k. I'm at 100k. So 25% gets me to 125k - still below market."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Facts, not feelings. You're asking for BELOW market rate for someone with your impact. 
+                                            Time for another power pose. And Andy? No apologizing. Not once."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "No apologizing. State my worth. Hold the silence."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble marcus">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Exactly. Your value isn't up for debate. It's a fact. Go claim it."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-3 mt-4">
+                            <p class="text-xs text-gray-300">
+                                <i class="fas fa-chart-line text-[#47B5A5] mr-2"></i>
+                                <strong>Final prep:</strong> WORTH script reviewed, power pose completed
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adam's Midday Check-In -->
+                <div class="timeline-content hidden" data-character="adam">
+                    <div class="space-y-4">
+                        <div class="conversation-bubble marcus">
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-white text-base">
+                                        "Adam, how's the PURPOSE clarity exercise going? Found any patterns in what energizes you?"
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="conversation-bubble you">
+                            <div class="flex items-start gap-3 flex-row-reverse">
+                                <img src="colleague.jpeg" alt="Adam" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 flex-shrink-0">
+                                <div>
+                                    <p class="text-white text-base">
+                                        "I wrote for 10 minutes like you said. All my 'alive' moments involve mentoring junior team members."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="conversation-bubble marcus">
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-white text-base">
+                                        "There it is. You're not just managing operations - you're developing people. What would happen if you made that 20% of your role?"
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="conversation-bubble you">
+                            <div class="flex items-start gap-3 flex-row-reverse">
+                                <img src="colleague.jpeg" alt="Adam" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 flex-shrink-0">
+                                <div>
+                                    <p class="text-white text-base">
+                                        "But I'm paid to optimize processes, not teach people..."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="conversation-bubble marcus">
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-white text-base">
+                                        "That's the trap talking. Purpose isn't about abandoning responsibility - it's about expanding it. 
+                                        Start small. One lunch mentoring session this week. Track how it affects your energy for the rest of the day."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="purpose-tracker bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-4 mt-4">
+                            <p class="text-white text-sm mb-2">
+                                <i class="fas fa-compass text-[#E2B93B] mr-2"></i>
+                                <strong>Purpose Alignment Check:</strong>
+                            </p>
+                            <p class="text-gray-400 text-sm">
+                                Morning energy: 4/10 (spreadsheets and KPIs)<br>
+                                After mentoring discussion: 8/10 (felt like real impact)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jason's Midday Check-In -->
+                <div class="timeline-content hidden" data-character="jason">
+                    <div class="space-y-4">
+                        <div class="conversation-bubble marcus">
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-white text-base">
+                                        "Jason, quick check. How many 2-minute tasks have you knocked out today?"
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="conversation-bubble you">
+                            <div class="flex items-start gap-3 flex-row-reverse">
+                                <img src="wife.png" alt="Jason" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
+                                <div>
+                                    <p class="text-white text-base">
+                                        "Three emails, updated my CRM notes, called that lead back. Felt weird not overthinking it."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="conversation-bubble marcus">
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-white text-base">
+                                        "That 'weird' feeling? That's your dopamine system recalibrating. You're training it to reward completion, not perfection."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="conversation-bubble you">
+                            <div class="flex items-start gap-3 flex-row-reverse">
+                                <img src="wife.png" alt="Jason" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
+                                <div>
+                                    <p class="text-white text-base">
+                                        "I keep wanting to scroll Instagram instead of doing the next task though..."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="conversation-bubble marcus">
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-white text-base">
+                                        "Friction time. When you feel that urge, do 5 pushups first. If you still want to scroll after, go ahead. 
+                                        But that physical barrier will break the automatic pattern. Your brain hates effort more than it loves dopamine."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="habit-tracker bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-4 mt-4">
+                            <p class="text-white text-sm mb-2">
+                                <i class="fas fa-tasks text-[#47B5A5] mr-2"></i>
+                                <strong>Momentum Building:</strong>
+                            </p>
+                            <div class="flex gap-2 text-xs">
+                                <span class="bg-[#47B5A5]/20 px-2 py-1 rounded">✓ Email client</span>
+                                <span class="bg-[#47B5A5]/20 px-2 py-1 rounded">✓ Update CRM</span>
+                                <span class="bg-[#47B5A5]/20 px-2 py-1 rounded">✓ Return call</span>
+                            </div>
+                            <p class="text-gray-400 text-xs mt-2">
+                                Procrastination cycles broken: 3 | Dopamine hits earned: 3
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Moment -->
+        <div class="timeline-moment" data-time="THE MOMENT">
+            <div class="moment-time">THE MOMENT</div>
+            <div class="timeline-node pulse" style="top: 50%;"></div>
+            
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold text-white text-center mb-12">Breakthrough Moments</h3>
+                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    <!-- Jake's Date Night -->
+                    <div class="moment-content timeline-character" data-character="jake">
+                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
+                            <span class="text-[#E2B93B] mr-3">7:30 PM</span>
+                            <span class="text-sm font-normal text-gray-400">Jake's Vulnerability Practice</span>
+                        </h4>
+                        <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-4 mb-4">
+                            <p class="text-sm text-gray-300 mb-3">
+                                <i class="fas fa-brain text-[#E2B93B] mr-2"></i>
+                                <strong>Jake's using the BREATHE Protocol:</strong>
+                            </p>
+                            <ul class="text-sm text-gray-400 space-y-2 ml-6">
+                                <li><strong>Breathe</strong> - Take 3 deep belly breaths before speaking</li>
+                                <li><strong>Recognize</strong> - Name what you're feeling inside</li>
+                                <li><strong>Express</strong> - Use "I feel..." statements, stay vulnerable</li>
+                            </ul>
+                            <p class="text-xs text-gray-400 mt-2 ml-6 italic">
+                                Key: Don't rush. Hold eye contact. Let silence happen.
+                            </p>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="conversation-bubble boss">
+                                <div class="flex items-start gap-3">
+                                    <img src="wife.png" alt="Sarah" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "This is nice. First time we've been out in months."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Sarah, I need to share something. I feel scared we're losing each other."
+                                        </p>
+                                        <p class="text-xs text-gray-400 mt-1 italic">[3 deep breaths, maintaining eye contact]</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble boss">
+                                <div class="flex items-start gap-3">
+                                    <img src="wife.png" alt="Sarah" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Losing each other? Jake, I'm the one home all day with the baby while you—"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "I hear you're overwhelmed. I feel it too. I miss us - not just as parents, 
+                                            but as partners. I miss laughing with you, touching you without it being about the baby."
+                                        </p>
+                                        <p class="text-xs text-gray-400 mt-1 italic">[Staying present despite defensive response]</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble boss">
+                                <div class="flex items-start gap-3">
+                                    <img src="wife.png" alt="Sarah" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "When would we even have time for that? The baby needs—"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "What I need is for us to be a priority too. Even 10 minutes a day 
+                                            where we're Jake and Sarah, not just mom and dad. I'm scared if we don't 
+                                            fight for us now, we'll wake up as strangers."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 mt-6 text-sm">
+                            Jake doesn't defend when Sarah pushes back. He uses Marcus's tools - breathing through the defensive moment, 
+                            staying vulnerable instead of retreating. His persistence in staying open breaks through. The conversation 
+                            shifts from blame to connection. By the end, they're holding hands across the table, really seeing each other 
+                            for the first time in months.
+                        </p>
+                    </div>
+
+                    <!-- Andy's Review -->
+                    <div class="moment-content timeline-character" data-character="andy">
+                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
+                            <span class="text-[#47B5A5] mr-3">2:00 PM</span>
+                            <span class="text-sm font-normal text-gray-400">Andy's Assertiveness Test</span>
+                        </h4>
+                        <div class="bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-4 mb-4">
+                            <p class="text-sm text-gray-300 mb-3">
+                                <i class="fas fa-brain text-[#47B5A5] mr-2"></i>
+                                <strong>Andy's executing the WORTH Framework:</strong>
+                            </p>
+                            <ul class="text-sm text-gray-400 space-y-2 ml-6">
+                                <li><strong>Win</strong> - Document your achievements with numbers</li>
+                                <li><strong>Own</strong> - State your value without apologizing</li>
+                                <li><strong>Repeat</strong> - Broken record if they push back</li>
+                            </ul>
+                            <p class="text-xs text-gray-400 mt-2 ml-6 italic">
+                                Key: Power pose first. No "sorry." Hold the silence.
+                            </p>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "I'd like to discuss my compensation. I've led our team to exceed targets by 300% this year."
+                                        </p>
+                                        <p class="text-xs text-gray-400 mt-1 italic">[Power pose residue - shoulders back, chest open]</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble boss">
+                                <div class="flex items-start gap-3">
+                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Andy, you know budgets are tight this year. Maybe we can revisit this next quarter?"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "I understand budgets. Let me share the value I've created: 300% target achievement, 
+                                            5 developers trained, deployment time reduced by 60%. That's $2M in additional revenue."
+                                        </p>
+                                        <p class="text-xs text-gray-400 mt-1 italic">[Not backing down, evidence stacking]</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble boss">
+                                <div class="flex items-start gap-3">
+                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Those are team achievements, Andy. You can't take all the credit—"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "You're right, it was a team effort. I led that team. Based on market rates 
+                                            for technical leads with my impact, I'm asking for a 25% increase."
+                                        </p>
+                                        <p class="text-xs text-gray-400 mt-1 italic">[Strategic pause - 5 seconds of silence]</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble boss">
+                                <div class="flex items-start gap-3">
+                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "25%? That's... Andy, be realistic. I could maybe do 10%—"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "I've done my research. Technical leads at my level are earning 20-30% more. 
+                                            I'm asking for the lower end of market rate. I believe 25% reflects my value."
+                                        </p>
+                                        <p class="text-xs text-gray-400 mt-1 italic">[Broken record - calmly restating]</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 mt-6 text-sm">
+                            Andy's old self would have accepted the first "no." But Marcus's training kicks in. Every pushback, 
+                            he responds with calm facts. No apologies, no minimizing. His manager tries three different angles 
+                            to reduce the ask. Andy holds firm, using the broken record technique. The power pose wasn't just 
+                            physical - it rewired his sense of worth. The conversation ends at 22% with a 6-month review for the rest.
+                        </p>
+                    </div>
+
+                    <!-- Adam's Breakthrough Moment -->
+                    <div class="moment-content timeline-character" data-character="adam">
+                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
+                            <span class="text-[#E2B93B] mr-3">3:00 PM</span>
+                            <span class="text-sm font-normal text-gray-400">Adam's Purpose Pivot</span>
+                        </h4>
+                        <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-4 mb-4">
+                            <p class="text-sm text-gray-300 mb-3">
+                                <i class="fas fa-compass text-[#E2B93B] mr-2"></i>
+                                <strong>Adam's using the PURPOSE Protocol:</strong>
+                            </p>
+                            <ul class="text-sm text-gray-400 space-y-2 ml-6">
+                                <li><strong>Pause</strong> - Stop the autopilot. What am I really doing here?</li>
+                                <li><strong>Uncover</strong> - What lights me up? When do I lose track of time?</li>
+                                <li><strong>Reframe</strong> - How can I bring more of that into my current role?</li>
+                            </ul>
+                            <p class="text-xs text-gray-400 mt-2 ml-6 italic">
+                                Key: Purpose isn't found, it's built daily through aligned actions.
+                            </p>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="conversation-bubble boss">
+                                <div class="flex items-start gap-3">
+                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Adam, can you join the new hire onboarding? I know it's not your job but—"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="colleague.jpeg" alt="Adam" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Actually, I'd love to. I've been thinking about proposing a mentorship program. 
+                                            Could we discuss making development part of my official responsibilities?"
+                                        </p>
+                                        <p class="text-xs text-gray-400 mt-1 italic">[Turning obligation into opportunity]</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble boss">
+                                <div class="flex items-start gap-3">
+                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "A mentorship program? That's... actually not a bad idea. But who would run it?"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="colleague.jpeg" alt="Adam" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "I would. I've already sketched out a framework. It would improve retention, 
+                                            speed up onboarding, and honestly - it's where I feel most valuable."
+                                        </p>
+                                        <p class="text-xs text-gray-400 mt-1 italic">[Speaking truth about what matters]</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble boss">
+                                <div class="flex items-start gap-3">
+                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "You've thought this through. Send me the proposal. If it's solid, we'll pilot it next quarter."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 mt-6 text-sm">
+                            Adam spent years climbing the "success" ladder only to realize it was leaning against the wrong wall. 
+                            But Marcus helped him see: you don't need to burn it all down. Sometimes purpose is about 
+                            reshaping your current role to align with who you're becoming. By speaking up about what truly 
+                            energized him, Adam created a new path within his existing career.
+                        </p>
+                    </div>
+
+                    <!-- Jason's Breakthrough Moment -->
+                    <div class="moment-content timeline-character" data-character="jason">
+                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
+                            <span class="text-[#47B5A5] mr-3">4:30 PM</span>
+                            <span class="text-sm font-normal text-gray-400">Jason's Consistency Breakthrough</span>
+                        </h4>
+                        <div class="bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-4 mb-4">
+                            <p class="text-sm text-gray-300 mb-3">
+                                <i class="fas fa-bolt text-[#47B5A5] mr-2"></i>
+                                <strong>Jason's Momentum Stack:</strong>
+                            </p>
+                            <ul class="text-sm text-gray-400 space-y-2 ml-6">
+                                <li><strong>2-Minute Rule</strong> - If it takes less than 2 minutes, do it NOW</li>
+                                <li><strong>Friction Barriers</strong> - Make bad habits harder than good ones</li>
+                                <li><strong>Progress Tracking</strong> - Visual proof beats mental gymnastics</li>
+                            </ul>
+                            <p class="text-xs text-gray-400 mt-2 ml-6 italic">
+                                Key: Consistency isn't perfection. It's showing up more than you don't.
+                            </p>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="conversation-bubble boss">
+                                <div class="flex items-start gap-3">
+                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Jason, your numbers this week... what happened? You're up 40%."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="wife.png" alt="Jason" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "I stopped overthinking. Started doing all the small stuff immediately. 
+                                            Turns out half my 'big projects' were just 2-minute tasks I was avoiding."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble boss">
+                                <div class="flex items-start gap-3">
+                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "This is the Jason I hired. What changed?"
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="wife.png" alt="Jason" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "I put my phone in a drawer. Set up friction between me and distractions. 
+                                            And I track everything - seeing those green checkmarks is addictive."
+                                        </p>
+                                        <p class="text-xs text-gray-400 mt-1 italic">[Building systems, not relying on willpower]</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-bubble you">
+                                <div class="flex items-start gap-3 flex-row-reverse">
+                                    <img src="wife.png" alt="Jason" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
+                                    <div>
+                                        <p class="text-white text-base">
+                                            "Also did 35 pushups today. Every time I wanted to scroll, I did 5 instead. 
+                                            My chest is sore but my pipeline is full."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 mt-6 text-sm">
+                            Jason's breakthrough wasn't dramatic - it was systematic. By breaking the dopamine loop of 
+                            endless scrolling and replacing it with immediate action, he discovered something profound: 
+                            momentum is a choice you make every 2 minutes. His manager noticed. His commission check 
+                            will too. But more importantly, Jason proved to himself that consistency isn't a personality trait - 
+                            it's a skill you build one small win at a time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evening Reflection -->
+        <div class="timeline-moment" data-time="EVENING">
+            <div class="moment-time">EVENING</div>
+            <div class="timeline-node" style="top: 50%;"></div>
+            
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold text-white text-center mb-12">Integration & Growth</h3>
+                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    <!-- Jake's Evening -->
+                    <div class="moment-content timeline-character" data-character="jake">
+                        <h4 class="text-xl font-bold text-white mb-4">
+                            <span class="text-[#E2B93B]">Jake's Breakthrough</span>
+                        </h4>
+                        <p class="text-gray-300 mb-4">
+                            For the first time in months, Jake feels connected to Sarah. 
+                            His vulnerability opened a door they both needed.
+                        </p>
+                        <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-4">
+                            <p class="text-white text-sm">
+                                <i class="fas fa-check-circle text-[#E2B93B] mr-2"></i>
+                                Weekly goal achieved: "Share one fear with Sarah"
+                            </p>
+                            <p class="text-gray-400 text-xs mt-2">
+                                Tomorrow's practice will build on tonight's connection
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Andy's Evening -->
+                    <div class="moment-content timeline-character" data-character="andy">
+                        <h4 class="text-xl font-bold text-white mb-4">
+                            <span class="text-[#47B5A5]">Andy's Assertiveness Win</span>
+                        </h4>
+                        <p class="text-gray-300 mb-4">
+                            Andy learned that claiming space isn't aggressive - it's necessary. 
+                            His worth isn't determined by others' recognition, but by his courage to ask.
+                        </p>
+                        <div class="bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-4">
+                            <p class="text-white text-sm">
+                                <i class="fas fa-check-circle text-[#47B5A5] mr-2"></i>
+                                Weekly goal achieved: "Ask for the raise I deserve"
+                            </p>
+                            <p class="text-gray-400 text-xs mt-2">
+                                Tomorrow's practice will build on this newfound assertiveness
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Adam's Evening -->
+                    <div class="moment-content timeline-character" data-character="adam">
+                        <h4 class="text-xl font-bold text-white mb-4">
+                            <span class="text-[#E2B93B]">Adam's Purpose Alignment</span>
+                        </h4>
+                        <p class="text-gray-300 mb-4">
+                            For the first time in years, Adam went home energized. Not from hitting KPIs, 
+                            but from creating a path where success and meaning intersect.
+                        </p>
+                        <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-4">
+                            <p class="text-white text-sm">
+                                <i class="fas fa-check-circle text-[#E2B93B] mr-2"></i>
+                                Weekly goal achieved: "Find one way to align work with purpose"
+                            </p>
+                            <p class="text-gray-400 text-xs mt-2">
+                                Tomorrow: Draft the mentorship program proposal (with excitement, not obligation)
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Jason's Evening -->
+                    <div class="moment-content timeline-character" data-character="jason">
+                        <h4 class="text-xl font-bold text-white mb-4">
+                            <span class="text-[#47B5A5]">Jason's Momentum Victory</span>
+                        </h4>
+                        <p class="text-gray-300 mb-4">
+                            Jason closed his laptop with 17 completed tasks. A month ago, he'd have 17 open tabs. 
+                            The difference? He stopped negotiating with himself and started executing.
+                        </p>
+                        <div class="bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-4">
+                            <p class="text-white text-sm">
+                                <i class="fas fa-check-circle text-[#47B5A5] mr-2"></i>
+                                Weekly goal achieved: "Complete 5 tasks daily using 2-minute rule"
+                            </p>
+                            <p class="text-gray-400 text-xs mt-2">
+                                Tomorrow: Same system, bigger momentum (and maybe fewer pushups)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Closing Message -->
+                <div class="text-center mt-20 max-w-3xl mx-auto">
+                    <div class="bg-gradient-to-r from-[#E2B93B]/10 to-[#47B5A5]/10 border border-white/20 rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold text-white mb-4">Your Journey. Your Content. Your Transformation.</h3>
+                        <p class="text-gray-300">
+                            Jake received vulnerability training for his anxious attachment. 
+                            Andy got assertiveness tools for his avoidant patterns.
+                            Adam discovered how to infuse purpose into his existing role.
+                            Jason broke through procrastination with systematic momentum building.
+                            Every word, every exercise, every insight was created specifically for them.
+                        </p>
+                        <p class="text-sm text-gray-400 mt-4">
+                            Marcus AI doesn't just personalize - it creates content as unique as your fingerprint.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to light theme -->
+    <section class="py-32 bg-white full-width">
+        <div class="container mx-auto px-6">
+            <div class="max-w-5xl mx-auto">
+                <!-- Content types -->
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-[#F5E8C7] rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-meditation text-2xl text-[#E2B93B]"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Practices</h4>
+                        <p class="text-sm text-gray-600">
+                            Custom meditations, visualizations, and exercises for your specific challenges
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-[#47B5A5]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-flag text-2xl text-[#47B5A5]"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Challenges</h4>
+                        <p class="text-sm text-gray-600">
+                            Weekly experiments to build new habits and break old patterns
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-[#E2B93B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-book-open text-2xl text-[#E2B93B]"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Lessons</h4>
+                        <p class="text-sm text-gray-600">
+                            Synthesized wisdom applied directly to your current situation
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Structure -->
+    <section id="journey" class="py-32 bg-white full-width">
+        <div class="container mx-auto px-6">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8">
+                        A Clear Path to<br>
+                        <span class="gradient-text">Real Transformation</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Stop wandering. Start walking a path. Our journey system gives you 
+                        structure while adapting to your pace.
+                    </p>
+                </div>
+
+                <div class="relative">
+                    <div class="journey-line"></div>
+                    
+                    <div class="space-y-16">
+                        <div class="relative">
+                            <div class="journey-dot">6M</div>
+                            <div class="ml-20">
+                                <h3 class="text-2xl font-bold mb-2">Your Epic</h3>
+                                <p class="text-gray-600 mb-4">
+                                    Your 6-month transformational goal. This is your North Star.
+                                </p>
+                                <div class="bg-[#F5E8C7] rounded-lg p-4 inline-block">
+                                    <p class="text-sm font-medium text-[#1F2937]">Example: "Become the leader my team needs"</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <div class="journey-dot">1M</div>
+                            <div class="ml-20">
+                                <h3 class="text-2xl font-bold mb-2">Monthly Themes</h3>
+                                <p class="text-gray-600 mb-4">
+                                    Break your Epic into focused monthly themes that build on each other.
+                                </p>
+                                <div class="bg-[#47B5A5]/10 rounded-lg p-4 inline-block">
+                                    <p class="text-sm font-medium text-[#1F2937]">This month: "Building trust through vulnerability"</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <div class="journey-dot">1W</div>
+                            <div class="ml-20">
+                                <h3 class="text-2xl font-bold mb-2">Weekly Goals</h3>
+                                <p class="text-gray-600 mb-4">
+                                    Concrete actions you can actually complete, with built-in accountability.
+                                </p>
+                                <div class="bg-[#E2B93B]/10 rounded-lg p-4 inline-block">
+                                    <p class="text-sm font-medium text-[#1F2937]">This week: "Have one difficult conversation with empathy"</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <div class="journey-dot">1D</div>
+                            <div class="ml-20">
+                                <h3 class="text-2xl font-bold mb-2">Daily Practice</h3>
+                                <p class="text-gray-600 mb-4">
+                                    Your personalized audio and challenges that move you forward every single day.
+                                </p>
+                                <div class="bg-amber-50 rounded-lg p-4 inline-block">
+                                    <p class="text-sm font-medium text-amber-900">Today: "Communication techniques for your 2pm meeting"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 text-center">
+                    <p class="text-lg text-gray-600 mb-8">
+                        <i class="fas fa-chart-line text-[#47B5A5] mr-2"></i>
+                        Track your progress visually and celebrate every milestone
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <!--
+    <section id="testimonials" class="py-32 bg-gray-50 full-width">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8">
+                        Men Who Refuse<br>
+                        <span class="gradient-text">To Stay Stuck</span>
+                    </h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl p-8 shadow-lg">
+                        <div class="flex items-center mb-6">
+                            <img src="https://i.pravatar.cc/60?img=3" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <p class="font-semibold">Michael Chen</p>
+                                <p class="text-sm text-gray-600">Tech Executive, 38</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">
+                            "I've read hundreds of business books, but they never connected to my personal life. 
+                            This app showed me how my avoidant attachment was affecting my leadership. 
+                            My team says I'm a completely different leader now."
+                        </p>
+                        <div class="text-sm text-gray-500">
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-8 shadow-lg">
+                        <div class="flex items-center mb-6">
+                            <img src="https://i.pravatar.cc/60?img=8" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <p class="font-semibold">David Martinez</p>
+                                <p class="text-sm text-gray-600">Father of 3, 42</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">
+                            "My wife said she'd never seen me so present and emotionally available. 
+                            The daily practices helped me understand why I was repeating my father's patterns 
+                            and gave me tools to break the cycle."
+                        </p>
+                        <div class="text-sm text-gray-500">
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-8 shadow-lg">
+                        <div class="flex items-center mb-6">
+                            <img src="https://i.pravatar.cc/60?img=12" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <p class="font-semibold">James Thompson</p>
+                                <p class="text-sm text-gray-600">Entrepreneur, 29</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">
+                            "Finally, something that speaks to men without the toxic masculinity BS. 
+                            It's deep psychological work presented in a way that actually makes sense. 
+                            My anxiety is manageable for the first time in years."
+                        </p>
+                        <div class="text-sm text-gray-500">
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 text-center">
+                    <div class="inline-flex items-center space-x-8 text-gray-600">
+                        <div>
+                            <p class="text-3xl font-bold text-gray-900">94%</p>
+                            <p class="text-sm">Complete their first Epic</p>
+                        </div>
+                        <div class="w-px h-12 bg-gray-300"></div>
+                        <div>
+                            <p class="text-3xl font-bold text-gray-900">4.9</p>
+                            <p class="text-sm">Average rating</p>
+                        </div>
+                        <div class="w-px h-12 bg-gray-300"></div>
+                        <div>
+                            <p class="text-3xl font-bold text-gray-900">87%</p>
+                            <p class="text-sm">Report better relationships</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    -->
+
+    <!-- FAQ Section -->
+    <section class="py-32 bg-white full-width">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-16">Common Questions</h2>
+                
+                <div class="space-y-8">
+                    <div class="border-b border-gray-200 pb-8">
+                        <h3 class="text-xl font-bold mb-4">How is this different from therapy or coaching?</h3>
+                        <p class="text-gray-600">
+                            We're not therapy – we're a development platform that synthesizes the world's best wisdom 
+                            and personalizes it for you. Think of it as having a mentor who's read every great book 
+                            and knows exactly what you need to hear each day. Many users combine our app with therapy 
+                            for even better results.
+                        </p>
+                    </div>
+
+                    <div class="border-b border-gray-200 pb-8">
+                        <h3 class="text-xl font-bold mb-4">What makes the AI truly personalized?</h3>
+                        <p class="text-gray-600">
+                            Marcus AI doesn't just use your assessment results. It learns from your daily check-ins, 
+                            tracks your progress, remembers what you've shared, and continuously adapts. Every piece 
+                            of content is generated fresh – no two users will ever receive the same audio.
+                        </p>
+                    </div>
+
+                    <div class="border-b border-gray-200 pb-8">
+                        <h3 class="text-xl font-bold mb-4">How much time does it take?</h3>
+                        <p class="text-gray-600">
+                            Just 10-30 minutes daily (you choose). Most men listen during their commute or morning 
+                            routine. The AI coach is there whenever you need it, and weekly goal planning takes 
+                            about 15 minutes on Sundays.
+                        </p>
+                    </div>
+
+                    <div class="border-b border-gray-200 pb-8">
+                        <h3 class="text-xl font-bold mb-4">Is this based on real psychology?</h3>
+                        <p class="text-gray-600">
+                            Absolutely. We integrate evidence-based approaches including attachment theory, CBT, 
+                            positive psychology, and neuroscience. We also include time-tested wisdom from philosophy 
+                            and proven business frameworks. Everything is synthesized and personalized by AI trained 
+                            on thousands of hours of content.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">What if I'm skeptical about AI?</h3>
+                        <p class="text-gray-600">
+                            We get it. That's why we offer a 7-day free trial. The AI isn't trying to replace human 
+                            connection – it's synthesizing human wisdom in a way that would be impossible for any one 
+                            person to do. Think of it as a highly intelligent curator, not a replacement for real relationships.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-32 bg-gradient-to-br from-[#F5E8C7]/20 to-[#47B5A5]/10 full-width">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">
+                    The World Needs<br>
+                    <span class="gradient-text">Good Men</span>
+                </h2>
+                
+                <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+                    Your family needs you at your best. Your work needs you at your best. 
+                    Most importantly, you deserve to be at your best. It's time to rise to meet your potential.
+                </p>
+
+                <div class="bg-white rounded-2xl p-8 shadow-xl max-w-2xl mx-auto mb-12">
+                    <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-3 mb-6 text-center">
+                        <p class="text-sm font-semibold text-[#E2B93B]">
+                            <i class="fas fa-tag mr-2"></i>EARLY ADOPTER SPECIAL - LIMITED TIME
+                        </p>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold mb-4 text-center">
+                        How Long Can You Afford To<br>
+                        <span class="gradient-text">Not Take The Next Step?</span>
+                    </h3>
+                    
+                    <p class="text-gray-600 text-center mb-8">
+                        Where will you be in 1 year if you don't make a change now?<br>
+                        <span class="text-sm">Same patterns. Same struggles. Same untapped potential.</span>
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="text-left">
+                            <h4 class="font-semibold mb-3">What's Included:</h4>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>Complete assessment & AI analysis</li>
+                                <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>7 days of personalized audio</li>
+                                <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>Full access to Marcus AI coach</li>
+                                <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>Your first Epic & weekly goals</li>
+                            </ul>
+                        </div>
+                        <div class="text-left">
+                            <h4 class="font-semibold mb-3">Early Adopter Pricing:</h4>
+                            <div class="mb-3">
+                                <p class="text-gray-400 line-through text-lg">$49/month</p>
+                                <p class="text-3xl font-bold text-[#E2B93B]">$29<span class="text-lg font-normal text-gray-600">/month</span></p>
+                                <p class="text-sm text-[#47B5A5] font-medium">Save 40% as an early adopter</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">After 7-day free trial</p>
+                            <p class="text-sm text-gray-500">Cancel anytime • Price locked forever</p>
+                        </div>
+                    </div>
+
+                    <button class="primary-btn text-lg px-12 py-6 w-full md:w-auto">
+                        Start Your Free Trial Now
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    
+                    <p class="text-sm text-gray-500 mt-6">
+                        <i class="fas fa-lock mr-2"></i>Your data is private and secure. We never share your information.
+                    </p>
+                </div>
+
+                <div class="flex items-center justify-center space-x-8 text-sm text-gray-600">
+                    <span><i class="fas fa-shield-alt text-[#47B5A5] mr-1"></i> Bank-level security</span>
+                    <span><i class="fas fa-medal text-[#E2B93B] mr-1"></i> 30-day guarantee</span>
+                    <span><i class="fas fa-headset text-[#47B5A5] mr-1"></i> 24/7 support</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-12 full-width">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-3 mb-4 md:mb-0">
+                    <img src="logo.svg" alt="The Lifetime Project" class="w-10 h-10">
+                    <span class="text-gray-900 font-semibold">The Lifetime Project</span>
+                </div>
+                
+                <div class="flex space-x-6 text-sm text-gray-600">
+                    <a href="#" class="hover:text-gray-900">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-900">Terms of Service</a>
+                    <a href="#" class="hover:text-gray-900">Contact</a>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center text-sm text-gray-500">
+                <p>© 2024 The Lifetime Project. Empowering men to become who they truly are.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Simple JavaScript for interactions -->
+    <script>
+        // Character selection for mobile
+        function selectCharacter(character) {
+            console.log('selectCharacter called with:', character, 'Window width:', window.innerWidth);
+            
+            // Only run on mobile (but let's make it work on all sizes for now)
+            // if (window.innerWidth > 768) return;
+            
+            // Update button states
+            document.querySelectorAll('.character-select-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const selectedBtn = document.querySelector(`.character-select-btn[data-character="${character}"]`);
+            if (selectedBtn) {
+                selectedBtn.classList.add('active');
+            }
+            
+            // Show selected character intro
+            document.querySelectorAll('.character-card').forEach(card => {
+                card.classList.remove('show-mobile');
+                if (card.dataset.character === character) {
+                    card.classList.add('show-mobile');
+                }
+            });
+            
+            // Show selected character timeline content
+            document.querySelectorAll('.timeline-character').forEach(section => {
+                section.classList.remove('show-mobile');
+                if (section.dataset.character === character) {
+                    section.classList.add('show-mobile');
+                }
+            });
+            
+            // Show continue button on mobile after selection
+            if (window.innerWidth <= 768) {
+                const continueButton = document.getElementById('continue-button');
+                if (continueButton) {
+                    continueButton.classList.remove('hidden');
+                }
+            }
+        }
+        
+        // Debug and setup character selection
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, checking for character buttons...');
+            const buttons = document.querySelectorAll('.character-select-btn');
+            console.log('Found buttons:', buttons.length);
+            
+            buttons.forEach((btn, index) => {
+                const character = btn.getAttribute('data-character');
+                console.log('Button found:', character);
+                
+                // Add event listeners programmatically as backup
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Programmatic click on:', character);
+                    selectCharacter(character);
+                });
+                
+                btn.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Programmatic touch on:', character);
+                    selectCharacter(character);
+                });
+            });
+            
+            // Handle character selection based on screen size
+            console.log('Window width:', window.innerWidth);
+            if (window.innerWidth <= 768) {
+                // Mobile: No auto-selection, let user choose from carousel
+                console.log('Mobile detected - carousel ready');
+            } else {
+                // Desktop: Randomly show 2 characters
+                const allCharacters = ['jake', 'andy', 'adam', 'jason'];
+                const randomChars = [];
+                
+                // Select 2 random characters
+                while (randomChars.length < 2) {
+                    const randomChar = allCharacters[Math.floor(Math.random() * allCharacters.length)];
+                    if (!randomChars.includes(randomChar)) {
+                        randomChars.push(randomChar);
+                    }
+                }
+                
+                console.log('Desktop: Showing random characters:', randomChars);
+                
+                // Hide character-intro-grid and show only selected 2 characters
+                setTimeout(() => {
+                    document.querySelectorAll('.character-card').forEach(card => {
+                        if (randomChars.includes(card.dataset.character)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    // Show timeline content for both characters
+                    document.querySelectorAll('.timeline-character').forEach(section => {
+                        if (randomChars.includes(section.dataset.character)) {
+                            section.classList.add('show-mobile');
+                        } else {
+                            section.classList.remove('show-mobile');
+                        }
+                    });
+                }, 100);
+            }
+        });
+        
+        // Matter.js Physics Simulation
+        const canvas = document.getElementById('physics-canvas');
+        const bottomMessage = document.getElementById('bottom-message');
+        const breakthroughMessage = document.getElementById('breakthrough-message');
+        
+        if (canvas) {
+            // Module aliases
+            const Engine = Matter.Engine,
+                  Render = Matter.Render,
+                  Runner = Matter.Runner,
+                  Bodies = Matter.Bodies,
+                  Body = Matter.Body,
+                  Composite = Matter.Composite,
+                  Events = Matter.Events,
+                  Mouse = Matter.Mouse,
+                  MouseConstraint = Matter.MouseConstraint;
+            
+            // Create engine
+            const engine = Engine.create();
+            engine.gravity.y = 1; // Normal gravity
+            
+            // Get responsive canvas dimensions
+            const canvasContainer = canvas.parentElement;
+            const containerWidth = canvasContainer.clientWidth;
+            const containerHeight = Math.min(500, window.innerHeight * 0.6); // Responsive height
+            const canvasWidth = Math.min(800, containerWidth);
+            const canvasHeight = containerHeight;
+            
+            // Create renderer with responsive dimensions
+            const render = Render.create({
+                canvas: canvas,
+                engine: engine,
+                options: {
+                    width: canvasWidth,
+                    height: canvasHeight,
+                    wireframes: false,
+                    background: 'transparent',
+                    showVelocity: false
+                }
+            });
+            
+            // Life demand items data - all the things weighing you down
+            const demands = [
+                { text: "CAREER", icon: "briefcase", weight: 3 },
+                { text: "FAMILY", icon: "heart", weight: 3 },
+                { text: "MONEY", icon: "dollar-sign", weight: 2 },
+                { text: "HEALTH", icon: "dumbbell", weight: 1 },
+                { text: "SOCIAL", icon: "users", weight: 2 },
+                { text: "TIME", icon: "clock", weight: 3 },
+                { text: "STRESS", icon: "brain", weight: 2 },
+                { text: "SUCCESS", icon: "trophy", weight: 1 },
+                { text: "KIDS", icon: "child", weight: 3 },
+                { text: "HOME", icon: "home", weight: 2 },
+                { text: "STATUS", icon: "car", weight: 1 },
+                { text: "BOSS", icon: "user-tie", weight: 2 },
+                { text: "BILLS", icon: "file-invoice-dollar", weight: 2 },
+                { text: "EMAILS", icon: "envelope", weight: 1 },
+                { text: "DEADLINES", icon: "calendar-times", weight: 3 },
+                { text: "MEETINGS", icon: "video", weight: 2 },
+                { text: "COMMUTE", icon: "route", weight: 1 },
+                { text: "EXERCISE", icon: "running", weight: 1 },
+                { text: "DIET", icon: "apple-alt", weight: 1 },
+                { text: "SLEEP", icon: "bed", weight: 2 },
+                { text: "ANXIETY", icon: "exclamation-triangle", weight: 2 },
+                { text: "MORTGAGE", icon: "house-user", weight: 3 },
+                { text: "RETIREMENT", icon: "piggy-bank", weight: 2 },
+                { text: "INSURANCE", icon: "shield-alt", weight: 1 },
+                { text: "TAXES", icon: "receipt", weight: 2 },
+                { text: "REPAIRS", icon: "tools", weight: 1 },
+                { text: "GROCERIES", icon: "shopping-cart", weight: 1 },
+                { text: "LAUNDRY", icon: "tshirt", weight: 1 },
+                { text: "CLEANING", icon: "broom", weight: 1 },
+                { text: "COOKING", icon: "utensils", weight: 1 },
+                { text: "NETWORKING", icon: "handshake", weight: 2 },
+                { text: "LEARNING", icon: "graduation-cap", weight: 1 },
+                { text: "HOBBIES", icon: "guitar", weight: 1 },
+                { text: "VACATION", icon: "plane", weight: 1 },
+                { text: "BIRTHDAY", icon: "birthday-cake", weight: 1 },
+                { text: "HOLIDAYS", icon: "gifts", weight: 2 },
+                { text: "IN-LAWS", icon: "users-cog", weight: 2 },
+                { text: "PETS", icon: "dog", weight: 1 },
+                { text: "YARD WORK", icon: "leaf", weight: 1 },
+                { text: "INVESTMENTS", icon: "chart-line", weight: 2 }
+            ];
+            
+            // Create demand boxes - they'll flow in over time
+            const demandBodies = [];
+            let demandIndex = 0;
+            
+            // Function to create a single demand block
+            function createDemandBlock(demand, index) {
+                const x = 50 + Math.random() * (canvasWidth - 100); // Responsive random position
+                const y = -50 - Math.random() * 50; // Start above canvas
+                const width = Math.max(60, canvasWidth * 0.1); // Responsive width (min 60px, max 10% of canvas)
+                const height = Math.max(25, canvasHeight * 0.07); // Responsive height
+                
+                const box = Bodies.rectangle(x, y, width, height, {
+                    restitution: 0, // ZERO bounce - completely rigid
+                    friction: 0.8, // High friction so they don't slide around
+                    frictionStatic: 1, // High static friction
+                    density: 0.01, // Heavier blocks
+                    label: demand.text,
+                    render: {
+                        visible: false // Hide Matter.js default rendering
+                    },
+                    chamfer: { radius: 5 } // Rounded corners
+                });
+                
+                // Store the demand data on the body for rendering
+                box.demandData = demand;
+                
+                return box;
+            }
+            
+            // Initially create first 10 blocks
+            for (let i = 0; i < 10; i++) {
+                const block = createDemandBlock(demands[i], i);
+                demandBodies.push(block);
+                Composite.add(engine.world, block);
+            }
+            demandIndex = 10;
+            
+            // Continuously add more blocks (max 200 total)
+            const MAX_BLOCKS = 200;
+            const blockInterval = setInterval(() => {
+                // Count current active blocks (excluding debris)
+                const activeBlocks = demandBodies.filter(block => !block.isCrushed).length;
+                
+                if (activeBlocks < MAX_BLOCKS) {
+                    if (demandIndex < demands.length) {
+                        const block = createDemandBlock(demands[demandIndex], demandIndex);
+                        demandBodies.push(block);
+                        Composite.add(engine.world, block);
+                        demandIndex++;
+                    } else {
+                        // Start recycling from beginning
+                        demandIndex = 0;
+                    }
+                }
+                // If we've reached max blocks, stop spawning but keep the interval running
+                // in case blocks get destroyed and we need to spawn more
+            }, 300); // Add new block every 300ms
+            
+            // Create "YOU" circle (initially at bottom, static) - responsive sizing
+            const youRadius = Math.max(30, Math.min(50, canvasWidth * 0.06)); // Responsive radius
+            const youBody = Bodies.circle(canvasWidth / 2, canvasHeight - youRadius - 20, youRadius, {
+                isStatic: true,
+                label: 'YOU',
+                restitution: 0.8, // YOU is bouncy/resilient
+                density: 0.1, // Much heavier - 5x the weight
+                render: {
+                    visible: false // Hide Matter.js default rendering
+                }
+            });
+            
+            // Create walls (invisible) - responsive positioning
+            const ground = Bodies.rectangle(canvasWidth / 2, canvasHeight - 10, canvasWidth, 20, { 
+                isStatic: true,
+                render: { visible: false }
+            });
+            const leftWall = Bodies.rectangle(0, canvasHeight / 2, 20, canvasHeight, { 
+                isStatic: true,
+                render: { visible: false }
+            });
+            const rightWall = Bodies.rectangle(canvasWidth, canvasHeight / 2, 20, canvasHeight, { 
+                isStatic: true,
+                render: { visible: false }
+            });
+            
+            // Add static bodies to the world (blocks will be added dynamically)
+            Composite.add(engine.world, [youBody, ground, leftWall, rightWall]);
+            
+            // Track crushed blocks
+            const crushedPieces = [];
+            
+            // Handle collisions to detect crushing
+            Events.on(engine, 'collisionStart', function(event) {
+                const pairs = event.pairs;
+                
+                pairs.forEach(pair => {
+                    // Check if YOU collided with a demand block
+                    if ((pair.bodyA === youBody || pair.bodyB === youBody) && !youBody.isStatic) {
+                        const block = pair.bodyA === youBody ? pair.bodyB : pair.bodyA;
+                        
+                        // Only crush demand blocks, not walls
+                        if (block && block.demandData && !block.isCrushed) {
+                            // Calculate impact force based on relative velocity
+                            const relativeVelocity = Math.abs(youBody.velocity.y - block.velocity.y);
+                            
+                            if (relativeVelocity > 15) { // High impact threshold
+                                // Mark as crushed
+                                block.isCrushed = true;
+                                
+                                // Create debris pieces
+                                const x = block.position.x;
+                                const y = block.position.y;
+                                
+                                // Remove the original block
+                                setTimeout(() => {
+                                    Composite.remove(engine.world, block);
+                                    const index = demandBodies.indexOf(block);
+                                    if (index > -1) demandBodies.splice(index, 1);
+                                }, 10);
+                                
+                                // Create 4-6 smaller pieces (25% of original size)
+                                const numPieces = 4 + Math.floor(Math.random() * 3);
+                                for (let i = 0; i < numPieces; i++) {
+                                    const piece = Bodies.rectangle(
+                                        x + (Math.random() - 0.5) * 30,
+                                        y + (Math.random() - 0.5) * 20,
+                                        (15 + Math.random() * 20) * 0.25,
+                                        (10 + Math.random() * 15) * 0.25,
+                                        {
+                                            restitution: 0.4,
+                                            friction: 0.5,
+                                            density: 0.002,
+                                            render: { visible: false },
+                                            isDebris: true,
+                                            opacity: 0.7
+                                        }
+                                    );
+                                    
+                                    // Give pieces explosive velocity
+                                    Body.setVelocity(piece, {
+                                        x: (Math.random() - 0.5) * 20,
+                                        y: -Math.random() * 15 - 5
+                                    });
+                                    Body.setAngularVelocity(piece, (Math.random() - 0.5) * 0.5);
+                                    
+                                    Composite.add(engine.world, piece);
+                                    crushedPieces.push(piece);
+                                    
+                                    // Start fading after 15 seconds
+                                    setTimeout(() => {
+                                        // Fade out over 5 seconds
+                                        const fadeInterval = setInterval(() => {
+                                            piece.opacity = (piece.opacity || 0.9) - 0.02;
+                                            if (piece.opacity <= 0) {
+                                                clearInterval(fadeInterval);
+                                                Composite.remove(engine.world, piece);
+                                                const idx = crushedPieces.indexOf(piece);
+                                                if (idx > -1) crushedPieces.splice(idx, 1);
+                                            }
+                                        }, 100);
+                                    }, 15000);
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+            
+            // Custom renderer to draw text and icons
+            Events.on(render, 'afterRender', function() {
+                const context = render.canvas.getContext('2d');
+                
+                // Clear the entire canvas first
+                context.clearRect(0, 0, render.canvas.width, render.canvas.height);
+                
+                // Draw demand items with text
+                demandBodies.forEach((body) => {
+                    if (body.demandData && !body.isCrushed) {
+                        const demand = body.demandData;
+                        context.save();
+                        context.translate(body.position.x, body.position.y);
+                        context.rotate(body.angle);
+                        
+                        // Draw white background with subtle border - responsive sizing
+                        const width = Math.max(60, canvasWidth * 0.1);
+                        const height = Math.max(25, canvasHeight * 0.07);
+                        const radius = 5;
+                        
+                        // Rounded rectangle
+                        context.beginPath();
+                        context.moveTo(-width/2 + radius, -height/2);
+                        context.arcTo(width/2, -height/2, width/2, -height/2 + radius, radius);
+                        context.arcTo(width/2, height/2, width/2 - radius, height/2, radius);
+                        context.arcTo(-width/2, height/2, -width/2, height/2 - radius, radius);
+                        context.arcTo(-width/2, -height/2, -width/2 + radius, -height/2, radius);
+                        context.closePath();
+                        
+                        // Fill with white
+                        context.fillStyle = '#ffffff';
+                        context.fill();
+                        
+                        // Very subtle border
+                        context.strokeStyle = '#e5e7eb';
+                        context.lineWidth = 1;
+                        context.stroke();
+                        
+                        // Draw text - responsive font size
+                        const fontSize = Math.max(8, Math.min(11, canvasWidth * 0.014));
+                        context.font = `${fontSize}px Arial`;
+                        context.fillStyle = '#1F2937';
+                        context.textAlign = 'center';
+                        context.textBaseline = 'middle';
+                        context.fillText(demand.text, 0, 0);
+                        
+                        context.restore();
+                    }
+                });
+                
+                // Draw YOU circle
+                const you = youBody;
+                context.save();
+                context.translate(you.position.x, you.position.y);
+                context.rotate(you.angle);
+                
+                // Create gradient with responsive radius
+                const gradient = context.createRadialGradient(0, 0, 0, 0, 0, youRadius);
+                gradient.addColorStop(0, '#E2B93B');
+                gradient.addColorStop(1, '#47B5A5');
+                
+                context.beginPath();
+                context.arc(0, 0, youRadius, 0, 2 * Math.PI);
+                context.fillStyle = gradient;
+                context.fill();
+                context.strokeStyle = '#E2B93B';
+                context.lineWidth = Math.max(2, youRadius * 0.06);
+                context.stroke();
+                
+                // Add glow effect when moving
+                if (Math.abs(you.velocity.y) > 1) {
+                    context.shadowBlur = 30;
+                    context.shadowColor = '#E2B93B';
+                    context.stroke();
+                }
+                
+                // Draw text with responsive font size
+                context.shadowBlur = 0;
+                const youFontSize = Math.max(16, Math.min(24, youRadius * 0.48));
+                context.font = `bold ${youFontSize}px Arial`;
+                context.fillStyle = '#ffffff';
+                context.textAlign = 'center';
+                context.textBaseline = 'middle';
+                context.fillText('YOU', 0, 0);
+                
+                context.restore();
+                
+                // Draw debris pieces
+                crushedPieces.forEach(piece => {
+                    if (piece.isDebris) {
+                        context.save();
+                        context.translate(piece.position.x, piece.position.y);
+                        context.rotate(piece.angle);
+                        
+                        const width = piece.bounds.max.x - piece.bounds.min.x;
+                        const height = piece.bounds.max.y - piece.bounds.min.y;
+                        
+                        // Draw debris as broken white fragments (like the original blocks)
+                        context.fillStyle = 'rgba(255, 255, 255, ' + (piece.opacity || 0.9) + ')';
+                        context.fillRect(-width/2, -height/2, width, height);
+                        
+                        // Jagged/broken edge effect
+                        context.strokeStyle = 'rgba(229, 231, 235, ' + (piece.opacity || 0.9) + ')';
+                        context.lineWidth = 1;
+                        context.strokeRect(-width/2, -height/2, width, height);
+                        
+                        // Add some cracks
+                        context.beginPath();
+                        context.moveTo(-width/2 + width * 0.3, -height/2);
+                        context.lineTo(-width/2 + width * 0.4, 0);
+                        context.lineTo(-width/2 + width * 0.3, height/2);
+                        context.strokeStyle = 'rgba(200, 200, 200, 0.5)';
+                        context.lineWidth = 0.5;
+                        context.stroke();
+                        
+                        context.restore();
+                    }
+                });
+            });
+            
+            // Run the renderer
+            Render.run(render);
+            
+            // Create runner
+            const runner = Runner.create();
+            Runner.run(runner, engine);
+            
+            // Click to break free
+            let hasBreakthrough = false;
+            canvas.addEventListener('click', (event) => {
+                // Get click position relative to canvas
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = (event.clientX - rect.left) * (canvasWidth / rect.width);
+                const mouseY = (event.clientY - rect.top) * (canvasHeight / rect.height);
+                
+                // Check if click is near the YOU element
+                const youPos = youBody.position;
+                const distance = Math.sqrt(Math.pow(mouseX - youPos.x, 2) + Math.pow(mouseY - youPos.y, 2));
+                
+                if (distance <= youRadius + 20) { // Click within YOU radius + buffer
+                    // Reset YOU to static position if it's not already
+                    if (!youBody.isStatic) {
+                        Body.setStatic(youBody, true);
+                        Body.setPosition(youBody, { x: canvasWidth / 2, y: canvasHeight - youRadius - 20 });
+                        Body.setVelocity(youBody, { x: 0, y: 0 });
+                        Body.setAngularVelocity(youBody, 0);
+                    }
+                    
+                    // Make YOU non-static and apply TREMENDOUS upward force
+                    Body.setStatic(youBody, false);
+                    
+                    // Apply extreme upward force - scale with canvas size
+                    const forceScale = canvasHeight / 500; // Scale force based on canvas height
+                    Body.applyForce(youBody, youBody.position, { x: 0, y: -5 * forceScale });
+                    Body.setVelocity(youBody, { x: 0, y: -60 * forceScale }); // Extreme upward velocity
+                    
+                    // Make YOU super heavy for maximum impact
+                    Body.setDensity(youBody, 0.5); // 5x heavier when launching
+                    
+                    // Update messages
+                    if (!hasBreakthrough) {
+                        hasBreakthrough = true;
+                        bottomMessage.classList.add('opacity-0');
+                        breakthroughMessage.classList.remove('hidden');
+                        setTimeout(() => {
+                            breakthroughMessage.classList.remove('opacity-0');
+                        }, 50);
+                    }
+                }
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                render.canvas.width = canvas.offsetWidth;
+                render.canvas.height = canvas.offsetHeight;
+            });
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Simple scroll animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Fade in elements as they come into view
+        gsap.utils.toArray('.wisdom-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%",
+                },
+                opacity: 0,
+                y: 20,
+                duration: 0.4,
+                delay: i * 0.05
+            });
+        });
+
+        // Animate journey dots
+        gsap.utils.toArray('.journey-dot').forEach((dot, i) => {
+            gsap.from(dot, {
+                scrollTrigger: {
+                    trigger: dot,
+                    start: "top 80%",
+                },
+                scale: 0,
+                opacity: 0,
+                duration: 0.6,
+                delay: i * 0.2,
+                ease: "back.out(1.7)"
+            });
+        });
+
+        // Cinematic timeline animations
+        const cinematicTimeline = document.querySelector('.cinematic-timeline');
+        if (cinematicTimeline) {
+            // Animate title and subtitle
+            const timelineTitle = cinematicTimeline.querySelector('.timeline-title');
+            const timelineSubtitle = cinematicTimeline.querySelector('.timeline-subtitle');
+            
+            ScrollTrigger.create({
+                trigger: cinematicTimeline,
+                start: "top 80%",
+                onEnter: () => {
+                    if (timelineTitle) timelineTitle.classList.add('visible');
+                    if (timelineSubtitle) timelineSubtitle.classList.add('visible');
+                }
+            });
+
+            // Animate timeline moments
+            const timelineMoments = cinematicTimeline.querySelectorAll('.timeline-moment');
+            const timelineProgress = cinematicTimeline.querySelector('.timeline-progress');
+            
+            timelineMoments.forEach((moment, index) => {
+                ScrollTrigger.create({
+                    trigger: moment,
+                    start: "top 70%",
+                    onEnter: () => {
+                        moment.classList.add('active');
+                        
+                        // Update progress bar
+                        if (timelineProgress) {
+                            const progress = ((index + 1) / timelineMoments.length) * 100;
+                            timelineProgress.style.height = `${progress}%`;
+                        }
+
+                        // Animate conversation bubbles
+                        const bubbles = moment.querySelectorAll('.conversation-bubble');
+                        bubbles.forEach((bubble, i) => {
+                            setTimeout(() => {
+                                bubble.classList.add('visible');
+                            }, 200 + (i * 300));
+                        });
+                    }
+                });
+            });
+
+            // Enhanced parallax effect for moment times
+            gsap.utils.toArray('.moment-time').forEach((time, index) => {
+                // Different parallax speeds for variety
+                const speed = time.textContent.includes('MOMENT') ? -80 : -60;
+                
+                gsap.to(time, {
+                    yPercent: speed,
+                    scale: 0.85,
+                    opacity: 0.3,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: time,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1
+                    }
+                });
+                
+                // Add subtle rotation for "THE MOMENT"
+                if (time.textContent.includes('MOMENT')) {
+                    gsap.to(time, {
+                        rotation: -5,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: time,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: 2
+                        }
+                    });
+                }
+            });
+
+            // Glow animations
+            gsap.utils.toArray('.timeline-glow').forEach(glow => {
+                gsap.to(glow, {
+                    x: "random(-50, 50)",
+                    y: "random(-50, 50)",
+                    duration: "random(15, 25)",
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+            });
+        }
+    </script>
+</body>
+</html>
