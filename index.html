@@ -3124,6 +3124,201 @@
                 });
             });
         }
+
+        // Email capture modal functionality
+        const emailModal = document.getElementById('emailModal');
+        const emailForm = document.getElementById('emailForm');
+        const emailInput = document.getElementById('emailInput');
+        
+        // Add click handlers to all CTA buttons
+        document.querySelectorAll('.primary-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                emailModal.classList.remove('hidden');
+                emailModal.classList.add('flex');
+                emailInput.focus();
+                
+                // Track button click with PostHog
+                const buttonText = button.textContent.trim();
+                posthog.capture('cta_clicked', {
+                    button_text: buttonText,
+                    location: window.location.pathname
+                });
+            });
+        });
+        
+        // Close modal when clicking outside
+        emailModal.addEventListener('click', (e) => {
+            if (e.target === emailModal) {
+                emailModal.classList.add('hidden');
+                emailModal.classList.remove('flex');
+            }
+        });
+        
+        // Close modal with close button
+        document.getElementById('closeModal').addEventListener('click', () => {
+            emailModal.classList.add('hidden');
+            emailModal.classList.remove('flex');
+        });
+        
+        // Handle form submission
+        emailForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = emailInput.value;
+            const submitButton = emailForm.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            
+            // Update button state
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processing...';
+            
+            try {
+                // Track email capture with PostHog
+                posthog.capture('email_captured', {
+                    email: email,
+                    source: 'modal',
+                    timestamp: new Date().toISOString()
+                });
+                
+                // Identify the user in PostHog
+                posthog.identify(email, {
+                    email: email,
+                    signup_date: new Date().toISOString()
+                });
+                
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Show success state
+                submitButton.innerHTML = '<i class="fas fa-check mr-2"></i>Success!';
+                submitButton.classList.remove('bg-[#E2B93B]');
+                submitButton.classList.add('bg-green-500');
+                
+                // Close modal after success
+                setTimeout(() => {
+                    emailModal.classList.add('hidden');
+                    emailModal.classList.remove('flex');
+                    emailForm.reset();
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalText;
+                    submitButton.classList.add('bg-[#E2B93B]');
+                    submitButton.classList.remove('bg-green-500');
+                }, 1500);
+                
+            } catch (error) {
+                // Handle error
+                submitButton.innerHTML = '<i class="fas fa-times mr-2"></i>Error, try again';
+                submitButton.classList.remove('bg-[#E2B93B]');
+                submitButton.classList.add('bg-red-500');
+                
+                setTimeout(() => {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalText;
+                    submitButton.classList.add('bg-[#E2B93B]');
+                    submitButton.classList.remove('bg-red-500');
+                }, 2000);
+            }
+        });
     </script>
+
+    <!-- Email Capture Modal -->
+    <div id="emailModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative animate-fadeIn">
+            <!-- Close button -->
+            <button id="closeModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <!-- Modal content -->
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-[#E2B93B] bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-rocket text-[#E2B93B] text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Ready to Transform Your Life?</h3>
+                <p class="text-gray-600">Join thousands of men on their journey to become their best selves.</p>
+            </div>
+            
+            <!-- Email form -->
+            <form id="emailForm" class="space-y-4">
+                <div>
+                    <label for="nameInput" class="block text-sm font-medium text-gray-700 mb-2">
+                        Your name
+                    </label>
+                    <input 
+                        type="text" 
+                        id="nameInput" 
+                        required 
+                        placeholder="John Smith"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2B93B] focus:border-transparent outline-none transition-all"
+                    >
+                </div>
+                <div>
+                    <label for="emailInput" class="block text-sm font-medium text-gray-700 mb-2">
+                        Your email
+                    </label>
+                    <input 
+                        type="email" 
+                        id="emailInput" 
+                        required 
+                        placeholder="your@email.com"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2B93B] focus:border-transparent outline-none transition-all"
+                    >
+                </div>
+                
+                <button type="submit" class="w-full bg-[#E2B93B] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#d4a635] transition-colors flex items-center justify-center">
+                    Start Your Free Trial
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+                
+                <div class="text-center text-xs text-gray-500 space-y-1">
+                    <p>
+                        <i class="fas fa-lock mr-1"></i>
+                        Your data is secure and will never be shared
+                    </p>
+                    <p>
+                        <i class="fas fa-times-circle mr-1"></i>
+                        No spam, unsubscribe anytime
+                    </p>
+                </div>
+            </form>
+            
+            <!-- Benefits -->
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <p class="text-sm font-medium text-gray-700 mb-3">What you'll get:</p>
+                <ul class="space-y-2 text-sm text-gray-600">
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mr-2 mt-0.5"></i>
+                        <span>7-day free trial with full access</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mr-2 mt-0.5"></i>
+                        <span>Personalized AI coaching</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mr-2 mt-0.5"></i>
+                        <span>40% early adopter discount locked forever</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
 </body>
 </html>
