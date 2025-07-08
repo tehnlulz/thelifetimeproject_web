@@ -7,6 +7,14 @@
     <title>The Lifetime Project - Where Ancient Wisdom Meets Modern Science</title>
     <meta name="description"
         content="The ultimate personal development platform for men. Synthesizing wisdom from Marcus Aurelius to modern neuroscience, personalized just for you with AI-generated daily practices.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/images/android-chrome-512x512.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -512,7 +520,7 @@
             border: 4px solid var(--accent-gold);
             border-radius: 50%;
             box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.2);
-            z-index: 3;
+            z-index: 1;
         }
 
         .timeline-node.pulse {
@@ -595,9 +603,10 @@
         }
 
         .character-select-btn.active {
-            border-color: var(--accent-gold);
-            background: rgba(226, 185, 59, 0.2);
-            box-shadow: 0 0 20px rgba(226, 185, 59, 0.3);
+            border-color: var(--accent-gold) !important;
+            background: rgba(226, 185, 59, 0.3) !important;
+            box-shadow: 0 0 20px rgba(226, 185, 59, 0.4) !important;
+            transform: scale(1.05) !important;
         }
         
         .character-select-btn span {
@@ -629,22 +638,15 @@
 
         /* Hide non-selected character on mobile */
         @media (max-width: 768px) {
-            .character-card {
-                display: none;
+            .character-intro-grid .character-card {
+                display: none !important;
             }
             
-            .character-card.show-mobile {
-                display: block;
-            }
-
-            .timeline-character {
-                display: none;
-            }
-
-            .timeline-character.show-mobile {
-                display: block;
+            .character-intro-grid .character-card.show-mobile {
+                display: block !important;
             }
         }
+
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
@@ -695,7 +697,7 @@
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-3">
-                    <img src="logo.svg" alt="The Lifetime Project" class="w-12 h-12">
+                    <img src="assets/images/logo.svg" alt="The Lifetime Project" class="w-12 h-12">
                     <span class="text-gray-900 font-bold text-lg">The Lifetime Project</span>
                 </div>
                 
@@ -789,14 +791,14 @@
                     <div class="iphone-mockup">
                         <div class="iphone-power-button"></div>
                         <div class="iphone-screen-wrapper">
-                            <img src="home_screen.png" alt="Home Screen" class="iphone-screen">
+                            <img src="assets/images/home_screen.png" alt="Home Screen" class="iphone-screen">
                         </div>
                     </div>
                     <!-- Second phone slightly behind -->
                     <div class="iphone-mockup absolute -left-24 top-10 -z-10">
                         <div class="iphone-power-button"></div>
                         <div class="iphone-screen-wrapper">
-                            <img src="home2.png" alt="Home Screen 2" class="iphone-screen">
+                            <img src="assets/images/home2.png" alt="Home Screen 2" class="iphone-screen">
                         </div>
                     </div>
                 </div>
@@ -934,12 +936,13 @@
                 height: 320px !important;
                 min-width: 160px !important;
                 max-width: 160px !important;
+                min-height: 320px !important;
                 border: 6px solid #1a1a1a;
                 border-radius: 1.5rem;
                 box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
                 flex-shrink: 0 !important;
                 flex-grow: 0 !important;
-                flex-basis: 160px !important;
+                flex-basis: auto !important;
             }
             
             .iphone-screen-wrapper {
@@ -980,10 +983,11 @@
                 height: 280px !important;
                 min-width: 140px !important;
                 max-width: 140px !important;
+                min-height: 280px !important;
                 border: 5px solid #1a1a1a;
                 flex-shrink: 0 !important;
                 flex-grow: 0 !important;
-                flex-basis: 140px !important;
+                flex-basis: auto !important;
             }
             
             .iphone-screen-wrapper {
@@ -1191,13 +1195,13 @@
                             <div class="iphone-mockup transform rotate-3">
                                 <div class="iphone-power-button"></div>
                                 <div class="iphone-screen-wrapper">
-                                    <img src="assessment_summary.png" alt="Assessment Summary" class="iphone-screen">
+                                    <img src="assets/images/assessment_summary.png" alt="Assessment Summary" class="iphone-screen">
                                 </div>
                             </div>
                             <div class="iphone-mockup transform -rotate-3 mt-8">
                                 <div class="iphone-power-button"></div>
                                 <div class="iphone-screen-wrapper">
-                                    <img src="assessment_summary2.png" alt="Assessment Results" class="iphone-screen">
+                                    <img src="assets/images/assessment_summary2.png" alt="Assessment Results" class="iphone-screen">
                                 </div>
                             </div>
                         </div>
@@ -1221,13 +1225,13 @@
                             <div class="iphone-mockup transform -rotate-2">
                                 <div class="iphone-power-button"></div>
                                 <div class="iphone-screen-wrapper">
-                                    <img src="Epics.png" alt="Epic Goals" class="iphone-screen">
+                                    <img src="assets/images/Epics.png" alt="Epic Goals" class="iphone-screen">
                                 </div>
                             </div>
                             <div class="iphone-mockup transform rotate-2 mt-8">
                                 <div class="iphone-power-button"></div>
                                 <div class="iphone-screen-wrapper">
-                                    <img src="weekly.png" alt="Weekly Goals" class="iphone-screen">
+                                    <img src="assets/images/weekly.png" alt="Weekly Goals" class="iphone-screen">
                                 </div>
                             </div>
                         </div>
@@ -1253,7 +1257,7 @@
                             <div class="iphone-mockup mx-auto">
                                 <div class="iphone-power-button"></div>
                                 <div class="iphone-screen-wrapper">
-                                    <img src="yourpath.png" alt="Your Path Audio" class="iphone-screen">
+                                    <img src="assets/images/yourpath.png" alt="Your Path Audio" class="iphone-screen">
                                 </div>
                             </div>
                         </div>
@@ -1277,18 +1281,18 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="md:w-1/2 flex flex-col items-center gap-4">
-                            <div class="iphone-mockup" style="flex-shrink: 0;">
+                        <div class="md:w-1/2 flex flex-col items-center justify-center gap-6 md:gap-8 py-8">
+                            <div class="iphone-mockup">
                                 <div class="iphone-power-button"></div>
                                 <div class="iphone-screen-wrapper">
-                                    <img src="chat1.png" alt="AI Chat" class="iphone-screen">
+                                    <img src="assets/images/chat1.png" alt="AI Chat" class="iphone-screen">
                                 </div>
                             </div>
-                            <p class="text-sm text-gray-500">Marcus AI thinking...</p>
-                            <div class="iphone-mockup" style="flex-shrink: 0;">
+                            <p class="text-sm text-gray-500 my-2">Marcus AI thinking...</p>
+                            <div class="iphone-mockup">
                                 <div class="iphone-power-button"></div>
                                 <div class="iphone-screen-wrapper">
-                                    <img src="chat2.png" alt="AI Response" class="iphone-screen">
+                                    <img src="assets/images/chat2.png" alt="AI Response" class="iphone-screen">
                                 </div>
                             </div>
                         </div>
@@ -1339,33 +1343,14 @@
         </div>
 
         <!-- Character Introduction -->
-        <div class="min-h-screen flex items-center justify-center relative timeline-moment" style="z-index: 20000; position: relative;">
-            <div class="container mx-auto px-6" style="z-index: 20001; position: relative;">
+        <div class="min-h-screen flex items-center justify-center relative timeline-moment" style="z-index: 30; position: relative;">
+            <div class="container mx-auto px-6" style="z-index: 31; position: relative;">
                 <!-- Mobile Character Selection - Scrollable Carousel -->
-                <div class="md:hidden text-center" style="position: relative; z-index: 20002; isolation: isolate;">
+                <div class="md:hidden text-center" style="position: relative; z-index: 32; isolation: isolate;">
                     <h3 class="text-2xl font-bold text-white mb-6">Who do you relate to?</h3>
-                    <div class="character-carousel-container mb-8" style="position: relative; z-index: 20003; isolation: isolate;">
-                        <div class="character-carousel flex gap-4 overflow-x-auto pb-4 px-4 scrollbar-hide">
-                            <button onclick="selectCharacter('jake')" class="character-select-btn flex-shrink-0" data-character="jake" style="pointer-events: auto; z-index: 20004 !important; position: relative; isolation: isolate;">
-                                <img src="jake.png" alt="Jake" class="w-20 h-20 rounded-full border-3 border-white/20" style="pointer-events: none;">
-                                <span style="pointer-events: none;">Jake</span>
-                                <span class="text-xs text-gray-300 mt-1" style="pointer-events: none;">New Dad</span>
-                            </button>
-                            <button onclick="selectCharacter('andy')" class="character-select-btn flex-shrink-0" data-character="andy" style="pointer-events: auto; z-index: 20004 !important; position: relative; isolation: isolate;">
-                                <img src="andy.png" alt="Andy" class="w-20 h-20 rounded-full border-3 border-white/20" style="pointer-events: none;">
-                                <span style="pointer-events: none;">Andy</span>
-                                <span class="text-xs text-gray-300 mt-1" style="pointer-events: none;">Tech Lead</span>
-                            </button>
-                            <button onclick="selectCharacter('adam')" class="character-select-btn flex-shrink-0" data-character="adam" style="pointer-events: auto; z-index: 20004 !important; position: relative; isolation: isolate;">
-                                <img src="colleague.jpeg" alt="Adam" class="w-20 h-20 rounded-full border-3 border-white/20 object-cover" style="pointer-events: none;">
-                                <span style="pointer-events: none;">Adam</span>
-                                <span class="text-xs text-gray-300 mt-1" style="pointer-events: none;">Searching</span>
-                            </button>
-                            <button onclick="selectCharacter('jason')" class="character-select-btn flex-shrink-0" data-character="jason" style="pointer-events: auto; z-index: 20004 !important; position: relative; isolation: isolate;">
-                                <img src="wife.png" alt="Jason" class="w-20 h-20 rounded-full border-3 border-white/20 object-cover" style="pointer-events: none;">
-                                <span style="pointer-events: none;">Jason</span>
-                                <span class="text-xs text-gray-300 mt-1" style="pointer-events: none;">Stuck</span>
-                            </button>
+                    <div class="character-carousel-container mb-8 py-2" style="position: relative; z-index: 33; isolation: isolate;">
+                        <div class="character-carousel flex gap-4 overflow-x-auto pb-4 px-4 pt-2 scrollbar-hide">
+                            <!-- Characters will be dynamically generated here -->
                         </div>
                         <!-- Scroll indicators -->
                         <div class="flex justify-center gap-2 mt-2">
@@ -1386,69 +1371,7 @@
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto character-intro-grid">
-                    <!-- Jake -->
-                    <div class="moment-content text-center character-card" data-character="jake">
-                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-[#E2B93B]/50 shadow-2xl md:block hidden">
-                            <img src="jake.png" alt="Jake" class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="text-3xl font-bold text-white mb-4">Jake</h3>
-                        <div class="text-lg space-y-2">
-                            <p class="text-gray-300">
-                                <span class="font-semibold">34, Marketing Director</span>
-                            </p>
-                            <p class="text-gray-300">
-                                Working on: <span class="text-[#E2B93B] font-medium">Reconnecting with his wife after baby</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Andy -->
-                    <div class="moment-content text-center character-card" data-character="andy">
-                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-[#47B5A5]/50 shadow-2xl md:block hidden">
-                            <img src="andy.png" alt="Andy" class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="text-3xl font-bold text-white mb-4">Andy</h3>
-                        <div class="text-lg space-y-2">
-                            <p class="text-gray-300">
-                                <span class="font-semibold">38, Tech Lead</span>
-                            </p>
-                            <p class="text-gray-300">
-                                Working on: <span class="text-[#47B5A5] font-medium">Asking for the raise he deserves</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Adam -->
-                    <div class="moment-content text-center character-card" data-character="adam">
-                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-[#E2B93B]/50 shadow-2xl md:block hidden">
-                            <img src="colleague.jpeg" alt="Adam" class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="text-3xl font-bold text-white mb-4">Adam</h3>
-                        <div class="text-lg space-y-2">
-                            <p class="text-gray-300">
-                                <span class="font-semibold">31, Operations Manager</span>
-                            </p>
-                            <p class="text-gray-300">
-                                Working on: <span class="text-[#E2B93B] font-medium">Finding his true purpose beyond the paycheck</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Jason -->
-                    <div class="moment-content text-center character-card" data-character="jason">
-                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-[#47B5A5]/50 shadow-2xl md:block hidden">
-                            <img src="wife.png" alt="Jason" class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="text-3xl font-bold text-white mb-4">Jason</h3>
-                        <div class="text-lg space-y-2">
-                            <p class="text-gray-300">
-                                <span class="font-semibold">29, Sales Associate</span>
-                            </p>
-                            <p class="text-gray-300">
-                                Working on: <span class="text-[#47B5A5] font-medium">Breaking through procrastination and staying consistent</span>
-                            </p>
-                        </div>
-                    </div>
+                    <!-- Character cards will be dynamically generated here -->
                 </div>
             </div>
         </div>
@@ -1467,258 +1390,8 @@
             
             <div class="container mx-auto px-6">
                 <h3 class="text-3xl font-bold text-white text-center mb-12">Morning Preparation</h3>
-                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                    <!-- Jake's Morning -->
-                    <div class="moment-content timeline-character" data-character="jake">
-                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
-                            <span class="text-[#E2B93B] mr-3">Jake</span>
-                            <span class="text-sm font-normal text-gray-400">Learning the BREATHE Protocol</span>
-                        </h4>
-                        <div class="space-y-3">
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            <i class="fas fa-play-circle text-[#E2B93B] mr-2"></i>
-                                            "Jake, tonight's date night. Your anxious attachment is going to push you to over-explain 
-                                            and fix. Let's practice the BREATHE protocol."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "I always do that. I just word-vomit when I'm nervous. What's BREATHE?"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "It's your emergency brake. B-R-E-A-T-H-E: Belly breath 3 times, Recognize the emotion, 
-                                            Express using 'I feel', Allow silence, Take your time, Hold eye contact, Exit if overwhelmed. 
-                                            Let's practice. What do you want to tell Sarah?"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "That I'm scared we're becoming roommates instead of lovers..."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Good. Now say it using BREATHE. First, three belly breaths. Put your hand on your stomach..."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-3 mt-3">
-                            <p class="text-xs text-gray-300">
-                                <strong>Today's Tool:</strong> BREATHE Protocol emergency card saved to Jake's phone
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Andy's Morning -->
-                    <div class="moment-content timeline-character" data-character="andy">
-                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
-                            <span class="text-[#47B5A5] mr-3">Andy</span>
-                            <span class="text-sm font-normal text-gray-400">Building the WORTH Framework</span>
-                        </h4>
-                        <div class="space-y-3">
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            <i class="fas fa-play-circle text-[#47B5A5] mr-2"></i>
-                                            "Andy, you've been putting off this raise conversation for 18 months. Your avoidant 
-                                            pattern makes you minimize achievements. Today we use the WORTH framework."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "I hate talking about money. Feels greedy. What if they think I'm ungrateful?"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "That's your father's voice, not market reality. WORTH: Win documentation, Outcomes quantified, 
-                                            Research market rates, Take up space, Hold your number. Let's start. Name three wins from this year."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Well, the team did okay, I helped a bit with—"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Stop. You're minimizing. Stand up. Feet shoulder-width apart. Hands on hips. 
-                                            Now tell me what YOU achieved. Not the team. You."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "I... I led the migration that saved $2M. I trained 5 developers. I reduced deployment time by 60%."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Better. Now hold that posture for 2 minutes while we build your WORTH script..."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-3 mt-3">
-                            <p class="text-xs text-gray-300">
-                                <strong>Today's Tool:</strong> WORTH negotiation script with exact numbers saved to Andy's notes
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Adam's Morning -->
-                    <div class="moment-content timeline-character" data-character="adam">
-                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
-                            <span class="text-[#E2B93B] mr-3">Adam</span>
-                            <span class="text-sm font-normal text-gray-400">The PURPOSE Protocol</span>
-                        </h4>
-                        <div class="space-y-3">
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            <i class="fas fa-play-circle text-[#E2B93B] mr-2"></i>
-                                            "Adam, you're successful but empty. The hedonic treadmill has you trapped. 
-                                            Today we explore what lights you up beyond the paycheck using Viktor Frankl's logotherapy."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="colleague.jpeg" alt="Adam" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 flex-shrink-0">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "I make good money, but I feel like I'm just going through the motions. 
-                                            Is this really what success looks like?"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-3 mt-3">
-                            <p class="text-xs text-gray-300">
-                                <strong>Today's Exercise:</strong> PURPOSE assessment - identifying meaning beyond material success
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Jason's Morning -->
-                    <div class="moment-content timeline-character" data-character="jason">
-                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
-                            <span class="text-[#47B5A5] mr-3">Jason</span>
-                            <span class="text-sm font-normal text-gray-400">Breaking the Procrastination Loop</span>
-                        </h4>
-                        <div class="space-y-3">
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            <i class="fas fa-play-circle text-[#47B5A5] mr-2"></i>
-                                            "Jason, your dopamine system is hijacked. You start strong then fade. 
-                                            Today we use the 2-minute rule to rewire your habit loops."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="wife.png" alt="Jason" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "I keep making plans to go to the gym and eat better, but I always give up after a few days. 
-                                            How do I stick to things?"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-3 mt-3">
-                            <p class="text-xs text-gray-300">
-                                <strong>Today's System:</strong> 2-minute habit stack designed for Jason's specific routine
-                            </p>
-                        </div>
-                    </div>
+                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto morning-conversations">
+                    <!-- Morning conversations will be dynamically rendered here -->
                 </div>
             </div>
         </div>
@@ -1730,348 +1403,8 @@
             
             <div class="container mx-auto px-6">
                 <h3 class="text-3xl font-bold text-white text-center mb-12">Midday Check-In</h3>
-                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                    <!-- Jake's Check-in -->
-                    <div class="moment-content timeline-character" data-character="jake">
-                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
-                            <span class="text-[#E2B93B] mr-3">Jake</span>
-                            <span class="text-sm font-normal text-gray-400">Anxiety Rising</span>
-                        </h4>
-                        <div class="space-y-3">
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            <i class="fas fa-bell text-[#E2B93B] mr-2"></i>
-                                            "Jake, how are you feeling? Your heart rate is elevated."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Can't stop thinking about tonight. What if Sarah shuts down? What if I make it worse?"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Your anxious attachment is spinning stories. Let's ground you. Name 3 things you see right now."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "My coffee cup. The plant on my desk. Photo of Sarah and the baby..."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Good. That photo - what do you see in Sarah's face?"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "She's... she's looking at me with love. We were happy."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "That love is still there, Jake. Tonight isn't about fixing anything. It's about reconnecting 
-                                            with that love. Practice BREATHE one more time. You've got this."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-3 mt-4">
-                            <p class="text-xs text-gray-300">
-                                <i class="fas fa-heart-rate text-[#E2B93B] mr-2"></i>
-                                <strong>Grounding complete:</strong> Heart rate decreased by 15 BPM
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Andy's Check-in -->
-                    <div class="moment-content timeline-character" data-character="andy">
-                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
-                            <span class="text-[#47B5A5] mr-3">Andy</span>
-                            <span class="text-sm font-normal text-gray-400">Last Minute Doubts</span>
-                        </h4>
-                        <div class="space-y-3">
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            <i class="fas fa-bell text-[#47B5A5] mr-2"></i>
-                                            "Andy, your meeting is in 2 hours. Quick check - what's your number?"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "25%... but maybe I should start at 20% and see what happens?"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "There's the avoidant pattern - pre-negotiating against yourself. What did your research show?"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Market rate is 120-150k. I'm at 100k. So 25% gets me to 125k - still below market."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Facts, not feelings. You're asking for BELOW market rate for someone with your impact. 
-                                            Time for another power pose. And Andy? No apologizing. Not once."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "No apologizing. State my worth. Hold the silence."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble marcus">
-                                <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Exactly. Your value isn't up for debate. It's a fact. Go claim it."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-3 mt-4">
-                            <p class="text-xs text-gray-300">
-                                <i class="fas fa-chart-line text-[#47B5A5] mr-2"></i>
-                                <strong>Final prep:</strong> WORTH script reviewed, power pose completed
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Adam's Midday Check-In -->
-                <div class="timeline-content hidden" data-character="adam">
-                    <div class="space-y-4">
-                        <div class="conversation-bubble marcus">
-                            <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
-                                </div>
-                                <div>
-                                    <p class="text-white text-base">
-                                        "Adam, how's the PURPOSE clarity exercise going? Found any patterns in what energizes you?"
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="conversation-bubble you">
-                            <div class="flex items-start gap-3 flex-row-reverse">
-                                <img src="colleague.jpeg" alt="Adam" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 flex-shrink-0">
-                                <div>
-                                    <p class="text-white text-base">
-                                        "I wrote for 10 minutes like you said. All my 'alive' moments involve mentoring junior team members."
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="conversation-bubble marcus">
-                            <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
-                                </div>
-                                <div>
-                                    <p class="text-white text-base">
-                                        "There it is. You're not just managing operations - you're developing people. What would happen if you made that 20% of your role?"
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="conversation-bubble you">
-                            <div class="flex items-start gap-3 flex-row-reverse">
-                                <img src="colleague.jpeg" alt="Adam" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 flex-shrink-0">
-                                <div>
-                                    <p class="text-white text-base">
-                                        "But I'm paid to optimize processes, not teach people..."
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="conversation-bubble marcus">
-                            <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-robot text-[#E2B93B] text-sm"></i>
-                                </div>
-                                <div>
-                                    <p class="text-white text-base">
-                                        "That's the trap talking. Purpose isn't about abandoning responsibility - it's about expanding it. 
-                                        Start small. One lunch mentoring session this week. Track how it affects your energy for the rest of the day."
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="purpose-tracker bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-4 mt-4">
-                            <p class="text-white text-sm mb-2">
-                                <i class="fas fa-compass text-[#E2B93B] mr-2"></i>
-                                <strong>Purpose Alignment Check:</strong>
-                            </p>
-                            <p class="text-gray-400 text-sm">
-                                Morning energy: 4/10 (spreadsheets and KPIs)<br>
-                                After mentoring discussion: 8/10 (felt like real impact)
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Jason's Midday Check-In -->
-                <div class="timeline-content hidden" data-character="jason">
-                    <div class="space-y-4">
-                        <div class="conversation-bubble marcus">
-                            <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
-                                </div>
-                                <div>
-                                    <p class="text-white text-base">
-                                        "Jason, quick check. How many 2-minute tasks have you knocked out today?"
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="conversation-bubble you">
-                            <div class="flex items-start gap-3 flex-row-reverse">
-                                <img src="wife.png" alt="Jason" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
-                                <div>
-                                    <p class="text-white text-base">
-                                        "Three emails, updated my CRM notes, called that lead back. Felt weird not overthinking it."
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="conversation-bubble marcus">
-                            <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
-                                </div>
-                                <div>
-                                    <p class="text-white text-base">
-                                        "That 'weird' feeling? That's your dopamine system recalibrating. You're training it to reward completion, not perfection."
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="conversation-bubble you">
-                            <div class="flex items-start gap-3 flex-row-reverse">
-                                <img src="wife.png" alt="Jason" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 flex-shrink-0">
-                                <div>
-                                    <p class="text-white text-base">
-                                        "I keep wanting to scroll Instagram instead of doing the next task though..."
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="conversation-bubble marcus">
-                            <div class="flex items-start gap-3">
-                                <div class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50 bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-robot text-[#47B5A5] text-sm"></i>
-                                </div>
-                                <div>
-                                    <p class="text-white text-base">
-                                        "Friction time. When you feel that urge, do 5 pushups first. If you still want to scroll after, go ahead. 
-                                        But that physical barrier will break the automatic pattern. Your brain hates effort more than it loves dopamine."
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="habit-tracker bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-4 mt-4">
-                            <p class="text-white text-sm mb-2">
-                                <i class="fas fa-tasks text-[#47B5A5] mr-2"></i>
-                                <strong>Momentum Building:</strong>
-                            </p>
-                            <div class="flex gap-2 text-xs">
-                                <span class="bg-[#47B5A5]/20 px-2 py-1 rounded">✓ Email client</span>
-                                <span class="bg-[#47B5A5]/20 px-2 py-1 rounded">✓ Update CRM</span>
-                                <span class="bg-[#47B5A5]/20 px-2 py-1 rounded">✓ Return call</span>
-                            </div>
-                            <p class="text-gray-400 text-xs mt-2">
-                                Procrastination cycles broken: 3 | Dopamine hits earned: 3
-                            </p>
-                        </div>
-                    </div>
+                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto midday-conversations">
+                    <!-- Midday conversations will be dynamically rendered here -->
                 </div>
             </div>
         </div>
@@ -2083,377 +1416,8 @@
             
             <div class="container mx-auto px-6">
                 <h3 class="text-3xl font-bold text-white text-center mb-12">Breakthrough Moments</h3>
-                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                    <!-- Jake's Date Night -->
-                    <div class="moment-content timeline-character" data-character="jake">
-                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
-                            <span class="text-[#E2B93B] mr-3">7:30 PM</span>
-                            <span class="text-sm font-normal text-gray-400">Jake's Vulnerability Practice</span>
-                        </h4>
-                        <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-4 mb-4">
-                            <p class="text-sm text-gray-300 mb-3">
-                                <i class="fas fa-brain text-[#E2B93B] mr-2"></i>
-                                <strong>Jake's using the BREATHE Protocol:</strong>
-                            </p>
-                            <ul class="text-sm text-gray-400 space-y-2 ml-6">
-                                <li><strong>Breathe</strong> - Take 3 deep belly breaths before speaking</li>
-                                <li><strong>Recognize</strong> - Name what you're feeling inside</li>
-                                <li><strong>Express</strong> - Use "I feel..." statements, stay vulnerable</li>
-                            </ul>
-                            <p class="text-xs text-gray-400 mt-2 ml-6 italic">
-                                Key: Don't rush. Hold eye contact. Let silence happen.
-                            </p>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="conversation-bubble boss">
-                                <div class="flex items-start gap-3">
-                                    <img src="wife.png" alt="Sarah" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "This is nice. First time we've been out in months."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Sarah, I need to share something. I feel scared we're losing each other."
-                                        </p>
-                                        <p class="text-xs text-gray-400 mt-1 italic">[3 deep breaths, maintaining eye contact]</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble boss">
-                                <div class="flex items-start gap-3">
-                                    <img src="wife.png" alt="Sarah" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Losing each other? Jake, I'm the one home all day with the baby while you—"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "I hear you're overwhelmed. I feel it too. I miss us - not just as parents, 
-                                            but as partners. I miss laughing with you, touching you without it being about the baby."
-                                        </p>
-                                        <p class="text-xs text-gray-400 mt-1 italic">[Staying present despite defensive response]</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble boss">
-                                <div class="flex items-start gap-3">
-                                    <img src="wife.png" alt="Sarah" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "When would we even have time for that? The baby needs—"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="jake.png" alt="Jake" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "What I need is for us to be a priority too. Even 10 minutes a day 
-                                            where we're Jake and Sarah, not just mom and dad. I'm scared if we don't 
-                                            fight for us now, we'll wake up as strangers."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-gray-300 mt-6 text-sm">
-                            Jake doesn't defend when Sarah pushes back. He uses Marcus's tools - breathing through the defensive moment, 
-                            staying vulnerable instead of retreating. His persistence in staying open breaks through. The conversation 
-                            shifts from blame to connection. By the end, they're holding hands across the table, really seeing each other 
-                            for the first time in months.
-                        </p>
-                    </div>
-
-                    <!-- Andy's Review -->
-                    <div class="moment-content timeline-character" data-character="andy">
-                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
-                            <span class="text-[#47B5A5] mr-3">2:00 PM</span>
-                            <span class="text-sm font-normal text-gray-400">Andy's Assertiveness Test</span>
-                        </h4>
-                        <div class="bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-4 mb-4">
-                            <p class="text-sm text-gray-300 mb-3">
-                                <i class="fas fa-brain text-[#47B5A5] mr-2"></i>
-                                <strong>Andy's executing the WORTH Framework:</strong>
-                            </p>
-                            <ul class="text-sm text-gray-400 space-y-2 ml-6">
-                                <li><strong>Win</strong> - Document your achievements with numbers</li>
-                                <li><strong>Own</strong> - State your value without apologizing</li>
-                                <li><strong>Repeat</strong> - Broken record if they push back</li>
-                            </ul>
-                            <p class="text-xs text-gray-400 mt-2 ml-6 italic">
-                                Key: Power pose first. No "sorry." Hold the silence.
-                            </p>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "I'd like to discuss my compensation. I've led our team to exceed targets by 300% this year."
-                                        </p>
-                                        <p class="text-xs text-gray-400 mt-1 italic">[Power pose residue - shoulders back, chest open]</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble boss">
-                                <div class="flex items-start gap-3">
-                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Andy, you know budgets are tight this year. Maybe we can revisit this next quarter?"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "I understand budgets. Let me share the value I've created: 300% target achievement, 
-                                            5 developers trained, deployment time reduced by 60%. That's $2M in additional revenue."
-                                        </p>
-                                        <p class="text-xs text-gray-400 mt-1 italic">[Not backing down, evidence stacking]</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble boss">
-                                <div class="flex items-start gap-3">
-                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Those are team achievements, Andy. You can't take all the credit—"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "You're right, it was a team effort. I led that team. Based on market rates 
-                                            for technical leads with my impact, I'm asking for a 25% increase."
-                                        </p>
-                                        <p class="text-xs text-gray-400 mt-1 italic">[Strategic pause - 5 seconds of silence]</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble boss">
-                                <div class="flex items-start gap-3">
-                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "25%? That's... Andy, be realistic. I could maybe do 10%—"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="andy.png" alt="Andy" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "I've done my research. Technical leads at my level are earning 20-30% more. 
-                                            I'm asking for the lower end of market rate. I believe 25% reflects my value."
-                                        </p>
-                                        <p class="text-xs text-gray-400 mt-1 italic">[Broken record - calmly restating]</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-gray-300 mt-6 text-sm">
-                            Andy's old self would have accepted the first "no." But Marcus's training kicks in. Every pushback, 
-                            he responds with calm facts. No apologies, no minimizing. His manager tries three different angles 
-                            to reduce the ask. Andy holds firm, using the broken record technique. The power pose wasn't just 
-                            physical - it rewired his sense of worth. The conversation ends at 22% with a 6-month review for the rest.
-                        </p>
-                    </div>
-
-                    <!-- Adam's Breakthrough Moment -->
-                    <div class="moment-content timeline-character" data-character="adam">
-                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
-                            <span class="text-[#E2B93B] mr-3">3:00 PM</span>
-                            <span class="text-sm font-normal text-gray-400">Adam's Purpose Pivot</span>
-                        </h4>
-                        <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-4 mb-4">
-                            <p class="text-sm text-gray-300 mb-3">
-                                <i class="fas fa-compass text-[#E2B93B] mr-2"></i>
-                                <strong>Adam's using the PURPOSE Protocol:</strong>
-                            </p>
-                            <ul class="text-sm text-gray-400 space-y-2 ml-6">
-                                <li><strong>Pause</strong> - Stop the autopilot. What am I really doing here?</li>
-                                <li><strong>Uncover</strong> - What lights me up? When do I lose track of time?</li>
-                                <li><strong>Reframe</strong> - How can I bring more of that into my current role?</li>
-                            </ul>
-                            <p class="text-xs text-gray-400 mt-2 ml-6 italic">
-                                Key: Purpose isn't found, it's built daily through aligned actions.
-                            </p>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="conversation-bubble boss">
-                                <div class="flex items-start gap-3">
-                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Adam, can you join the new hire onboarding? I know it's not your job but—"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="colleague.jpeg" alt="Adam" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Actually, I'd love to. I've been thinking about proposing a mentorship program. 
-                                            Could we discuss making development part of my official responsibilities?"
-                                        </p>
-                                        <p class="text-xs text-gray-400 mt-1 italic">[Turning obligation into opportunity]</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble boss">
-                                <div class="flex items-start gap-3">
-                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "A mentorship program? That's... actually not a bad idea. But who would run it?"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="colleague.jpeg" alt="Adam" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "I would. I've already sketched out a framework. It would improve retention, 
-                                            speed up onboarding, and honestly - it's where I feel most valuable."
-                                        </p>
-                                        <p class="text-xs text-gray-400 mt-1 italic">[Speaking truth about what matters]</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble boss">
-                                <div class="flex items-start gap-3">
-                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "You've thought this through. Send me the proposal. If it's solid, we'll pilot it next quarter."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-gray-300 mt-6 text-sm">
-                            Adam spent years climbing the "success" ladder only to realize it was leaning against the wrong wall. 
-                            But Marcus helped him see: you don't need to burn it all down. Sometimes purpose is about 
-                            reshaping your current role to align with who you're becoming. By speaking up about what truly 
-                            energized him, Adam created a new path within his existing career.
-                        </p>
-                    </div>
-
-                    <!-- Jason's Breakthrough Moment -->
-                    <div class="moment-content timeline-character" data-character="jason">
-                        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
-                            <span class="text-[#47B5A5] mr-3">4:30 PM</span>
-                            <span class="text-sm font-normal text-gray-400">Jason's Consistency Breakthrough</span>
-                        </h4>
-                        <div class="bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-4 mb-4">
-                            <p class="text-sm text-gray-300 mb-3">
-                                <i class="fas fa-bolt text-[#47B5A5] mr-2"></i>
-                                <strong>Jason's Momentum Stack:</strong>
-                            </p>
-                            <ul class="text-sm text-gray-400 space-y-2 ml-6">
-                                <li><strong>2-Minute Rule</strong> - If it takes less than 2 minutes, do it NOW</li>
-                                <li><strong>Friction Barriers</strong> - Make bad habits harder than good ones</li>
-                                <li><strong>Progress Tracking</strong> - Visual proof beats mental gymnastics</li>
-                            </ul>
-                            <p class="text-xs text-gray-400 mt-2 ml-6 italic">
-                                Key: Consistency isn't perfection. It's showing up more than you don't.
-                            </p>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="conversation-bubble boss">
-                                <div class="flex items-start gap-3">
-                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Jason, your numbers this week... what happened? You're up 40%."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="wife.png" alt="Jason" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "I stopped overthinking. Started doing all the small stuff immediately. 
-                                            Turns out half my 'big projects' were just 2-minute tasks I was avoiding."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble boss">
-                                <div class="flex items-start gap-3">
-                                    <img src="colleauge.jpeg" alt="Manager" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "This is the Jason I hired. What changed?"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="wife.png" alt="Jason" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "I put my phone in a drawer. Set up friction between me and distractions. 
-                                            And I track everything - seeing those green checkmarks is addictive."
-                                        </p>
-                                        <p class="text-xs text-gray-400 mt-1 italic">[Building systems, not relying on willpower]</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="conversation-bubble you">
-                                <div class="flex items-start gap-3 flex-row-reverse">
-                                    <img src="wife.png" alt="Jason" class="w-10 h-10 rounded-full border-2 border-[#47B5A5]/50">
-                                    <div>
-                                        <p class="text-white text-base">
-                                            "Also did 35 pushups today. Every time I wanted to scroll, I did 5 instead. 
-                                            My chest is sore but my pipeline is full."
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-gray-300 mt-6 text-sm">
-                            Jason's breakthrough wasn't dramatic - it was systematic. By breaking the dopamine loop of 
-                            endless scrolling and replacing it with immediate action, he discovered something profound: 
-                            momentum is a choice you make every 2 minutes. His manager noticed. His commission check 
-                            will too. But more importantly, Jason proved to himself that consistency isn't a personality trait - 
-                            it's a skill you build one small win at a time.
-                        </p>
-                    </div>
+                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto moment-conversations">
+                    <!-- Moment conversations will be dynamically rendered here -->
                 </div>
             </div>
         </div>
@@ -2465,86 +1429,8 @@
             
             <div class="container mx-auto px-6">
                 <h3 class="text-3xl font-bold text-white text-center mb-12">Integration & Growth</h3>
-                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                    <!-- Jake's Evening -->
-                    <div class="moment-content timeline-character" data-character="jake">
-                        <h4 class="text-xl font-bold text-white mb-4">
-                            <span class="text-[#E2B93B]">Jake's Breakthrough</span>
-                        </h4>
-                        <p class="text-gray-300 mb-4">
-                            For the first time in months, Jake feels connected to Sarah. 
-                            His vulnerability opened a door they both needed.
-                        </p>
-                        <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-4">
-                            <p class="text-white text-sm">
-                                <i class="fas fa-check-circle text-[#E2B93B] mr-2"></i>
-                                Weekly goal achieved: "Share one fear with Sarah"
-                            </p>
-                            <p class="text-gray-400 text-xs mt-2">
-                                Tomorrow's practice will build on tonight's connection
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Andy's Evening -->
-                    <div class="moment-content timeline-character" data-character="andy">
-                        <h4 class="text-xl font-bold text-white mb-4">
-                            <span class="text-[#47B5A5]">Andy's Assertiveness Win</span>
-                        </h4>
-                        <p class="text-gray-300 mb-4">
-                            Andy learned that claiming space isn't aggressive - it's necessary. 
-                            His worth isn't determined by others' recognition, but by his courage to ask.
-                        </p>
-                        <div class="bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-4">
-                            <p class="text-white text-sm">
-                                <i class="fas fa-check-circle text-[#47B5A5] mr-2"></i>
-                                Weekly goal achieved: "Ask for the raise I deserve"
-                            </p>
-                            <p class="text-gray-400 text-xs mt-2">
-                                Tomorrow's practice will build on this newfound assertiveness
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Adam's Evening -->
-                    <div class="moment-content timeline-character" data-character="adam">
-                        <h4 class="text-xl font-bold text-white mb-4">
-                            <span class="text-[#E2B93B]">Adam's Purpose Alignment</span>
-                        </h4>
-                        <p class="text-gray-300 mb-4">
-                            For the first time in years, Adam went home energized. Not from hitting KPIs, 
-                            but from creating a path where success and meaning intersect.
-                        </p>
-                        <div class="bg-[#E2B93B]/10 border border-[#E2B93B]/30 rounded-lg p-4">
-                            <p class="text-white text-sm">
-                                <i class="fas fa-check-circle text-[#E2B93B] mr-2"></i>
-                                Weekly goal achieved: "Find one way to align work with purpose"
-                            </p>
-                            <p class="text-gray-400 text-xs mt-2">
-                                Tomorrow: Draft the mentorship program proposal (with excitement, not obligation)
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Jason's Evening -->
-                    <div class="moment-content timeline-character" data-character="jason">
-                        <h4 class="text-xl font-bold text-white mb-4">
-                            <span class="text-[#47B5A5]">Jason's Momentum Victory</span>
-                        </h4>
-                        <p class="text-gray-300 mb-4">
-                            Jason closed his laptop with 17 completed tasks. A month ago, he'd have 17 open tabs. 
-                            The difference? He stopped negotiating with himself and started executing.
-                        </p>
-                        <div class="bg-[#47B5A5]/10 border border-[#47B5A5]/30 rounded-lg p-4">
-                            <p class="text-white text-sm">
-                                <i class="fas fa-check-circle text-[#47B5A5] mr-2"></i>
-                                Weekly goal achieved: "Complete 5 tasks daily using 2-minute rule"
-                            </p>
-                            <p class="text-gray-400 text-xs mt-2">
-                                Tomorrow: Same system, bigger momentum (and maybe fewer pushups)
-                            </p>
-                        </div>
-                    </div>
+                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto evening-conversations">
+                    <!-- Evening conversations will be dynamically rendered here -->
                 </div>
 
                 <!-- Closing Message -->
@@ -2926,7 +1812,7 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center space-x-3 mb-4 md:mb-0">
-                    <img src="logo.svg" alt="The Lifetime Project" class="w-10 h-10">
+                    <img src="assets/images/logo.svg" alt="The Lifetime Project" class="w-10 h-10">
                     <span class="text-gray-900 font-semibold">The Lifetime Project</span>
                 </div>
                 
@@ -2945,12 +1831,620 @@
 
     <!-- Simple JavaScript for interactions -->
     <script>
-        // Character selection for mobile
+        // Track active characters
+        let activeCharacters = [];
+        
+        // Character data as JSON
+        const charactersData = {
+            jake: {
+                name: "Jake",
+                age: 34,
+                role: "Marketing Director",
+                tagline: "New Dad",
+                image: "assets/images/jake.png",
+                goal: "Reconnecting with his wife after baby",
+                color: "#E2B93B",
+                borderColor: "#E2B93B",
+                protocol: {
+                    name: "BREATHE Protocol",
+                    icon: "fa-lungs",
+                    steps: [
+                        "Breathe - Take 3 deep belly breaths before speaking",
+                        "Recognize - Name what you're feeling inside",
+                        "Express - Use 'I feel...' statements, stay vulnerable"
+                    ],
+                    tip: "Don't rush. Hold eye contact. Let silence happen."
+                },
+                conversations: {
+                    morning: [
+                        { type: "marcus", text: "Morning Jake. Sarah mentioned you two haven't connected much lately. What's really going on?" },
+                        { type: "you", text: "I don't know how to be vulnerable with her anymore. I just talk about logistics - diapers, feeding schedules." },
+                        { type: "marcus", text: "You're word-vomiting to avoid feeling. Try this: The BREATHE protocol. Your anxious attachment is making you chase connection by over-talking." },
+                        { type: "you", text: "I always do that. I just word-vomit when I'm nervous. What's BREATHE?" },
+                        { type: "marcus", text: "It's your emergency brake. B-R-E-A-T-H-E: Belly breath 3 times, Recognize the emotion, Express using 'I feel', Allow silence, Take your time, Hold eye contact, Exit if overwhelmed. Practice on me. What are you feeling right now?" }
+                    ],
+                    midday: [
+                        { type: "marcus", text: "How's the vulnerability practice going? Used BREATHE yet?" },
+                        { type: "you", text: "Tried at breakfast. Started explaining why I was late getting home, caught myself mid-ramble." },
+                        { type: "marcus", text: "Good catch. What happened when you stopped?" },
+                        { type: "you", text: "Silence. Terrifying silence. Then Sarah said 'I just miss you.' I almost cried." },
+                        { type: "marcus", text: "That's the doorway. Your over-explaining blocks intimacy. Tonight's date night - can you share one real fear?" }
+                    ],
+                    moment: {
+                        time: "7:30 PM",
+                        title: "Jake's Vulnerability Practice",
+                        dialogue: [
+                            { type: "boss", name: "Sarah", text: "This is nice. First time we've been out in months." },
+                            { type: "you", text: "Sarah, I need to share something. I feel scared we're losing each other.", note: "[3 deep breaths, maintaining eye contact]" },
+                            { type: "boss", name: "Sarah", text: "Losing each other? Jake, I'm the one home all day with the baby while you—" },
+                            { type: "you", text: "I hear you're overwhelmed. I feel it too. I miss us - not just as parents, but as partners. I miss laughing with you, touching you without it being about the baby.", note: "[Staying present despite defensive response]" },
+                            { type: "boss", name: "Sarah", text: "When would we even have time for that? The baby needs—" },
+                            { type: "you", text: "What I need is for us to be a priority too. Even 10 minutes a day where we're Jake and Sarah, not just mom and dad. I'm scared if we don't fight for us now, we'll wake up as strangers." }
+                        ],
+                        outcome: "The conversation continues for another hour. Real tears. Real connection. They agree: 10 minutes every evening, phones down, just them. Sarah reaches across the table, takes his hand. 'I miss you too.' The BREATHE protocol didn't just help Jake speak - it helped him listen. For the first time in months, they both feel seen."
+                    }
+                },
+                evening: {
+                    breakthrough: "For the first time in months, Jake feels connected to Sarah. His vulnerability opened a door they both needed.",
+                    achievement: "Share one fear with Sarah",
+                    nextStep: "Tomorrow's practice will build on tonight's connection"
+                }
+            },
+            andy: {
+                name: "Andy", 
+                age: 38,
+                role: "Tech Lead",
+                tagline: "Tech Lead",
+                image: "assets/images/andy.png",
+                goal: "Asking for the raise he deserves",
+                color: "#47B5A5",
+                borderColor: "#47B5A5",
+                protocol: {
+                    name: "WORTH Framework",
+                    icon: "fa-chart-line",
+                    steps: [
+                        "Write your achievements (data, not feelings)",
+                        "Own your impact (specific business outcomes)",
+                        "Request with confidence (no minimizing)",
+                        "Take up space (power pose before)",
+                        "Hold the silence (after stating your number)"
+                    ],
+                    tip: "Your avoidant attachment makes you minimize achievements. Fight it with facts."
+                },
+                conversations: {
+                    morning: [
+                        { type: "marcus", text: "Andy, you've been putting off this raise conversation for two years. What's the real fear?" },
+                        { type: "you", text: "They already pay me well. Maybe I should wait until next quarter when—" },
+                        { type: "marcus", text: "There it is. The avoidant pattern. You're negotiating against yourself before you even start. What did you actually deliver this year?" },
+                        { type: "you", text: "I mean, I rebuilt the payment system. Reduced processing time by 70%. But the whole team—" },
+                        { type: "marcus", text: "Stop. You led that project. You saved them $2M annually. Time to claim your space. I want you to do something that'll feel weird: Stand up, take a power pose for 2 minutes. Yes, now." }
+                    ],
+                    midday: [
+                        { type: "marcus", text: "Meeting's in an hour. How are you feeling after the power pose practice?" },
+                        { type: "you", text: "Ridiculous. But also... different? I keep wanting to lower my ask from 25% to 15%." },
+                        { type: "marcus", text: "There's the avoidant pattern - pre-negotiating against yourself. What did your research show?" },
+                        { type: "you", text: "Market rate is 120-150k. I'm at 100k. So 25% gets me to 125k - still below market." },
+                        { type: "marcus", text: "Facts, not feelings. You're asking for BELOW market rate for someone with your impact. Time for another power pose. And Andy? No apologizing. Not once." }
+                    ],
+                    moment: {
+                        time: "2:00 PM",
+                        title: "Andy's Salary Negotiation",
+                        dialogue: [
+                            { type: "boss", name: "Manager", text: "So Andy, you wanted to discuss compensation?" },
+                            { type: "you", text: "Yes. I've been looking at my contributions this year. The payment system rebuild alone saved the company $2M annually. I'm requesting a 25% increase.", note: "[No apologies, stating facts]" },
+                            { type: "boss", name: "Manager", text: "25%? That's... significant. The payment system was a team effort—" },
+                            { type: "you", text: "You're right, it was a team effort. I led that team. Based on market rates for technical leads with my impact, I'm asking for a 25% increase.", note: "[Strategic pause - 5 seconds of silence]" },
+                            { type: "boss", name: "Manager", text: "25%? That's... Andy, be realistic. I could maybe do 10%—" },
+                            { type: "you", text: "I've done my research. Technical leads at my level are earning 20-30% more. I'm asking for the lower end of market rate. I believe 25% reflects my value.", note: "[Broken record - calmly restating]" }
+                        ],
+                        outcome: "Andy's old self would have accepted the first 'no.' But Marcus's training kicks in. Every pushback, he responds with calm facts. No apologies, no minimizing. His manager tries three different angles to reduce the ask. Andy holds firm, using the broken record technique. The power pose wasn't just physical - it rewired his sense of worth. The conversation ends at 22% with a 6-month review for the rest."
+                    }
+                },
+                evening: {
+                    breakthrough: "Andy learned that claiming space isn't aggressive - it's necessary. His worth isn't determined by others' recognition, but by his courage to ask.",
+                    achievement: "Ask for the raise I deserve",
+                    nextStep: "Tomorrow's practice will build on this newfound assertiveness"
+                }
+            },
+            adam: {
+                name: "Adam",
+                age: 31,
+                role: "Operations Manager",
+                tagline: "Searching",
+                image: "assets/images/adam.png",
+                goal: "Finding his true purpose beyond the paycheck",
+                color: "#E2B93B",
+                borderColor: "#E2B93B",
+                protocol: {
+                    name: "PURPOSE Protocol",
+                    icon: "fa-compass",
+                    steps: [
+                        "Pause - Stop the autopilot. What am I really doing here?",
+                        "Uncover - What lights me up? When do I lose track of time?",
+                        "Reframe - How can I bring more of that into my current role?"
+                    ],
+                    tip: "Purpose isn't found, it's built daily through aligned actions."
+                },
+                conversations: {
+                    morning: [
+                        { type: "marcus", text: "Adam, you've hit every career milestone by 31. Six figures, nice car, respect. So why do you feel empty?" },
+                        { type: "you", text: "I don't know. I should be happy. I have everything I'm supposed to want." },
+                        { type: "marcus", text: "'Supposed to want' - there's your prison. You're living someone else's definition of success. When was the last time you felt truly alive at work?" },
+                        { type: "you", text: "Honestly? When I was training the new hires last month. Time just flew." },
+                        { type: "marcus", text: "That's data. You light up when developing others. Let's try the PURPOSE protocol. This morning, journal for 10 minutes: 'When I feel most alive...'. No editing, just write." }
+                    ],
+                    midday: [
+                        { type: "marcus", text: "Adam, how's the PURPOSE clarity exercise going? Found any patterns in what energizes you?" },
+                        { type: "you", text: "I wrote for 10 minutes like you said. All my 'alive' moments involve mentoring junior team members." },
+                        { type: "marcus", text: "There it is. You're not just managing operations - you're developing people. What would happen if you made that 20% of your role?" },
+                        { type: "you", text: "But I'm paid to optimize processes, not teach people..." },
+                        { type: "marcus", text: "That's the trap talking. Purpose isn't about abandoning responsibility - it's about expanding it. Start small. One lunch mentoring session this week. Track how it affects your energy for the rest of the day." }
+                    ],
+                    moment: {
+                        time: "3:00 PM",
+                        title: "Adam's Purpose Pivot",
+                        dialogue: [
+                            { type: "boss", name: "Manager", text: "Adam, can you join the new hire onboarding? I know it's not your job but—" },
+                            { type: "you", text: "Actually, I'd love to. I've been thinking about proposing a mentorship program. Could we discuss making development part of my official responsibilities?", note: "[Turning obligation into opportunity]" },
+                            { type: "boss", name: "Manager", text: "A mentorship program? That's... actually not a bad idea. But who would run it?" },
+                            { type: "you", text: "I would. I've already sketched out a framework. It would improve retention, speed up onboarding, and honestly - it's where I feel most valuable.", note: "[Speaking truth about what matters]" },
+                            { type: "boss", name: "Manager", text: "You've thought this through. Send me the proposal. If it's solid, we'll pilot it next quarter." }
+                        ],
+                        outcome: "Adam spent years climbing the 'success' ladder only to realize it was leaning against the wrong wall. But Marcus helped him see: you don't need to burn it all down. Sometimes purpose is about reshaping your current role to align with who you're becoming. By speaking up about what truly energized him, Adam created a new path within his existing career."
+                    }
+                },
+                evening: {
+                    breakthrough: "For the first time in years, Adam went home energized. Not from hitting KPIs, but from creating a path where success and meaning intersect.",
+                    achievement: "Find one way to align work with purpose",
+                    nextStep: "Tomorrow: Draft the mentorship program proposal (with excitement, not obligation)"
+                }
+            },
+            jason: {
+                name: "Jason",
+                age: 29,
+                role: "Sales Associate", 
+                tagline: "Stuck",
+                image: "assets/images/jason.png",
+                goal: "Breaking through procrastination and staying consistent",
+                color: "#47B5A5",
+                borderColor: "#47B5A5",
+                protocol: {
+                    name: "Momentum Stack",
+                    icon: "fa-bolt",
+                    steps: [
+                        "2-Minute Rule - If it takes less than 2 minutes, do it NOW",
+                        "Friction Barriers - Make bad habits harder than good ones",
+                        "Progress Tracking - Visual proof beats mental gymnastics"
+                    ],
+                    tip: "Consistency isn't perfection. It's showing up more than you don't."
+                },
+                conversations: {
+                    morning: [
+                        { type: "marcus", text: "Jason, your potential is being hijacked by your dopamine system. How many tabs do you have open right now?" },
+                        { type: "you", text: "...47. But I need them all for—" },
+                        { type: "marcus", text: "No, you need the dopamine hit from switching between them. Your brain is addicted to the search, not the find. Close 45 of them. Now." },
+                        { type: "you", text: "Done. That was harder than it should've been." },
+                        { type: "marcus", text: "That resistance? That's your brain fighting for its drug. Today we break the cycle. First tool: The 2-minute rule. If a task takes less than 2 minutes, you do it immediately. No list, no planning, just execution." }
+                    ],
+                    midday: [
+                        { type: "marcus", text: "Jason, quick check. How many 2-minute tasks have you knocked out today?" },
+                        { type: "you", text: "Three emails, updated my CRM notes, called that lead back. Felt weird not overthinking it." },
+                        { type: "marcus", text: "That 'weird' feeling? That's your dopamine system recalibrating. You're training it to reward completion, not perfection." },
+                        { type: "you", text: "I keep wanting to scroll Instagram instead of doing the next task though..." },
+                        { type: "marcus", text: "Friction time. When you feel that urge, do 5 pushups first. If you still want to scroll after, go ahead. But that physical barrier will break the automatic pattern. Your brain hates effort more than it loves dopamine." }
+                    ],
+                    moment: {
+                        time: "4:30 PM",
+                        title: "Jason's Consistency Breakthrough",
+                        dialogue: [
+                            { type: "boss", name: "Manager", text: "Jason, your numbers this week... what happened? You're up 40%." },
+                            { type: "you", text: "I stopped overthinking. Started doing all the small stuff immediately. Turns out half my 'big projects' were just 2-minute tasks I was avoiding." },
+                            { type: "boss", name: "Manager", text: "This is the Jason I hired. What changed?" },
+                            { type: "you", text: "I put my phone in a drawer. Set up friction between me and distractions. And I track everything - seeing those green checkmarks is addictive.", note: "[Building systems, not relying on willpower]" },
+                            { type: "you", text: "Also did 35 pushups today. Every time I wanted to scroll, I did 5 instead. My chest is sore but my pipeline is full." }
+                        ],
+                        outcome: "Jason's breakthrough wasn't dramatic - it was systematic. By breaking the dopamine loop of endless scrolling and replacing it with immediate action, he discovered something profound: momentum is a choice you make every 2 minutes. His manager noticed. His commission check will too. But more importantly, Jason proved to himself that consistency isn't a personality trait - it's a skill you build one small win at a time."
+                    }
+                },
+                evening: {
+                    breakthrough: "Jason closed his laptop with 17 completed tasks. A month ago, he'd have 17 open tabs. The difference? He stopped negotiating with himself and started executing.",
+                    achievement: "Complete 5 tasks daily using 2-minute rule",
+                    nextStep: "Tomorrow: Same system, bigger momentum (and maybe fewer pushups)"
+                }
+            }
+        };
+
+        // Helper function to add or update a character
+        function addOrUpdateCharacter(key, characterData) {
+            charactersData[key] = characterData;
+            // Re-initialize the interface if already loaded
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                initializeCharacterSelection();
+            }
+        }
+
+        // Helper function to remove a character
+        function removeCharacter(key) {
+            delete charactersData[key];
+            // Re-initialize the interface if already loaded
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                initializeCharacterSelection();
+            }
+        }
+
+        // Helper function to get character data
+        function getCharacter(key) {
+            return charactersData[key] || null;
+        }
+        
+        // Get currently active characters based on screen size and selection
+        function getActiveCharacters() {
+            // Simply return the activeCharacters array
+            return activeCharacters;
+        }
+
+        // Function to render a conversation bubble
+        function renderConversationBubble(message, character, bossImage = "assets/images/colleauge.jpeg") {
+            const characterData = charactersData[character];
+            if (!characterData) return '';
+            
+            if (message.type === 'marcus') {
+                return `
+                    <div class="conversation-bubble marcus">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#E2B93B]/20 to-[#47B5A5]/20 flex items-center justify-center flex-shrink-0" style="border: 2px solid ${characterData.borderColor}50;">
+                                <i class="fas fa-robot text-sm" style="color: ${characterData.color};"></i>
+                            </div>
+                            <div>
+                                <p class="text-white text-base">${message.text}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (message.type === 'you') {
+                return `
+                    <div class="conversation-bubble you">
+                        <div class="flex items-start gap-3 flex-row-reverse">
+                            <img src="${characterData.image}" alt="${characterData.name}" class="w-10 h-10 rounded-full flex-shrink-0" style="border: 2px solid ${characterData.borderColor}50;">
+                            <div>
+                                <p class="text-white text-base">${message.text}</p>
+                                ${message.note ? `<p class="text-xs text-gray-400 mt-1 italic">${message.note}</p>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (message.type === 'boss') {
+                // For boss messages, we need to determine the correct image based on the character
+                let image = 'assets/images/colleauge.jpeg';
+                if (character === 'jake' && message.name === 'Sarah') {
+                    image = 'assets/images/wife.png';
+                } else if (character === 'andy' || character === 'adam') {
+                    image = 'assets/images/colleauge.jpeg';
+                } else if (character === 'jason') {
+                    image = 'assets/images/colleauge.jpeg';
+                }
+                
+                return `
+                    <div class="conversation-bubble boss">
+                        <div class="flex items-start gap-3">
+                            <img src="${image}" alt="${message.name || 'Manager'}" class="w-10 h-10 rounded-full border-2 border-[#E2B93B]/50">
+                            <div>
+                                <p class="text-white text-base">${message.text}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            return '';
+        }
+
+        // Function to render morning conversations
+        function renderMorningConversations() {
+            const container = document.querySelector('.morning-conversations');
+            if (!container) {
+                console.log('Morning conversations container not found');
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            const active = getActiveCharacters();
+            console.log('Active characters for morning:', active, 'activeCharacters global:', activeCharacters);
+            if (active.length === 0) {
+                console.log('No active characters, skipping morning render');
+                return;
+            }
+            
+            active.forEach(key => {
+                const character = charactersData[key];
+                if (!character) return;
+                const morningDiv = document.createElement('div');
+                morningDiv.className = 'moment-content timeline-character';
+                morningDiv.setAttribute('data-character', key);
+                
+                let conversationHTML = character.conversations.morning.map(msg => 
+                    renderConversationBubble(msg, key)
+                ).join('');
+                
+                morningDiv.innerHTML = `
+                    <h4 class="text-xl font-bold text-white mb-4 flex items-center">
+                        <span class="mr-3" style="color: ${character.color};">${character.name}</span>
+                        <span class="text-sm font-normal text-gray-400">Learning the ${character.protocol.name}</span>
+                    </h4>
+                    <div class="space-y-3">
+                        ${conversationHTML}
+                    </div>
+                    <div class="mt-6 rounded-lg p-4" style="background-color: ${character.color}1A; border: 1px solid ${character.color}4D;">
+                        <p class="font-semibold text-sm mb-2" style="color: ${character.color};">
+                            <i class="fas ${character.protocol.icon} mr-2"></i>${character.protocol.name}
+                        </p>
+                        <ul class="text-gray-300 text-sm space-y-1">
+                            ${character.protocol.steps.map(step => `<li>• ${step}</li>`).join('')}
+                        </ul>
+                        ${character.protocol.tip ? `<p class="text-xs text-gray-400 mt-2 italic">${character.protocol.tip}</p>` : ''}
+                    </div>
+                `;
+                
+                container.appendChild(morningDiv);
+            });
+        }
+
+        // Function to render midday conversations
+        function renderMiddayConversations() {
+            const container = document.querySelector('.midday-conversations');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            const active = getActiveCharacters();
+            if (active.length === 0) return;
+            
+            active.forEach(key => {
+                const character = charactersData[key];
+                if (!character) return;
+                const middayDiv = document.createElement('div');
+                middayDiv.className = 'timeline-content timeline-character';
+                middayDiv.setAttribute('data-character', key);
+                
+                let conversationHTML = character.conversations.midday.map(msg => 
+                    renderConversationBubble(msg, key)
+                ).join('');
+                
+                middayDiv.innerHTML = `
+                    <div class="space-y-4">
+                        ${conversationHTML}
+                        ${renderProgressTracker(character, key)}
+                    </div>
+                `;
+                
+                container.appendChild(middayDiv);
+            });
+        }
+
+        // Function to render moment conversations
+        function renderMomentConversations() {
+            const container = document.querySelector('.moment-conversations');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            const active = getActiveCharacters();
+            if (active.length === 0) return;
+            
+            active.forEach(key => {
+                const character = charactersData[key];
+                if (!character) return;
+                const moment = character.conversations.moment;
+                const momentDiv = document.createElement('div');
+                momentDiv.className = 'moment-content timeline-character';
+                momentDiv.setAttribute('data-character', key);
+                
+                let dialogueHTML = moment.dialogue.map(msg => 
+                    renderConversationBubble(msg, key)
+                ).join('');
+                
+                momentDiv.innerHTML = `
+                    <h4 class="text-xl font-bold text-white mb-4 flex items-center">
+                        <span class="text-[${character.color}] mr-3">${moment.time}</span>
+                        <span class="text-sm font-normal text-gray-400">${moment.title}</span>
+                    </h4>
+                    <div class="bg-[${character.color}]/10 border border-[${character.color}]/30 rounded-lg p-4 mb-4">
+                        <p class="text-sm text-gray-300 mb-3">
+                            <i class="fas ${character.protocol.icon} text-[${character.color}] mr-2"></i>
+                            <strong>${character.name}'s using the ${character.protocol.name}:</strong>
+                        </p>
+                        <ul class="text-sm text-gray-400 space-y-2 ml-6">
+                            ${character.protocol.steps.map(step => `<li>${step}</li>`).join('')}
+                        </ul>
+                        <p class="text-xs text-gray-400 mt-2 ml-6 italic">
+                            Key: ${character.protocol.tip}
+                        </p>
+                    </div>
+                    <div class="space-y-3">
+                        ${dialogueHTML}
+                    </div>
+                    <p class="text-gray-300 mt-6 text-sm">
+                        ${moment.outcome}
+                    </p>
+                `;
+                
+                container.appendChild(momentDiv);
+            });
+        }
+
+        // Function to render evening conversations
+        function renderEveningConversations() {
+            const container = document.querySelector('.evening-conversations');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            const active = getActiveCharacters();
+            if (active.length === 0) return;
+            
+            active.forEach(key => {
+                const character = charactersData[key];
+                if (!character) return;
+                const evening = character.evening;
+                const eveningDiv = document.createElement('div');
+                eveningDiv.className = 'moment-content timeline-character';
+                eveningDiv.setAttribute('data-character', key);
+                
+                eveningDiv.innerHTML = `
+                    <h4 class="text-xl font-bold text-white mb-4">
+                        <span class="text-[${character.color}]">${character.name}'s ${key === 'jake' ? 'Breakthrough' : key === 'andy' ? 'Assertiveness Win' : key === 'adam' ? 'Purpose Alignment' : 'Momentum Victory'}</span>
+                    </h4>
+                    <p class="text-gray-300 mb-4">
+                        ${evening.breakthrough}
+                    </p>
+                    <div class="bg-[${character.color}]/10 border border-[${character.color}]/30 rounded-lg p-4">
+                        <p class="text-white text-sm">
+                            <i class="fas fa-check-circle text-[${character.color}] mr-2"></i>
+                            Weekly goal achieved: "${evening.achievement}"
+                        </p>
+                        <p class="text-gray-400 text-xs mt-2">
+                            ${evening.nextStep}
+                        </p>
+                    </div>
+                `;
+                
+                container.appendChild(eveningDiv);
+            });
+        }
+
+        // Helper function to render progress trackers
+        function renderProgressTracker(character, key) {
+            if (key === 'jake') {
+                return `
+                    <div class="rounded-lg p-4 mt-4" style="background-color: ${character.color}1A; border: 1px solid ${character.color}4D;">
+                        <p class="text-white text-sm mb-2">
+                            <i class="fas fa-heart mr-2" style="color: ${character.color};"></i>
+                            <strong>Tonight's goal:</strong> Share one real fear with Sarah
+                        </p>
+                        <p class="text-gray-400 text-xs">Progress: Vulnerability muscles warming up</p>
+                    </div>
+                `;
+            } else if (key === 'andy') {
+                return `
+                    <div class="info-box rounded-lg p-4 mt-4" style="background-color: ${character.color}1A; border: 1px solid ${character.color}4D;">
+                        <p class="text-white text-sm">
+                            <i class="fas fa-chart-line mr-2" style="color: ${character.color};"></i>
+                            <strong>Final prep:</strong> WORTH script reviewed, power pose completed
+                        </p>
+                    </div>
+                `;
+            } else if (key === 'adam') {
+                return `
+                    <div class="purpose-tracker rounded-lg p-4 mt-4" style="background-color: ${character.color}1A; border: 1px solid ${character.color}4D;">
+                        <p class="text-white text-sm mb-2">
+                            <i class="fas fa-compass mr-2" style="color: ${character.color};"></i>
+                            <strong>Purpose Alignment Check:</strong>
+                        </p>
+                        <p class="text-gray-400 text-sm">
+                            Morning energy: 4/10 (spreadsheets and KPIs)<br>
+                            After mentoring discussion: 8/10 (felt like real impact)
+                        </p>
+                    </div>
+                `;
+            } else if (key === 'jason') {
+                return `
+                    <div class="habit-tracker rounded-lg p-4 mt-4" style="background-color: ${character.color}1A; border: 1px solid ${character.color}4D;">
+                        <p class="text-white text-sm mb-2">
+                            <i class="fas fa-tasks mr-2" style="color: ${character.color};"></i>
+                            <strong>Momentum Building:</strong>
+                        </p>
+                        <div class="flex gap-2 text-xs">
+                            <span class="px-2 py-1 rounded" style="background-color: ${character.color}33;">✓ Email client</span>
+                            <span class="px-2 py-1 rounded" style="background-color: ${character.color}33;">✓ Update CRM</span>
+                            <span class="px-2 py-1 rounded" style="background-color: ${character.color}33;">✓ Return call</span>
+                        </div>
+                        <p class="text-gray-400 text-xs mt-2">
+                            Procrastination cycles broken: 3 | Dopamine hits earned: 3
+                        </p>
+                    </div>
+                `;
+            }
+            return '';
+        }
+
+        // Initialize character selection interface
+        function initializeCharacterSelection() {
+            // Generate character selection buttons
+            const characterCarousel = document.querySelector('.character-carousel');
+            if (characterCarousel) {
+                characterCarousel.innerHTML = '';
+                
+                Object.entries(charactersData).forEach(([key, character]) => {
+                    const button = document.createElement('button');
+                    button.className = 'character-select-btn flex-shrink-0';
+                    button.setAttribute('data-character', key);
+                    button.style.cssText = 'pointer-events: auto; z-index: 20004 !important; position: relative; isolation: isolate;';
+                    button.onclick = () => selectCharacter(key);
+                    
+                    button.innerHTML = `
+                        <img src="${character.image}" alt="${character.name}" class="w-20 h-20 rounded-full border-3 border-white/20 object-cover" style="pointer-events: none;">
+                        <span style="pointer-events: none;">${character.name}</span>
+                        <span class="text-xs text-gray-300 mt-1" style="pointer-events: none;">${character.tagline}</span>
+                    `;
+                    
+                    characterCarousel.appendChild(button);
+                });
+            }
+
+            // Generate character intro cards
+            const introGrid = document.querySelector('.character-intro-grid');
+            if (introGrid) {
+                introGrid.innerHTML = '';
+                
+                // For desktop with active characters, only show those
+                // For mobile or initial load, show all characters
+                let charsToRender;
+                if (window.innerWidth > 768 && activeCharacters.length > 0) {
+                    charsToRender = activeCharacters;
+                } else if (window.innerWidth <= 768) {
+                    // On mobile, show all character cards initially
+                    charsToRender = Object.keys(charactersData);
+                } else {
+                    // Desktop initial load - show all
+                    charsToRender = Object.keys(charactersData);
+                }
+                
+                charsToRender.forEach(key => {
+                    const character = charactersData[key];
+                    if (!character) return;
+                    
+                    const card = document.createElement('div');
+                    card.className = 'moment-content text-center character-card';
+                    card.setAttribute('data-character', key);
+                    
+                    card.innerHTML = `
+                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden shadow-2xl md:block hidden" style="border: 4px solid ${character.borderColor}50;">
+                            <img src="${character.image}" alt="${character.name}" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mb-4">${character.name}</h3>
+                        <div class="text-lg space-y-2">
+                            <p class="text-gray-300">
+                                <span class="font-semibold">${character.age}, ${character.role}</span>
+                            </p>
+                            <p class="text-gray-300">
+                                Working on: <span class="font-medium" style="color: ${character.color};">${character.goal}</span>
+                            </p>
+                        </div>
+                    `;
+                    
+                    introGrid.appendChild(card);
+                });
+            }
+        }
+
+        // Character selection function
         function selectCharacter(character) {
             console.log('selectCharacter called with:', character, 'Window width:', window.innerWidth);
             
-            // Only run on mobile (but let's make it work on all sizes for now)
-            // if (window.innerWidth > 768) return;
+            if (!charactersData[character]) {
+                console.error('Invalid character:', character);
+                return;
+            }
             
             // Update button states
             document.querySelectorAll('.character-select-btn').forEach(btn => {
@@ -2961,19 +2455,22 @@
                 selectedBtn.classList.add('active');
             }
             
+            // Set active character for mobile
+            if (window.innerWidth <= 768) {
+                activeCharacters = [character];
+                console.log('Set activeCharacters for mobile:', activeCharacters);
+            }
+            
+            // Don't re-initialize on mobile as it might clear activeCharacters
+            if (window.innerWidth > 768) {
+                initializeCharacterSelection();
+            }
+            
             // Show selected character intro
             document.querySelectorAll('.character-card').forEach(card => {
                 card.classList.remove('show-mobile');
                 if (card.dataset.character === character) {
                     card.classList.add('show-mobile');
-                }
-            });
-            
-            // Show selected character timeline content
-            document.querySelectorAll('.timeline-character').forEach(section => {
-                section.classList.remove('show-mobile');
-                if (section.dataset.character === character) {
-                    section.classList.add('show-mobile');
                 }
             });
             
@@ -2984,11 +2481,26 @@
                     continueButton.classList.remove('hidden');
                 }
             }
+            
+            // Re-render all conversations with selected character
+            console.log('Rendering conversations for character:', character);
+            renderMorningConversations();
+            renderMiddayConversations();
+            renderMomentConversations();
+            renderEveningConversations();
         }
         
         // Debug and setup character selection
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, checking for character buttons...');
+            console.log('DOM loaded, initializing character selection...');
+            
+            // Initialize character selection from JSON data
+            initializeCharacterSelection();
+            
+            // For mobile, don't render until character is selected
+            // For desktop, render will happen after random selection
+            
+            // After initialization, set up event listeners
             const buttons = document.querySelectorAll('.character-select-btn');
             console.log('Found buttons:', buttons.length);
             
@@ -3019,7 +2531,7 @@
                 console.log('Mobile detected - carousel ready');
             } else {
                 // Desktop: Randomly show 2 characters
-                const allCharacters = ['jake', 'andy', 'adam', 'jason'];
+                const allCharacters = Object.keys(charactersData);
                 const randomChars = [];
                 
                 // Select 2 random characters
@@ -3032,24 +2544,20 @@
                 
                 console.log('Desktop: Showing random characters:', randomChars);
                 
-                // Hide character-intro-grid and show only selected 2 characters
+                // Set active characters for desktop
+                activeCharacters = randomChars;
+                
+                // Re-initialize character cards to show only the selected 2
                 setTimeout(() => {
-                    document.querySelectorAll('.character-card').forEach(card => {
-                        if (randomChars.includes(card.dataset.character)) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
+                    initializeCharacterSelection();
                     
-                    // Show timeline content for both characters
-                    document.querySelectorAll('.timeline-character').forEach(section => {
-                        if (randomChars.includes(section.dataset.character)) {
-                            section.classList.add('show-mobile');
-                        } else {
-                            section.classList.remove('show-mobile');
-                        }
-                    });
+                    // Timeline content will be filtered by render functions
+                    
+                    // Render conversations for desktop with selected 2 characters
+                    renderMorningConversations();
+                    renderMiddayConversations();
+                    renderMomentConversations();
+                    renderEveningConversations();
                 }, 100);
             }
         });
