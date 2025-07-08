@@ -3129,6 +3129,7 @@
         const emailModal = document.getElementById('emailModal');
         const emailForm = document.getElementById('emailForm');
         const emailInput = document.getElementById('emailInput');
+        const nameInput = document.getElementById('nameInput');
         
         // Add click handlers to all CTA buttons
         document.querySelectorAll('.primary-btn').forEach(button => {
@@ -3166,6 +3167,7 @@
             e.preventDefault();
             
             const email = emailInput.value;
+            const name = nameInput.value;
             const submitButton = emailForm.querySelector('button[type="submit"]');
             const originalText = submitButton.innerHTML;
             
@@ -3177,6 +3179,7 @@
                 // Track email capture with PostHog
                 posthog.capture('email_captured', {
                     email: email,
+                    name: name,
                     source: 'modal',
                     timestamp: new Date().toISOString()
                 });
@@ -3184,6 +3187,7 @@
                 // Identify the user in PostHog
                 posthog.identify(email, {
                     email: email,
+                    name: name,
                     signup_date: new Date().toISOString()
                 });
                 
