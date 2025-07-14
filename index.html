@@ -38,6 +38,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
         @font-face {
@@ -491,6 +492,7 @@
             width: 100%;
             padding: 40px;
             background: rgba(255, 255, 255, 0.03);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
@@ -3251,11 +3253,11 @@
             });
         }
 
-        // Email capture modal functionality
+        // Mailchimp modal functionality
         const emailModal = document.getElementById('emailModal');
-        const emailForm = document.getElementById('emailForm');
-        const emailInput = document.getElementById('emailInput');
-        const nameInput = document.getElementById('nameInput');
+        const mailchimpForm = document.getElementById('mc-embedded-subscribe-form');
+        const emailInput = document.getElementById('mce-EMAIL');
+        const nameInput = document.getElementById('mce-FNAME');
 
         // Add click handlers to all CTA buttons
         document.querySelectorAll('.primary-btn').forEach(button => {
@@ -3263,14 +3265,11 @@
                 e.preventDefault();
                 emailModal.classList.remove('hidden');
                 emailModal.classList.add('flex');
-                emailInput.focus();
+                if (nameInput) nameInput.focus();
 
-                // Track button click with PostHog
+                // Track button click
                 const buttonText = button.textContent.trim();
-                posthog.capture('cta_clicked', {
-                    button_text: buttonText,
-                    location: window.location.pathname
-                });
+                console.log('CTA clicked:', buttonText);
             });
         });
 
@@ -3288,75 +3287,30 @@
             emailModal.classList.remove('flex');
         });
 
-        // Handle form submission
-        emailForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        // Handle successful Mailchimp submission
+        if (mailchimpForm) {
+            mailchimpForm.addEventListener('submit', function (e) {
+                // Track email capture
+                const email = emailInput ? emailInput.value : '';
+                const name = nameInput ? nameInput.value : '';
 
-            const email = emailInput.value;
-            const name = nameInput.value;
-            const submitButton = emailForm.querySelector('button[type="submit"]');
-            const originalText = submitButton.innerHTML;
+                console.log('Mailchimp form submitted:', { email, name });
 
-            // Update button state
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processing...';
-
-            try {
-                // Track email capture with PostHog
-                posthog.capture('email_captured', {
-                    email: email,
-                    name: name,
-                    source: 'modal',
-                    timestamp: new Date().toISOString()
-                });
-
-                // Identify the user in PostHog
-                posthog.identify(email, {
-                    email: email,
-                    name: name,
-                    signup_date: new Date().toISOString()
-                });
-
-                // Simulate API call delay
-                await new Promise(resolve => setTimeout(resolve, 1000));
-
-                // Show success state
-                submitButton.innerHTML = '<i class="fas fa-check mr-2"></i>Success!';
-                submitButton.classList.remove('bg-[#E2B93B]');
-                submitButton.classList.add('bg-green-500');
-
-                // Close modal after success
+                // Close modal after a short delay to allow form submission
                 setTimeout(() => {
                     emailModal.classList.add('hidden');
                     emailModal.classList.remove('flex');
-                    emailForm.reset();
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalText;
-                    submitButton.classList.add('bg-[#E2B93B]');
-                    submitButton.classList.remove('bg-green-500');
-                }, 1500);
-
-            } catch (error) {
-                // Handle error
-                submitButton.innerHTML = '<i class="fas fa-times mr-2"></i>Error, try again';
-                submitButton.classList.remove('bg-[#E2B93B]');
-                submitButton.classList.add('bg-red-500');
-
-                setTimeout(() => {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalText;
-                    submitButton.classList.add('bg-[#E2B93B]');
-                    submitButton.classList.remove('bg-red-500');
-                }, 2000);
-            }
-        });
+                }, 1000);
+            });
+        }
     </script>
 
-    <!-- Email Capture Modal -->
+    <!-- Mailchimp Signup Modal -->
     <div id="emailModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative animate-fadeIn">
             <!-- Close button -->
-            <button id="closeModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
+            <button id="closeModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+                title="Close modal">
                 <i class="fas fa-times text-xl"></i>
             </button>
 
@@ -3370,29 +3324,54 @@
                 <p class="text-gray-600">Join thousands of men on their journey to become their best selves.</p>
             </div>
 
-            <!-- Email form -->
-            <form id="emailForm" class="space-y-4">
-                <div>
-                    <label for="nameInput" class="block text-sm font-medium text-gray-700 mb-2">
-                        Your name
-                    </label>
-                    <input type="text" id="nameInput" required placeholder="John Smith"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2B93B] focus:border-transparent outline-none transition-all">
-                </div>
-                <div>
-                    <label for="emailInput" class="block text-sm font-medium text-gray-700 mb-2">
-                        Your email
-                    </label>
-                    <input type="email" id="emailInput" required placeholder="your@email.com"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2B93B] focus:border-transparent outline-none transition-all">
-                </div>
+            <!-- Mailchimp Form -->
+            <div id="mc_embed_signup">
+                <form
+                    action="https://thelifetimeproject.us4.list-manage.com/subscribe/post?u=f4680638487903c69dc6b1e3e&amp;id=5ccc065eaa&amp;f_id=000456e2f0"
+                    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
+                    class="validate space-y-4" target="_blank">
+                    <div id="mc_embed_signup_scroll">
+                        <div class="mc-field-group">
+                            <label for="mce-FNAME" class="block text-sm font-medium text-gray-700 mb-2">
+                                Your Name
+                            </label>
+                            <input type="text" name="FNAME"
+                                class="text w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2B93B] focus:border-transparent outline-none transition-all"
+                                id="mce-FNAME" placeholder="John Smith" value="">
+                        </div>
 
-                <button type="submit"
-                    class="w-full bg-[#E2B93B] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#d4a635] transition-colors flex items-center justify-center">
-                    Start Your Free Trial
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </button>
+                        <div class="mc-field-group">
+                            <label for="mce-EMAIL" class="block text-sm font-medium text-gray-700 mb-2">
+                                Email Address <span class="text-red-500">*</span>
+                            </label>
+                            <input type="email" name="EMAIL"
+                                class="required email w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2B93B] focus:border-transparent outline-none transition-all"
+                                id="mce-EMAIL" required="" placeholder="your@email.com" value="">
+                        </div>
 
+                        <div id="mce-responses" class="clear foot">
+                            <div class="response text-red-600 text-sm mt-2" id="mce-error-response"
+                                style="display: none;"></div>
+                            <div class="response text-green-600 text-sm mt-2" id="mce-success-response"
+                                style="display: none;"></div>
+                        </div>
+
+                        <!-- Honeypot field -->
+                        <div aria-hidden="true" style="position: absolute; left: -5000px;">
+                            <input type="text" name="b_f4680638487903c69dc6b1e3e_5ccc065eaa" tabindex="-1" value="">
+                        </div>
+
+                        <div class="clear foot">
+                            <input type="submit" name="subscribe" id="mc-embedded-subscribe"
+                                class="button w-full bg-[#E2B93B] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#d4a635] transition-colors cursor-pointer"
+                                value="Start Your Free Trial">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Security & Benefits -->
+            <div class="mt-6 space-y-4">
                 <div class="text-center text-xs text-gray-500 space-y-1">
                     <p>
                         <i class="fas fa-lock mr-1"></i>
@@ -3403,28 +3382,52 @@
                         No spam, unsubscribe anytime
                     </p>
                 </div>
-            </form>
 
-            <!-- Benefits -->
-            <div class="mt-6 pt-6 border-t border-gray-200">
-                <p class="text-sm font-medium text-gray-700 mb-3">What you'll get:</p>
-                <ul class="space-y-2 text-sm text-gray-600">
-                    <li class="flex items-start">
-                        <i class="fas fa-check text-green-500 mr-2 mt-0.5"></i>
-                        <span>7-day free trial with full access</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check text-green-500 mr-2 mt-0.5"></i>
-                        <span>Personalized AI coaching</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check text-green-500 mr-2 mt-0.5"></i>
-                        <span>40% early adopter discount locked forever</span>
-                    </li>
-                </ul>
+                <!-- Benefits -->
+                <div class="pt-4 border-t border-gray-200">
+                    <p class="text-sm font-medium text-gray-700 mb-3">What you'll get:</p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-0.5"></i>
+                            <span>7-day free trial with full access</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-0.5"></i>
+                            <span>Personalized AI coaching</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-0.5"></i>
+                            <span>40% early adopter discount locked forever</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Mailchimp Validation Script -->
+    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+            window.fnames = new Array();
+            window.ftypes = new Array();
+            fnames[0] = 'EMAIL';
+            ftypes[0] = 'email';
+            fnames[1] = 'FNAME';
+            ftypes[1] = 'text';
+            fnames[2] = 'LNAME';
+            ftypes[2] = 'text';
+            fnames[3] = 'ADDRESS';
+            ftypes[3] = 'address';
+            fnames[4] = 'PHONE';
+            ftypes[4] = 'phone';
+            fnames[5] = 'BIRTHDAY';
+            ftypes[5] = 'birthday';
+            fnames[6] = 'COMPANY';
+            ftypes[6] = 'text';
+        }(jQuery));
+        var $mcj = jQuery.noConflict(true);
+    </script>
 
     <style>
         @keyframes fadeIn {
@@ -3441,6 +3444,41 @@
 
         .animate-fadeIn {
             animation: fadeIn 0.3s ease-out;
+        }
+
+        /* Mailchimp form custom styles */
+        #mc_embed_signup {
+            background: transparent !important;
+            clear: none !important;
+            font: inherit !important;
+            width: 100% !important;
+        }
+
+        #mc_embed_signup .mc-field-group {
+            padding-bottom: 0 !important;
+        }
+
+        #mc_embed_signup .button {
+            background-color: #E2B93B !important;
+            border: none !important;
+            border-radius: 0.5rem !important;
+            font-size: 1rem !important;
+            line-height: 1.5 !important;
+            padding: 0.75rem 1.5rem !important;
+            width: 100% !important;
+        }
+
+        #mc_embed_signup .button:hover {
+            background-color: #d4a635 !important;
+        }
+
+        /* Hide Mailchimp branding */
+        #mc_embed_signup .brandingLogo {
+            display: none !important;
+        }
+
+        #mc_embed_signup .optionalParent {
+            display: none !important;
         }
     </style>
 </body>
