@@ -7,7 +7,20 @@
     <title>The Lifetime Project - Where Ancient Wisdom Meets Modern Science</title>
     <meta name="description"
         content="The ultimate personal development platform for men. Synthesizing wisdom from Marcus Aurelius to modern neuroscience, personalized just for you with AI-generated daily practices.">
-    
+    <meta property="og:title" content="The Lifetime Project - Where Ancient Wisdom Meets Modern Science">
+    <meta property="og:description"
+        content="The ultimate personal development platform for men. Synthesizing wisdom from Marcus Aurelius to modern neuroscience, personalized just for you with AI-generated daily practices.">
+    <meta property="og:image" content="https://thelifetimeproject.com/assets/images/logo.svg">
+    <!-- Update with actual image URL -->
+    <meta property="og:url" content="https://thelifetimeproject.com/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Lifetime Project - Where Ancient Wisdom Meets Modern Science">
+    <meta name="twitter:description"
+        content="The ultimate personal development platform for men. Synthesizing wisdom from Marcus Aurelius to modern neuroscience, personalized just for you with AI-generated daily practices.">
+    <meta name="twitter:image" content="https://thelifetimeproject.com/assets/images/logo.svg">
+    <!-- Update with actual image URL -->
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
@@ -19,7 +32,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -48,9 +62,9 @@
             --error: #DC2626;
             --warning: #D97706;
             --info: #2563EB;
-            --border: rgba(31,41,55,0.10);
-            --disabled: rgba(31,41,55,0.20);
-            
+            --border: rgba(31, 41, 55, 0.10);
+            --disabled: rgba(31, 41, 55, 0.20);
+
             /* Shadows */
             --shadow-sm: 0 1px 2px 0 rgba(31, 41, 55, 0.05);
             --shadow-md: 0 4px 6px -1px rgba(31, 41, 55, 0.1);
@@ -77,7 +91,7 @@
             overscroll-behavior: none;
             -webkit-overflow-scrolling: auto;
         }
-        
+
         html {
             overflow-x: hidden;
             /* Prevent overscroll bounce effect */
@@ -95,9 +109,10 @@
             margin-left: -50vw;
             margin-right: -50vw;
         }
-        
+
         /* Ensure all sections stretch full width */
-        section, footer {
+        section,
+        footer {
             width: 100vw;
             position: relative;
             left: 50%;
@@ -124,9 +139,19 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            33% { transform: translateY(-30px) rotate(120deg); }
-            66% { transform: translateY(20px) rotate(240deg); }
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            33% {
+                transform: translateY(-30px) rotate(120deg);
+            }
+
+            66% {
+                transform: translateY(20px) rotate(240deg);
+            }
         }
 
         /* Primary button style */
@@ -184,8 +209,10 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             text-fill-color: transparent;
-            color: var(--accent-gold); /* Fallback color */
-            display: inline-block; /* Ensures gradient works properly */
+            color: var(--accent-gold);
+            /* Fallback color */
+            display: inline-block;
+            /* Ensures gradient works properly */
         }
 
         /* Journey visualization */
@@ -228,15 +255,41 @@
             animation: wave 1.5s ease-in-out infinite;
         }
 
-        .audio-wave span:nth-child(1) { height: 16px; animation-delay: 0s; }
-        .audio-wave span:nth-child(2) { height: 24px; animation-delay: 0.1s; }
-        .audio-wave span:nth-child(3) { height: 20px; animation-delay: 0.2s; }
-        .audio-wave span:nth-child(4) { height: 28px; animation-delay: 0.3s; }
-        .audio-wave span:nth-child(5) { height: 22px; animation-delay: 0.4s; }
+        .audio-wave span:nth-child(1) {
+            height: 16px;
+            animation-delay: 0s;
+        }
+
+        .audio-wave span:nth-child(2) {
+            height: 24px;
+            animation-delay: 0.1s;
+        }
+
+        .audio-wave span:nth-child(3) {
+            height: 20px;
+            animation-delay: 0.2s;
+        }
+
+        .audio-wave span:nth-child(4) {
+            height: 28px;
+            animation-delay: 0.3s;
+        }
+
+        .audio-wave span:nth-child(5) {
+            height: 22px;
+            animation-delay: 0.4s;
+        }
 
         @keyframes wave {
-            0%, 100% { transform: scaleY(0.7); }
-            50% { transform: scaleY(1); }
+
+            0%,
+            100% {
+                transform: scaleY(0.7);
+            }
+
+            50% {
+                transform: scaleY(1);
+            }
         }
 
         /* Trust badges */
@@ -290,7 +343,7 @@
             will-change: auto !important;
             transform-style: flat !important;
         }
-        
+
         /* Force all timeline glows to never interfere */
         .timeline-glow,
         .timeline-glow::before,
@@ -298,9 +351,9 @@
             pointer-events: none !important;
             z-index: -10 !important;
         }
-        
+
         /* Completely disable glow elements that interfere with character selection */
-        .cinematic-timeline > .timeline-glow {
+        .cinematic-timeline>.timeline-glow {
             visibility: hidden !important;
             pointer-events: none !important;
             z-index: -1000 !important;
@@ -308,8 +361,17 @@
         }
 
         @keyframes glowPulse {
-            0%, 100% { opacity: 0.15; transform: scale(1); }
-            50% { opacity: 0.25; transform: scale(1.1); }
+
+            0%,
+            100% {
+                opacity: 0.15;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.25;
+                transform: scale(1.1);
+            }
         }
 
         .timeline-title {
@@ -348,14 +410,13 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(to bottom, 
-                transparent 0%, 
-                rgba(255,255,255,0.1) 2%, 
-                rgba(255,255,255,0.2) 10%, 
-                rgba(255,255,255,0.2) 90%, 
-                rgba(255,255,255,0.1) 98%, 
-                transparent 100%
-            );
+            background: linear-gradient(to bottom,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.1) 2%,
+                    rgba(255, 255, 255, 0.2) 10%,
+                    rgba(255, 255, 255, 0.2) 90%,
+                    rgba(255, 255, 255, 0.1) 98%,
+                    transparent 100%);
             transform: translateX(-50%);
             z-index: 0;
         }
@@ -365,12 +426,11 @@
             left: 0;
             top: 0;
             width: 100%;
-            background: linear-gradient(to bottom, 
-                rgba(37, 99, 235, 0) 0%, 
-                rgba(37, 99, 235, 0.8) 20%, 
-                rgba(16, 185, 129, 0.8) 80%, 
-                rgba(16, 185, 129, 0) 100%
-            );
+            background: linear-gradient(to bottom,
+                    rgba(37, 99, 235, 0) 0%,
+                    rgba(37, 99, 235, 0.8) 20%,
+                    rgba(16, 185, 129, 0.8) 80%,
+                    rgba(16, 185, 129, 0) 100%);
             height: 0%;
             transition: height 2s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
@@ -405,18 +465,18 @@
             transform: translateX(-50%);
             font-size: 10rem;
             font-weight: 900;
-            color: rgba(255,255,255,0.15);
+            color: rgba(255, 255, 255, 0.15);
             z-index: 2;
             letter-spacing: -0.05em;
-            text-shadow: 
-                0 0 80px rgba(255,255,255,0.1),
-                0 0 40px rgba(255,255,255,0.05);
-            background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+            text-shadow:
+                0 0 80px rgba(255, 255, 255, 0.1),
+                0 0 40px rgba(255, 255, 255, 0.05);
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
         @media (max-width: 768px) {
             .moment-time {
                 font-size: 4rem;
@@ -430,13 +490,13 @@
             max-width: 800px;
             width: 100%;
             padding: 40px;
-            background: rgba(255,255,255,0.03);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
-            box-shadow: 
-                0 20px 40px rgba(0,0,0,0.5),
-                inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         @media (min-width: 768px) {
@@ -460,8 +520,8 @@
         }
 
         .conversation-bubble {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
             padding: 20px;
             margin: 16px 0;
@@ -470,7 +530,7 @@
             transform: translateX(-40px);
             max-width: 85%;
         }
-        
+
         /* Marcus AI messages */
         .conversation-bubble:not(.you):not(.boss) {
             background: linear-gradient(135deg, rgba(226, 185, 59, 0.08), rgba(226, 185, 59, 0.05));
@@ -528,11 +588,14 @@
         }
 
         @keyframes nodePulse {
-            0%, 100% { 
+
+            0%,
+            100% {
                 box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.2);
                 transform: translateX(-50%) scale(1);
             }
-            50% { 
+
+            50% {
                 box-shadow: 0 0 0 16px rgba(37, 99, 235, 0.1);
                 transform: translateX(-50%) scale(1.2);
             }
@@ -555,11 +618,10 @@
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--accent-mint), 
-                var(--accent-gold), 
-                var(--accent-mint)
-            );
+            background: linear-gradient(45deg,
+                    var(--accent-mint),
+                    var(--accent-gold),
+                    var(--accent-mint));
             border-radius: 16px;
             opacity: 0;
             z-index: -1;
@@ -572,14 +634,19 @@
         }
 
         @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
         }
 
         /* Character selection for mobile */
         .character-select-btn {
-            background: rgba(255,255,255,0.05);
-            border: 2px solid rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 20px;
             padding: 20px;
             transition: all 0.3s ease;
@@ -597,9 +664,9 @@
 
         .character-select-btn:hover,
         .character-select-btn:active {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             transform: translateY(-2px);
-            border-color: rgba(255,255,255,0.4);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         .character-select-btn.active {
@@ -608,30 +675,30 @@
             box-shadow: 0 0 20px rgba(226, 185, 59, 0.4) !important;
             transform: scale(1.05) !important;
         }
-        
+
         .character-select-btn span {
             font-size: 18px;
             font-weight: 600;
         }
-        
+
         /* Mobile character carousel */
         .character-carousel {
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
         }
-        
+
         .character-carousel .character-select-btn {
             scroll-snap-align: center;
             min-width: 120px;
             flex-direction: column;
             gap: 4px;
         }
-        
+
         .scrollbar-hide {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-        
+
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
@@ -641,7 +708,7 @@
             .character-intro-grid .character-card {
                 display: none !important;
             }
-            
+
             .character-intro-grid .character-card.show-mobile {
                 display: block !important;
             }
@@ -653,7 +720,7 @@
             .wisdom-card {
                 padding: 24px;
             }
-            
+
             .feature-icon {
                 width: 48px;
                 height: 48px;
@@ -689,25 +756,44 @@
             }
         }
     </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "The Lifetime Project",
+      "url": "https://thelifetimeproject.com",
+      "logo": "https://thelifetimeproject.com/assets/images/logo.svg",
+      "description": "The ultimate personal development platform for men. Synthesizing wisdom from Marcus Aurelius to modern neuroscience, personalized just for you with AI-generated daily practices."
+    }
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
 </head>
 
 <body>
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 w-full bg-[#FAFAFC]/95 backdrop-blur-md border-b border-[rgba(31,41,55,0.10)] z-50">
+    <nav
+        class="fixed top-0 left-0 right-0 w-full bg-[#FAFAFC]/95 backdrop-blur-md border-b border-[rgba(31,41,55,0.10)] z-50">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-3">
                     <img src="assets/images/logo.svg" alt="The Lifetime Project" class="w-12 h-12">
                     <span class="text-gray-900 font-bold text-lg">The Lifetime Project</span>
                 </div>
-                
+
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#wisdom" class="text-gray-600 hover:text-gray-900 transition font-medium">Our Approach</a>
                     <a href="#how" class="text-gray-600 hover:text-gray-900 transition font-medium">How It Works</a>
                     <a href="#journey" class="text-gray-600 hover:text-gray-900 transition font-medium">Your Journey</a>
-                    <a href="#testimonials" class="text-gray-600 hover:text-gray-900 transition font-medium">Success Stories</a>
+                    <a href="#testimonials" class="text-gray-600 hover:text-gray-900 transition font-medium">Success
+                        Stories</a>
                 </div>
-                
+
                 <button class="primary-btn">
                     <span class="hidden sm:inline">Start Your Journey</span>
                     <span class="sm:hidden">Start</span>
@@ -721,9 +807,11 @@
     <section class="hero-gradient min-h-screen flex items-center pt-20">
         <!-- Subtle geometric shapes -->
         <div class="float-shape w-96 h-96 rounded-full bg-[#E2B93B]" style="top: 10%; left: -10%;"></div>
-        <div class="float-shape w-64 h-64 rounded-full bg-[#47B5A5]" style="bottom: 20%; right: -5%; animation-delay: 5s;"></div>
-        <div class="float-shape w-48 h-48 rounded-full bg-[#F5E8C7]" style="top: 60%; left: 80%; animation-delay: 10s;"></div>
-        
+        <div class="float-shape w-64 h-64 rounded-full bg-[#47B5A5]"
+            style="bottom: 20%; right: -5%; animation-delay: 5s;"></div>
+        <div class="float-shape w-48 h-48 rounded-full bg-[#F5E8C7]" style="top: 60%; left: 80%; animation-delay: 10s;">
+        </div>
+
         <div class="container mx-auto px-6 py-20 relative z-10">
             <div class="max-w-5xl mx-auto text-center">
                 <!-- Trust indicator -->
@@ -731,17 +819,17 @@
                     <i class="fas fa-users text-[#E2B93B]"></i>
                     <span class="text-[#1F2937] text-sm font-medium">Men are already leveling up</span>
                 </div>
-                
+
                 <!-- Main headline -->
                 <h1 class="text-5xl md:text-7xl font-bold mb-8 leading-tight">
                     Cut Through The Noise.<br>
                     <span class="gradient-text">Become The Man</span><br>
                     You Know You Can Be
                 </h1>
-                
+
                 <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed">
-                    Deep down, you know you're capable of more. But between work pressure, family needs, 
-                    and conflicting advice everywhere – you've lost sight of who you really are. 
+                    Deep down, you know you're capable of more. But between work pressure, family needs,
+                    and conflicting advice everywhere – you've lost sight of who you really are.
                     Time to reconnect with the man you're meant to be.
                 </p>
 
@@ -783,7 +871,7 @@
                     </p>
                 </div>
             </div>
-            
+
             <!-- App Screenshots -->
             <div class="absolute top-1/2 -translate-y-1/2 -right-[100px] hidden xl:block">
                 <div class="relative">
@@ -791,14 +879,15 @@
                     <div class="iphone-mockup">
                         <div class="iphone-power-button"></div>
                         <div class="iphone-screen-wrapper">
-                            <img src="assets/images/home_screen.png" alt="Home Screen" class="iphone-screen">
+                            <img src="assets/images/home_screen.png" alt="Home Screen" class="iphone-screen"
+                                loading="lazy">
                         </div>
                     </div>
                     <!-- Second phone slightly behind -->
                     <div class="iphone-mockup absolute -left-24 top-10 -z-10">
                         <div class="iphone-power-button"></div>
                         <div class="iphone-screen-wrapper">
-                            <img src="assets/images/home2.png" alt="Home Screen 2" class="iphone-screen">
+                            <img src="assets/images/home2.png" alt="Home Screen 2" class="iphone-screen" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -817,23 +906,27 @@
                     </h2>
                     <p class="text-xl text-gray-600">Not your roles. Not your responsibilities. Just you.</p>
                 </div>
-                
+
                 <!-- Physics visualization -->
                 <div class="relative mx-auto" id="physics-wrapper" style="max-width: 800px; height: 500px;">
-                    <canvas id="physics-canvas" style="width: 100%; height: 100%; border-radius: 20px; background: linear-gradient(to bottom, #f8f8f8, #e8e8e8);"></canvas>
-                    
+                    <canvas id="physics-canvas"
+                        style="width: 100%; height: 100%; border-radius: 20px; background: linear-gradient(to bottom, #f8f8f8, #e8e8e8);"></canvas>
+
                     <!-- Hover instruction -->
                     <div class="hover-hint absolute bottom-4 left-0 right-0 text-center pointer-events-none">
                         <p class="text-sm text-gray-500 italic">Click to break free</p>
                     </div>
                 </div>
-                
-                <p class="text-lg text-gray-600 mt-16 max-w-2xl mx-auto transition-opacity duration-500" id="bottom-message">
+
+                <p class="text-lg text-gray-600 mt-16 max-w-2xl mx-auto transition-opacity duration-500"
+                    id="bottom-message">
                     Everything pulls at you except your own growth. It's time to put yourself at the center.
                 </p>
-                
-                <p class="text-lg text-gray-600 mt-16 max-w-2xl mx-auto opacity-0 transition-opacity duration-500 hidden" id="breakthrough-message">
-                    <strong class="text-[#E2B93B]">That's the power of focusing on yourself.</strong> Break through the noise and reclaim your center.
+
+                <p class="text-lg text-gray-600 mt-16 max-w-2xl mx-auto opacity-0 transition-opacity duration-500 hidden"
+                    id="breakthrough-message">
+                    <strong class="text-[#E2B93B]">That's the power of focusing on yourself.</strong> Break through the
+                    noise and reclaim your center.
                 </p>
             </div>
         </div>
@@ -844,21 +937,21 @@
         #physics-wrapper {
             cursor: pointer;
         }
-        
+
         #physics-canvas {
             display: block;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
-        
+
         .hover-hint {
             opacity: 1;
             transition: opacity 0.3s ease;
         }
-        
+
         #physics-wrapper.activated .hover-hint {
             opacity: 0;
         }
-        
+
         /* iPhone Mockup - Desktop First */
         .iphone-mockup {
             position: relative;
@@ -872,7 +965,7 @@
             flex-shrink: 0;
             z-index: 0;
         }
-        
+
         /* Notch */
         .iphone-mockup::before {
             content: '';
@@ -885,7 +978,7 @@
             transform: translateX(-50%);
             position: absolute;
         }
-        
+
         /* Volume buttons */
         .iphone-mockup::after {
             content: '';
@@ -898,7 +991,7 @@
             border-radius: 0.5rem 0 0 0.5rem;
             box-shadow: 0 46px 0 0 #1a1a1a, 0 100px 0 0 #1a1a1a;
         }
-        
+
         /* Power button */
         .iphone-power-button {
             height: 64px;
@@ -909,7 +1002,7 @@
             top: 142px;
             border-radius: 0 0.5rem 0.5rem 0;
         }
-        
+
         .iphone-screen-wrapper {
             border-radius: 2rem;
             overflow: hidden;
@@ -921,14 +1014,14 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        
+
         .iphone-screen {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: top center;
         }
-        
+
         /* MOBILE OVERRIDES - Completely reset for mobile */
         @media (max-width: 768px) {
             .iphone-mockup {
@@ -944,7 +1037,7 @@
                 flex-grow: 0 !important;
                 flex-basis: auto !important;
             }
-            
+
             .iphone-screen-wrapper {
                 width: 148px;
                 height: 308px;
@@ -953,20 +1046,20 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
             }
-            
+
             .iphone-mockup::before {
                 width: 70px;
                 height: 10px;
                 border-radius: 0 0 0.5rem 0.5rem;
             }
-            
+
             .iphone-power-button {
                 height: 30px;
                 width: 2px;
                 right: -8px;
                 top: 80px;
             }
-            
+
             .iphone-mockup::after {
                 height: 25px;
                 width: 2px;
@@ -975,7 +1068,7 @@
                 box-shadow: 0 25px 0 0 #1a1a1a, 0 50px 0 0 #1a1a1a;
             }
         }
-        
+
         /* VERY SMALL MOBILE */
         @media (max-width: 480px) {
             .iphone-mockup {
@@ -989,23 +1082,23 @@
                 flex-grow: 0 !important;
                 flex-basis: auto !important;
             }
-            
+
             .iphone-screen-wrapper {
                 width: 130px;
                 height: 270px;
             }
-            
+
             .iphone-mockup::before {
                 width: 60px;
                 height: 8px;
             }
-            
+
             .iphone-power-button {
                 height: 25px;
                 right: -7px;
                 top: 70px;
             }
-            
+
             .iphone-mockup::after {
                 height: 20px;
                 left: -7px;
@@ -1032,14 +1125,16 @@
                             <i class="fas fa-random text-3xl text-[#1F2937]"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-4">The Weight of Expectations</h3>
-                        <p class="text-gray-600">Provider, protector, present father, passionate lover – but when do you focus on you?</p>
+                        <p class="text-gray-600">Provider, protector, present father, passionate lover – but when do you
+                            focus on you?</p>
                     </div>
                     <div class="text-center">
                         <div class="w-20 h-20 bg-[#F5E8C7] rounded-full flex items-center justify-center mx-auto mb-6">
                             <i class="fas fa-puzzle-piece text-3xl text-[#1F2937]"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-4">Lost In The Noise</h3>
-                        <p class="text-gray-600">Career, family, health, purpose – everything pulls at you except your own growth</p>
+                        <p class="text-gray-600">Career, family, health, purpose – everything pulls at you except your
+                            own growth</p>
                     </div>
                     <div class="text-center">
                         <div class="w-20 h-20 bg-[#F5E8C7] rounded-full flex items-center justify-center mx-auto mb-6">
@@ -1075,8 +1170,8 @@
                         <span class="gradient-text">Energy Into Your Life?</span>
                     </h2>
                     <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                        Between extreme role models and conflicting advice, men are more lost than ever. 
-                        We synthesize timeless wisdom with modern psychology to give you a clear path – 
+                        Between extreme role models and conflicting advice, men are more lost than ever.
+                        We synthesize timeless wisdom with modern psychology to give you a clear path –
                         one that honors both your strength and your humanity.
                     </p>
                 </div>
@@ -1088,7 +1183,8 @@
                             <i class="fas fa-scroll text-2xl text-[#E2B93B]"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-3 text-[#1F2937]">Ancient Philosophy</h3>
-                        <p class="text-[#4B5563] mb-4">Stoic wisdom from Marcus Aurelius, Seneca, and Epictetus for modern challenges</p>
+                        <p class="text-[#4B5563] mb-4">Stoic wisdom from Marcus Aurelius, Seneca, and Epictetus for
+                            modern challenges</p>
                         <p class="text-sm font-medium text-[#E2B93B]">Time-tested principles</p>
                     </div>
 
@@ -1097,7 +1193,8 @@
                             <i class="fas fa-brain text-2xl text-[#47B5A5]"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-3 text-[#1F2937]">Modern Psychology</h3>
-                        <p class="text-[#4B5563] mb-4">Attachment theory, CBT, neuroscience, and evidence-based therapeutic approaches</p>
+                        <p class="text-[#4B5563] mb-4">Attachment theory, CBT, neuroscience, and evidence-based
+                            therapeutic approaches</p>
                         <p class="text-sm font-medium text-[#47B5A5]">Science-backed methods</p>
                     </div>
 
@@ -1106,7 +1203,8 @@
                             <i class="fas fa-briefcase text-2xl text-[#1F2937]"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-3 text-[#1F2937]">Business Excellence</h3>
-                        <p class="text-[#4B5563] mb-4">Leadership frameworks from top executives and organizational psychology</p>
+                        <p class="text-[#4B5563] mb-4">Leadership frameworks from top executives and organizational
+                            psychology</p>
                         <p class="text-sm font-medium text-[#1F2937]">Professional mastery</p>
                     </div>
 
@@ -1115,7 +1213,8 @@
                             <i class="fas fa-heart text-2xl text-[#E2B93B]"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-3 text-[#1F2937]">Relationship Science</h3>
-                        <p class="text-[#4B5563] mb-4">Research on attachment, communication, and building lasting connections</p>
+                        <p class="text-[#4B5563] mb-4">Research on attachment, communication, and building lasting
+                            connections</p>
                         <p class="text-sm font-medium text-[#E2B93B]">Deep connections</p>
                     </div>
 
@@ -1124,7 +1223,8 @@
                             <i class="fas fa-sync text-2xl text-[#16A34A]"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-3 text-[#1F2937]">Habit Formation</h3>
-                        <p class="text-[#4B5563] mb-4">Atomic Habits, behavioral psychology, and sustainable change strategies</p>
+                        <p class="text-[#4B5563] mb-4">Atomic Habits, behavioral psychology, and sustainable change
+                            strategies</p>
                         <p class="text-sm font-medium text-[#16A34A]">Lasting change</p>
                     </div>
 
@@ -1133,7 +1233,8 @@
                             <i class="fas fa-infinity text-2xl text-[#47B5A5]"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-3 text-[#1F2937]">Depth Psychology</h3>
-                        <p class="text-[#4B5563] mb-4">Jungian archetypes, shadow work, and integrative approaches to wholeness</p>
+                        <p class="text-[#4B5563] mb-4">Jungian archetypes, shadow work, and integrative approaches to
+                            wholeness</p>
                         <p class="text-sm font-medium text-[#47B5A5]">Deep transformation</p>
                     </div>
                 </div>
@@ -1143,8 +1244,8 @@
                     <div class="max-w-3xl mx-auto">
                         <h3 class="text-3xl font-bold mb-6">Your Personal Wisdom Synthesizer</h3>
                         <p class="text-lg text-gray-600 mb-8">
-                            Marcus AI doesn't just regurgitate information. It intelligently combines insights 
-                            from 2,000+ books and 500+ hours of content to create exactly what YOU need to 
+                            Marcus AI doesn't just regurgitate information. It intelligently combines insights
+                            from 2,000+ books and 500+ hours of content to create exactly what YOU need to
                             hear today, based on your unique situation.
                         </p>
                         <div class="audio-wave justify-center flex mb-6">
@@ -1181,13 +1282,14 @@
                             <div class="journey-dot text-2xl mb-6">1</div>
                             <h3 class="text-2xl font-bold mb-4">Deep Self-Discovery</h3>
                             <p class="text-gray-600 mb-6">
-                                Start with our comprehensive assessment that goes beyond personality types. 
-                                We evaluate your leadership style, attachment patterns, communication preferences, 
+                                Start with our comprehensive assessment that goes beyond personality types.
+                                We evaluate your leadership style, attachment patterns, communication preferences,
                                 and yes, archetypal patterns too.
                             </p>
                             <ul class="space-y-2 text-gray-600">
                                 <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>Takes just 15 minutes</li>
-                                <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>Scientifically validated questions</li>
+                                <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>Scientifically validated questions
+                                </li>
                                 <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>Instant AI interpretation</li>
                             </ul>
                         </div>
@@ -1195,13 +1297,15 @@
                             <div class="iphone-mockup transform rotate-3">
                                 <div class="iphone-power-button"></div>
                                 <div class="iphone-screen-wrapper">
-                                    <img src="assets/images/assessment_summary.png" alt="Assessment Summary" class="iphone-screen">
+                                    <img src="assets/images/assessment_summary.png" alt="Assessment Summary"
+                                        class="iphone-screen">
                                 </div>
                             </div>
                             <div class="iphone-mockup transform -rotate-3 mt-8">
                                 <div class="iphone-power-button"></div>
                                 <div class="iphone-screen-wrapper">
-                                    <img src="assets/images/assessment_summary2.png" alt="Assessment Results" class="iphone-screen">
+                                    <img src="assets/images/assessment_summary2.png" alt="Assessment Results"
+                                        class="iphone-screen">
                                 </div>
                             </div>
                         </div>
@@ -1213,11 +1317,11 @@
                             <div class="journey-dot text-2xl mb-6">2</div>
                             <h3 class="text-2xl font-bold mb-4">Set Your Epic</h3>
                             <p class="text-gray-600 mb-6">
-                                Define your 6-month transformational goal. Not a to-do list, but something 
+                                Define your 6-month transformational goal. Not a to-do list, but something
                                 meaningful like "Become the leader my team needs" or "Rebuild intimacy in my marriage."
                             </p>
                             <p class="text-gray-600">
-                                The app breaks this down into monthly themes and weekly actionable goals, 
+                                The app breaks this down into monthly themes and weekly actionable goals,
                                 creating a clear path forward.
                             </p>
                         </div>
@@ -1243,7 +1347,7 @@
                             <div class="journey-dot text-2xl mb-6">3</div>
                             <h3 class="text-2xl font-bold mb-4">Daily Personalized Guidance</h3>
                             <p class="text-gray-600 mb-6">
-                                Every morning, Marcus AI creates a completely unique 10-30 minute audio session 
+                                Every morning, Marcus AI creates a completely unique 10-30 minute audio session
                                 just for you. This isn't a library – it's generated fresh based on:
                             </p>
                             <ul class="space-y-2 text-gray-600">
@@ -1269,14 +1373,14 @@
                             <div class="journey-dot text-2xl mb-6">4</div>
                             <h3 class="text-2xl font-bold mb-4">Always-Available AI Coach</h3>
                             <p class="text-gray-600 mb-6">
-                                Need guidance? Marcus AI is always there. Unlike generic chatbots, it knows 
-                                your entire journey, your patterns, and provides support specifically for 
+                                Need guidance? Marcus AI is always there. Unlike generic chatbots, it knows
+                                your entire journey, your patterns, and provides support specifically for
                                 men's challenges.
                             </p>
                             <div class="bg-[#F5E8C7] rounded-lg p-4 text-sm">
                                 <p class="font-medium text-[#1F2937] mb-2">Example:</p>
                                 <p class="text-[#4B5563]">
-                                    "I notice you tend to withdraw when criticized. Let's work on a response 
+                                    "I notice you tend to withdraw when criticized. Let's work on a response
                                     for tonight's conversation with your partner..."
                                 </p>
                             </div>
@@ -1316,8 +1420,8 @@
                         <span class="gradient-text">Their Potential Locked Inside</span>
                     </h2>
                     <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                        Not because they're weak. Because they never had proper support. 
-                        Marcus AI delivers daily guidance that actually understands what it means 
+                        Not because they're weak. Because they never had proper support.
+                        Marcus AI delivers daily guidance that actually understands what it means
                         to be a man in 2024.
                     </p>
                 </div>
@@ -1328,27 +1432,33 @@
     <!-- Cinematic Day Timeline (Full Width) -->
     <section class="cinematic-timeline relative">
         <!-- Background glows -->
-        <div class="timeline-glow bg-[#E2B93B]/15" style="top: 20%; left: 10%; right: auto; pointer-events: none !important; z-index: -100 !important; transform-style: flat !important;"></div>
-        <div class="timeline-glow bg-[#47B5A5]/15" style="bottom: 30%; right: 15%; left: auto; pointer-events: none !important; z-index: -100 !important; transform-style: flat !important;"></div>
-        
+        <div class="timeline-glow bg-[#E2B93B]/15"
+            style="top: 20%; left: 10%; right: auto; pointer-events: none !important; z-index: -100 !important; transform-style: flat !important;">
+        </div>
+        <div class="timeline-glow bg-[#47B5A5]/15"
+            style="bottom: 30%; right: 15%; left: auto; pointer-events: none !important; z-index: -100 !important; transform-style: flat !important;">
+        </div>
+
         <!-- Opening -->
         <div class="min-h-screen flex items-center justify-center relative px-6">
             <div class="text-center text-white max-w-6xl mx-auto w-full">
                 <h2 class="timeline-title text-white">As Unique As You Are.</h2>
                 <p class="timeline-subtitle text-gray-300 max-w-3xl mx-auto mt-6">
-                    Marcus AI creates completely personalized content that adapts to your exact situation. 
+                    Marcus AI creates completely personalized content that adapts to your exact situation.
                     No two people ever receive the same guidance. Let's see how.
                 </p>
             </div>
         </div>
 
         <!-- Character Introduction -->
-        <div class="min-h-screen flex items-center justify-center relative timeline-moment" style="z-index: 30; position: relative;">
+        <div class="min-h-screen flex items-center justify-center relative timeline-moment"
+            style="z-index: 30; position: relative;">
             <div class="container mx-auto px-6" style="z-index: 31; position: relative;">
                 <!-- Mobile Character Selection - Scrollable Carousel -->
                 <div class="md:hidden text-center" style="position: relative; z-index: 32; isolation: isolate;">
                     <h3 class="text-2xl font-bold text-white mb-6">Who do you relate to?</h3>
-                    <div class="character-carousel-container mb-8 py-2" style="position: relative; z-index: 33; isolation: isolate;">
+                    <div class="character-carousel-container mb-8 py-2"
+                        style="position: relative; z-index: 33; isolation: isolate;">
                         <div class="character-carousel flex gap-4 overflow-x-auto pb-4 px-4 pt-2 scrollbar-hide">
                             <!-- Characters will be dynamically generated here -->
                         </div>
@@ -1359,11 +1469,12 @@
                             <i class="fas fa-chevron-right text-white/50 text-sm"></i>
                         </div>
                     </div>
-                    
+
                     <!-- Continue button that appears after selection -->
                     <div id="continue-button" class="mt-8 hidden" style="position: relative; z-index: 20005;">
-                        <button onclick="document.querySelector('.timeline-moment[data-time=\'7:00 AM\']').scrollIntoView({behavior: 'smooth'})" 
-                                class="bg-[#E2B93B] hover:bg-[#E2B93B]/80 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 mx-auto animate-bounce">
+                        <button
+                            onclick="document.querySelector('.timeline-moment[data-time=\'7:00 AM\']').scrollIntoView({behavior: 'smooth'})"
+                            class="bg-[#E2B93B] hover:bg-[#E2B93B]/80 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 mx-auto animate-bounce">
                             See Your Personalized Day
                             <i class="fas fa-arrow-down"></i>
                         </button>
@@ -1387,7 +1498,7 @@
         <div class="timeline-moment" data-time="7:00 AM">
             <div class="moment-time">7:00 AM</div>
             <div class="timeline-node" style="top: 50%;"></div>
-            
+
             <div class="container mx-auto px-6">
                 <h3 class="text-3xl font-bold text-white text-center mb-12">Morning Preparation</h3>
                 <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto morning-conversations">
@@ -1400,7 +1511,7 @@
         <div class="timeline-moment" data-time="12:00 PM">
             <div class="moment-time">12:00 PM</div>
             <div class="timeline-node" style="top: 50%;"></div>
-            
+
             <div class="container mx-auto px-6">
                 <h3 class="text-3xl font-bold text-white text-center mb-12">Midday Check-In</h3>
                 <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto midday-conversations">
@@ -1413,7 +1524,7 @@
         <div class="timeline-moment" data-time="THE MOMENT">
             <div class="moment-time">THE MOMENT</div>
             <div class="timeline-node pulse" style="top: 50%;"></div>
-            
+
             <div class="container mx-auto px-6">
                 <h3 class="text-3xl font-bold text-white text-center mb-12">Breakthrough Moments</h3>
                 <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto moment-conversations">
@@ -1426,7 +1537,7 @@
         <div class="timeline-moment" data-time="EVENING">
             <div class="moment-time">EVENING</div>
             <div class="timeline-node" style="top: 50%;"></div>
-            
+
             <div class="container mx-auto px-6">
                 <h3 class="text-3xl font-bold text-white text-center mb-12">Integration & Growth</h3>
                 <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto evening-conversations">
@@ -1435,10 +1546,12 @@
 
                 <!-- Closing Message -->
                 <div class="text-center mt-20 max-w-3xl mx-auto">
-                    <div class="bg-gradient-to-r from-[#E2B93B]/10 to-[#47B5A5]/10 border border-white/20 rounded-2xl p-8">
-                        <h3 class="text-2xl font-bold text-white mb-4">Your Journey. Your Content. Your Transformation.</h3>
+                    <div
+                        class="bg-gradient-to-r from-[#E2B93B]/10 to-[#47B5A5]/10 border border-white/20 rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold text-white mb-4">Your Journey. Your Content. Your Transformation.
+                        </h3>
                         <p class="text-gray-300">
-                            Jake received vulnerability training for his anxious attachment. 
+                            Jake received vulnerability training for his anxious attachment.
                             Andy got assertiveness tools for his avoidant patterns.
                             Adam discovered how to infuse purpose into his existing role.
                             Jason broke through procrastination with systematic momentum building.
@@ -1461,7 +1574,7 @@
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="text-center">
                         <div class="w-16 h-16 bg-[#F5E8C7] rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-meditation text-2xl text-[#E2B93B]"></i>
+                            <i class="fas fa-brain text-2xl text-[#E2B93B]"></i>
                         </div>
                         <h4 class="font-bold mb-2">Practices</h4>
                         <p class="text-sm text-gray-600">
@@ -1469,7 +1582,8 @@
                         </p>
                     </div>
                     <div class="text-center">
-                        <div class="w-16 h-16 bg-[#47B5A5]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <div
+                            class="w-16 h-16 bg-[#47B5A5]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-flag text-2xl text-[#47B5A5]"></i>
                         </div>
                         <h4 class="font-bold mb-2">Challenges</h4>
@@ -1478,7 +1592,8 @@
                         </p>
                     </div>
                     <div class="text-center">
-                        <div class="w-16 h-16 bg-[#E2B93B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <div
+                            class="w-16 h-16 bg-[#E2B93B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-book-open text-2xl text-[#E2B93B]"></i>
                         </div>
                         <h4 class="font-bold mb-2">Lessons</h4>
@@ -1501,14 +1616,14 @@
                         <span class="gradient-text">Real Transformation</span>
                     </h2>
                     <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                        Stop wandering. Start walking a path. Our journey system gives you 
+                        Stop wandering. Start walking a path. Our journey system gives you
                         structure while adapting to your pace.
                     </p>
                 </div>
 
                 <div class="relative">
                     <div class="journey-line"></div>
-                    
+
                     <div class="space-y-16">
                         <div class="relative">
                             <div class="journey-dot">6M</div>
@@ -1518,7 +1633,8 @@
                                     Your 6-month transformational goal. This is your North Star.
                                 </p>
                                 <div class="bg-[#F5E8C7] rounded-lg p-4 inline-block">
-                                    <p class="text-sm font-medium text-[#1F2937]">Example: "Become the leader my team needs"</p>
+                                    <p class="text-sm font-medium text-[#1F2937]">Example: "Become the leader my team
+                                        needs"</p>
                                 </div>
                             </div>
                         </div>
@@ -1531,7 +1647,8 @@
                                     Break your Epic into focused monthly themes that build on each other.
                                 </p>
                                 <div class="bg-[#47B5A5]/10 rounded-lg p-4 inline-block">
-                                    <p class="text-sm font-medium text-[#1F2937]">This month: "Building trust through vulnerability"</p>
+                                    <p class="text-sm font-medium text-[#1F2937]">This month: "Building trust through
+                                        vulnerability"</p>
                                 </div>
                             </div>
                         </div>
@@ -1544,7 +1661,8 @@
                                     Concrete actions you can actually complete, with built-in accountability.
                                 </p>
                                 <div class="bg-[#E2B93B]/10 rounded-lg p-4 inline-block">
-                                    <p class="text-sm font-medium text-[#1F2937]">This week: "Have one difficult conversation with empathy"</p>
+                                    <p class="text-sm font-medium text-[#1F2937]">This week: "Have one difficult
+                                        conversation with empathy"</p>
                                 </div>
                             </div>
                         </div>
@@ -1557,7 +1675,8 @@
                                     Your personalized audio and challenges that move you forward every single day.
                                 </p>
                                 <div class="bg-amber-50 rounded-lg p-4 inline-block">
-                                    <p class="text-sm font-medium text-amber-900">Today: "Communication techniques for your 2pm meeting"</p>
+                                    <p class="text-sm font-medium text-amber-900">Today: "Communication techniques for
+                                        your 2pm meeting"</p>
                                 </div>
                             </div>
                         </div>
@@ -1682,14 +1801,14 @@
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto">
                 <h2 class="text-4xl font-bold text-center mb-16">Common Questions</h2>
-                
+
                 <div class="space-y-8">
                     <div class="border-b border-gray-200 pb-8">
                         <h3 class="text-xl font-bold mb-4">How is this different from therapy or coaching?</h3>
                         <p class="text-gray-600">
-                            We're not therapy – we're a development platform that synthesizes the world's best wisdom 
-                            and personalizes it for you. Think of it as having a mentor who's read every great book 
-                            and knows exactly what you need to hear each day. Many users combine our app with therapy 
+                            We're not therapy – we're a development platform that synthesizes the world's best wisdom
+                            and personalizes it for you. Think of it as having a mentor who's read every great book
+                            and knows exactly what you need to hear each day. Many users combine our app with therapy
                             for even better results.
                         </p>
                     </div>
@@ -1697,8 +1816,8 @@
                     <div class="border-b border-gray-200 pb-8">
                         <h3 class="text-xl font-bold mb-4">What makes the AI truly personalized?</h3>
                         <p class="text-gray-600">
-                            Marcus AI doesn't just use your assessment results. It learns from your daily check-ins, 
-                            tracks your progress, remembers what you've shared, and continuously adapts. Every piece 
+                            Marcus AI doesn't just use your assessment results. It learns from your daily check-ins,
+                            tracks your progress, remembers what you've shared, and continuously adapts. Every piece
                             of content is generated fresh – no two users will ever receive the same audio.
                         </p>
                     </div>
@@ -1706,8 +1825,8 @@
                     <div class="border-b border-gray-200 pb-8">
                         <h3 class="text-xl font-bold mb-4">How much time does it take?</h3>
                         <p class="text-gray-600">
-                            Just 10-30 minutes daily (you choose). Most men listen during their commute or morning 
-                            routine. The AI coach is there whenever you need it, and weekly goal planning takes 
+                            Just 10-30 minutes daily (you choose). Most men listen during their commute or morning
+                            routine. The AI coach is there whenever you need it, and weekly goal planning takes
                             about 15 minutes on Sundays.
                         </p>
                     </div>
@@ -1715,9 +1834,9 @@
                     <div class="border-b border-gray-200 pb-8">
                         <h3 class="text-xl font-bold mb-4">Is this based on real psychology?</h3>
                         <p class="text-gray-600">
-                            Absolutely. We integrate evidence-based approaches including attachment theory, CBT, 
-                            positive psychology, and neuroscience. We also include time-tested wisdom from philosophy 
-                            and proven business frameworks. Everything is synthesized and personalized by AI trained 
+                            Absolutely. We integrate evidence-based approaches including attachment theory, CBT,
+                            positive psychology, and neuroscience. We also include time-tested wisdom from philosophy
+                            and proven business frameworks. Everything is synthesized and personalized by AI trained
                             on thousands of hours of content.
                         </p>
                     </div>
@@ -1725,9 +1844,10 @@
                     <div>
                         <h3 class="text-xl font-bold mb-4">What if I'm skeptical about AI?</h3>
                         <p class="text-gray-600">
-                            We get it. That's why we offer a 7-day free trial. The AI isn't trying to replace human 
-                            connection – it's synthesizing human wisdom in a way that would be impossible for any one 
-                            person to do. Think of it as a highly intelligent curator, not a replacement for real relationships.
+                            We get it. That's why we offer a 7-day free trial. The AI isn't trying to replace human
+                            connection – it's synthesizing human wisdom in a way that would be impossible for any one
+                            person to do. Think of it as a highly intelligent curator, not a replacement for real
+                            relationships.
                         </p>
                     </div>
                 </div>
@@ -1743,9 +1863,9 @@
                     The World Needs<br>
                     <span class="gradient-text">Good Men</span>
                 </h2>
-                
+
                 <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-                    Your family needs you at your best. Your work needs you at your best. 
+                    Your family needs you at your best. Your work needs you at your best.
                     Most importantly, you deserve to be at your best. It's time to rise to meet your potential.
                 </p>
 
@@ -1755,22 +1875,23 @@
                             <i class="fas fa-tag mr-2"></i>EARLY ADOPTER SPECIAL - LIMITED TIME
                         </p>
                     </div>
-                    
+
                     <h3 class="text-2xl font-bold mb-4 text-center">
                         How Long Can You Afford To<br>
                         <span class="gradient-text">Not Take The Next Step?</span>
                     </h3>
-                    
+
                     <p class="text-gray-600 text-center mb-8">
                         Where will you be in 1 year if you don't make a change now?<br>
                         <span class="text-sm">Same patterns. Same struggles. Same untapped potential.</span>
                     </p>
-                    
+
                     <div class="grid md:grid-cols-2 gap-6 mb-8">
                         <div class="text-left">
                             <h4 class="font-semibold mb-3">What's Included:</h4>
                             <ul class="space-y-2 text-sm text-gray-600">
-                                <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>Complete assessment & AI analysis</li>
+                                <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>Complete assessment & AI analysis
+                                </li>
                                 <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>7 days of personalized audio</li>
                                 <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>Full access to Marcus AI coach</li>
                                 <li><i class="fas fa-check text-[#47B5A5] mr-2"></i>Your first Epic & weekly goals</li>
@@ -1780,7 +1901,8 @@
                             <h4 class="font-semibold mb-3">Early Adopter Pricing:</h4>
                             <div class="mb-3">
                                 <p class="text-gray-400 line-through text-lg">$49/month</p>
-                                <p class="text-3xl font-bold text-[#E2B93B]">$29<span class="text-lg font-normal text-gray-600">/month</span></p>
+                                <p class="text-3xl font-bold text-[#E2B93B]">$29<span
+                                        class="text-lg font-normal text-gray-600">/month</span></p>
                                 <p class="text-sm text-[#47B5A5] font-medium">Save 40% as an early adopter</p>
                             </div>
                             <p class="text-sm text-gray-600 mb-2">After 7-day free trial</p>
@@ -1792,9 +1914,10 @@
                         Start Your Free Trial Now
                         <i class="fas fa-arrow-right"></i>
                     </button>
-                    
+
                     <p class="text-sm text-gray-500 mt-6">
-                        <i class="fas fa-lock mr-2"></i>Your data is private and secure. We never share your information.
+                        <i class="fas fa-lock mr-2"></i>Your data is private and secure. We never share your
+                        information.
                     </p>
                 </div>
 
@@ -1815,16 +1938,16 @@
                     <img src="assets/images/logo.svg" alt="The Lifetime Project" class="w-10 h-10">
                     <span class="text-gray-900 font-semibold">The Lifetime Project</span>
                 </div>
-                
+
                 <div class="flex space-x-6 text-sm text-gray-600">
                     <a href="#" class="hover:text-gray-900">Privacy Policy</a>
                     <a href="#" class="hover:text-gray-900">Terms of Service</a>
                     <a href="#" class="hover:text-gray-900">Contact</a>
                 </div>
             </div>
-            
+
             <div class="mt-8 text-center text-sm text-gray-500">
-                <p>© 2024 The Lifetime Project. Empowering men to become who they truly are.</p>
+                <p>© 2025 The Lifetime Project. Empowering men to become who they truly are.</p>
             </div>
         </div>
     </footer>
@@ -1833,7 +1956,7 @@
     <script>
         // Track active characters
         let activeCharacters = [];
-        
+
         // Character data as JSON
         const charactersData = {
             jake: {
@@ -1891,7 +2014,7 @@
                 }
             },
             andy: {
-                name: "Andy", 
+                name: "Andy",
                 age: 38,
                 role: "Tech Lead",
                 tagline: "Tech Lead",
@@ -2002,7 +2125,7 @@
             jason: {
                 name: "Jason",
                 age: 29,
-                role: "Sales Associate", 
+                role: "Sales Associate",
                 tagline: "Stuck",
                 image: "assets/images/jason.png",
                 goal: "Breaking through procrastination and staying consistent",
@@ -2076,7 +2199,7 @@
         function getCharacter(key) {
             return charactersData[key] || null;
         }
-        
+
         // Get currently active characters based on screen size and selection
         function getActiveCharacters() {
             // Simply return the activeCharacters array
@@ -2087,7 +2210,7 @@
         function renderConversationBubble(message, character, bossImage = "assets/images/colleauge.jpeg") {
             const characterData = charactersData[character];
             if (!characterData) return '';
-            
+
             if (message.type === 'marcus') {
                 return `
                     <div class="conversation-bubble marcus">
@@ -2123,7 +2246,7 @@
                 } else if (character === 'jason') {
                     image = 'assets/images/colleauge.jpeg';
                 }
-                
+
                 return `
                     <div class="conversation-bubble boss">
                         <div class="flex items-start gap-3">
@@ -2145,27 +2268,27 @@
                 console.log('Morning conversations container not found');
                 return;
             }
-            
+
             container.innerHTML = '';
-            
+
             const active = getActiveCharacters();
             console.log('Active characters for morning:', active, 'activeCharacters global:', activeCharacters);
             if (active.length === 0) {
                 console.log('No active characters, skipping morning render');
                 return;
             }
-            
+
             active.forEach(key => {
                 const character = charactersData[key];
                 if (!character) return;
                 const morningDiv = document.createElement('div');
                 morningDiv.className = 'moment-content timeline-character';
                 morningDiv.setAttribute('data-character', key);
-                
-                let conversationHTML = character.conversations.morning.map(msg => 
+
+                let conversationHTML = character.conversations.morning.map(msg =>
                     renderConversationBubble(msg, key)
                 ).join('');
-                
+
                 morningDiv.innerHTML = `
                     <h4 class="text-xl font-bold text-white mb-4 flex items-center">
                         <span class="mr-3" style="color: ${character.color};">${character.name}</span>
@@ -2184,7 +2307,7 @@
                         ${character.protocol.tip ? `<p class="text-xs text-gray-400 mt-2 italic">${character.protocol.tip}</p>` : ''}
                     </div>
                 `;
-                
+
                 container.appendChild(morningDiv);
             });
         }
@@ -2193,30 +2316,30 @@
         function renderMiddayConversations() {
             const container = document.querySelector('.midday-conversations');
             if (!container) return;
-            
+
             container.innerHTML = '';
-            
+
             const active = getActiveCharacters();
             if (active.length === 0) return;
-            
+
             active.forEach(key => {
                 const character = charactersData[key];
                 if (!character) return;
                 const middayDiv = document.createElement('div');
                 middayDiv.className = 'timeline-content timeline-character';
                 middayDiv.setAttribute('data-character', key);
-                
-                let conversationHTML = character.conversations.midday.map(msg => 
+
+                let conversationHTML = character.conversations.midday.map(msg =>
                     renderConversationBubble(msg, key)
                 ).join('');
-                
+
                 middayDiv.innerHTML = `
                     <div class="space-y-4">
                         ${conversationHTML}
                         ${renderProgressTracker(character, key)}
                     </div>
                 `;
-                
+
                 container.appendChild(middayDiv);
             });
         }
@@ -2225,12 +2348,12 @@
         function renderMomentConversations() {
             const container = document.querySelector('.moment-conversations');
             if (!container) return;
-            
+
             container.innerHTML = '';
-            
+
             const active = getActiveCharacters();
             if (active.length === 0) return;
-            
+
             active.forEach(key => {
                 const character = charactersData[key];
                 if (!character) return;
@@ -2238,11 +2361,11 @@
                 const momentDiv = document.createElement('div');
                 momentDiv.className = 'moment-content timeline-character';
                 momentDiv.setAttribute('data-character', key);
-                
-                let dialogueHTML = moment.dialogue.map(msg => 
+
+                let dialogueHTML = moment.dialogue.map(msg =>
                     renderConversationBubble(msg, key)
                 ).join('');
-                
+
                 momentDiv.innerHTML = `
                     <h4 class="text-xl font-bold text-white mb-4 flex items-center">
                         <span class="text-[${character.color}] mr-3">${moment.time}</span>
@@ -2267,7 +2390,7 @@
                         ${moment.outcome}
                     </p>
                 `;
-                
+
                 container.appendChild(momentDiv);
             });
         }
@@ -2276,12 +2399,12 @@
         function renderEveningConversations() {
             const container = document.querySelector('.evening-conversations');
             if (!container) return;
-            
+
             container.innerHTML = '';
-            
+
             const active = getActiveCharacters();
             if (active.length === 0) return;
-            
+
             active.forEach(key => {
                 const character = charactersData[key];
                 if (!character) return;
@@ -2289,7 +2412,7 @@
                 const eveningDiv = document.createElement('div');
                 eveningDiv.className = 'moment-content timeline-character';
                 eveningDiv.setAttribute('data-character', key);
-                
+
                 eveningDiv.innerHTML = `
                     <h4 class="text-xl font-bold text-white mb-4">
                         <span class="text-[${character.color}]">${character.name}'s ${key === 'jake' ? 'Breakthrough' : key === 'andy' ? 'Assertiveness Win' : key === 'adam' ? 'Purpose Alignment' : 'Momentum Victory'}</span>
@@ -2307,7 +2430,7 @@
                         </p>
                     </div>
                 `;
-                
+
                 container.appendChild(eveningDiv);
             });
         }
@@ -2373,20 +2496,20 @@
             const characterCarousel = document.querySelector('.character-carousel');
             if (characterCarousel) {
                 characterCarousel.innerHTML = '';
-                
+
                 Object.entries(charactersData).forEach(([key, character]) => {
                     const button = document.createElement('button');
                     button.className = 'character-select-btn flex-shrink-0';
                     button.setAttribute('data-character', key);
                     button.style.cssText = 'pointer-events: auto; z-index: 20004 !important; position: relative; isolation: isolate;';
                     button.onclick = () => selectCharacter(key);
-                    
+
                     button.innerHTML = `
                         <img src="${character.image}" alt="${character.name}" class="w-20 h-20 rounded-full border-3 border-white/20 object-cover" style="pointer-events: none;">
                         <span style="pointer-events: none;">${character.name}</span>
                         <span class="text-xs text-gray-300 mt-1" style="pointer-events: none;">${character.tagline}</span>
                     `;
-                    
+
                     characterCarousel.appendChild(button);
                 });
             }
@@ -2395,7 +2518,7 @@
             const introGrid = document.querySelector('.character-intro-grid');
             if (introGrid) {
                 introGrid.innerHTML = '';
-                
+
                 // For desktop with active characters, only show those
                 // For mobile or initial load, show all characters
                 let charsToRender;
@@ -2408,15 +2531,15 @@
                     // Desktop initial load - show all
                     charsToRender = Object.keys(charactersData);
                 }
-                
+
                 charsToRender.forEach(key => {
                     const character = charactersData[key];
                     if (!character) return;
-                    
+
                     const card = document.createElement('div');
                     card.className = 'moment-content text-center character-card';
                     card.setAttribute('data-character', key);
-                    
+
                     card.innerHTML = `
                         <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden shadow-2xl md:block hidden" style="border: 4px solid ${character.borderColor}50;">
                             <img src="${character.image}" alt="${character.name}" class="w-full h-full object-cover">
@@ -2431,7 +2554,7 @@
                             </p>
                         </div>
                     `;
-                    
+
                     introGrid.appendChild(card);
                 });
             }
@@ -2440,12 +2563,12 @@
         // Character selection function
         function selectCharacter(character) {
             console.log('selectCharacter called with:', character, 'Window width:', window.innerWidth);
-            
+
             if (!charactersData[character]) {
                 console.error('Invalid character:', character);
                 return;
             }
-            
+
             // Update button states
             document.querySelectorAll('.character-select-btn').forEach(btn => {
                 btn.classList.remove('active');
@@ -2454,18 +2577,18 @@
             if (selectedBtn) {
                 selectedBtn.classList.add('active');
             }
-            
+
             // Set active character for mobile
             if (window.innerWidth <= 768) {
                 activeCharacters = [character];
                 console.log('Set activeCharacters for mobile:', activeCharacters);
             }
-            
+
             // Don't re-initialize on mobile as it might clear activeCharacters
             if (window.innerWidth > 768) {
                 initializeCharacterSelection();
             }
-            
+
             // Show selected character intro
             document.querySelectorAll('.character-card').forEach(card => {
                 card.classList.remove('show-mobile');
@@ -2473,7 +2596,7 @@
                     card.classList.add('show-mobile');
                 }
             });
-            
+
             // Show continue button on mobile after selection
             if (window.innerWidth <= 768) {
                 const continueButton = document.getElementById('continue-button');
@@ -2481,7 +2604,7 @@
                     continueButton.classList.remove('hidden');
                 }
             }
-            
+
             // Re-render all conversations with selected character
             console.log('Rendering conversations for character:', character);
             renderMorningConversations();
@@ -2489,41 +2612,41 @@
             renderMomentConversations();
             renderEveningConversations();
         }
-        
+
         // Debug and setup character selection
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             console.log('DOM loaded, initializing character selection...');
-            
+
             // Initialize character selection from JSON data
             initializeCharacterSelection();
-            
+
             // For mobile, don't render until character is selected
             // For desktop, render will happen after random selection
-            
+
             // After initialization, set up event listeners
             const buttons = document.querySelectorAll('.character-select-btn');
             console.log('Found buttons:', buttons.length);
-            
+
             buttons.forEach((btn, index) => {
                 const character = btn.getAttribute('data-character');
                 console.log('Button found:', character);
-                
+
                 // Add event listeners programmatically as backup
-                btn.addEventListener('click', function(e) {
+                btn.addEventListener('click', function (e) {
                     e.preventDefault();
                     e.stopPropagation();
                     console.log('Programmatic click on:', character);
                     selectCharacter(character);
                 });
-                
-                btn.addEventListener('touchend', function(e) {
+
+                btn.addEventListener('touchend', function (e) {
                     e.preventDefault();
                     e.stopPropagation();
                     console.log('Programmatic touch on:', character);
                     selectCharacter(character);
                 });
             });
-            
+
             // Handle character selection based on screen size
             console.log('Window width:', window.innerWidth);
             if (window.innerWidth <= 768) {
@@ -2533,7 +2656,7 @@
                 // Desktop: Randomly show 2 characters
                 const allCharacters = Object.keys(charactersData);
                 const randomChars = [];
-                
+
                 // Select 2 random characters
                 while (randomChars.length < 2) {
                     const randomChar = allCharacters[Math.floor(Math.random() * allCharacters.length)];
@@ -2541,18 +2664,18 @@
                         randomChars.push(randomChar);
                     }
                 }
-                
+
                 console.log('Desktop: Showing random characters:', randomChars);
-                
+
                 // Set active characters for desktop
                 activeCharacters = randomChars;
-                
+
                 // Re-initialize character cards to show only the selected 2
                 setTimeout(() => {
                     initializeCharacterSelection();
-                    
+
                     // Timeline content will be filtered by render functions
-                    
+
                     // Render conversations for desktop with selected 2 characters
                     renderMorningConversations();
                     renderMiddayConversations();
@@ -2561,35 +2684,35 @@
                 }, 100);
             }
         });
-        
+
         // Matter.js Physics Simulation
         const canvas = document.getElementById('physics-canvas');
         const bottomMessage = document.getElementById('bottom-message');
         const breakthroughMessage = document.getElementById('breakthrough-message');
-        
+
         if (canvas) {
             // Module aliases
             const Engine = Matter.Engine,
-                  Render = Matter.Render,
-                  Runner = Matter.Runner,
-                  Bodies = Matter.Bodies,
-                  Body = Matter.Body,
-                  Composite = Matter.Composite,
-                  Events = Matter.Events,
-                  Mouse = Matter.Mouse,
-                  MouseConstraint = Matter.MouseConstraint;
-            
+                Render = Matter.Render,
+                Runner = Matter.Runner,
+                Bodies = Matter.Bodies,
+                Body = Matter.Body,
+                Composite = Matter.Composite,
+                Events = Matter.Events,
+                Mouse = Matter.Mouse,
+                MouseConstraint = Matter.MouseConstraint;
+
             // Create engine
             const engine = Engine.create();
             engine.gravity.y = 1; // Normal gravity
-            
+
             // Get responsive canvas dimensions
             const canvasContainer = canvas.parentElement;
             const containerWidth = canvasContainer.clientWidth;
             const containerHeight = Math.min(500, window.innerHeight * 0.6); // Responsive height
             const canvasWidth = Math.min(800, containerWidth);
             const canvasHeight = containerHeight;
-            
+
             // Create renderer with responsive dimensions
             const render = Render.create({
                 canvas: canvas,
@@ -2602,7 +2725,7 @@
                     showVelocity: false
                 }
             });
-            
+
             // Life demand items data - all the things weighing you down
             const demands = [
                 { text: "CAREER", icon: "briefcase", weight: 3 },
@@ -2646,18 +2769,18 @@
                 { text: "YARD WORK", icon: "leaf", weight: 1 },
                 { text: "INVESTMENTS", icon: "chart-line", weight: 2 }
             ];
-            
+
             // Create demand boxes - they'll flow in over time
             const demandBodies = [];
             let demandIndex = 0;
-            
+
             // Function to create a single demand block
             function createDemandBlock(demand, index) {
                 const x = 50 + Math.random() * (canvasWidth - 100); // Responsive random position
                 const y = -50 - Math.random() * 50; // Start above canvas
                 const width = Math.max(60, canvasWidth * 0.1); // Responsive width (min 60px, max 10% of canvas)
                 const height = Math.max(25, canvasHeight * 0.07); // Responsive height
-                
+
                 const box = Bodies.rectangle(x, y, width, height, {
                     restitution: 0, // ZERO bounce - completely rigid
                     friction: 0.8, // High friction so they don't slide around
@@ -2669,13 +2792,13 @@
                     },
                     chamfer: { radius: 5 } // Rounded corners
                 });
-                
+
                 // Store the demand data on the body for rendering
                 box.demandData = demand;
-                
+
                 return box;
             }
-            
+
             // Initially create first 10 blocks
             for (let i = 0; i < 10; i++) {
                 const block = createDemandBlock(demands[i], i);
@@ -2683,13 +2806,13 @@
                 Composite.add(engine.world, block);
             }
             demandIndex = 10;
-            
+
             // Continuously add more blocks (max 200 total)
             const MAX_BLOCKS = 200;
             const blockInterval = setInterval(() => {
                 // Count current active blocks (excluding debris)
                 const activeBlocks = demandBodies.filter(block => !block.isCrushed).length;
-                
+
                 if (activeBlocks < MAX_BLOCKS) {
                     if (demandIndex < demands.length) {
                         const block = createDemandBlock(demands[demandIndex], demandIndex);
@@ -2704,7 +2827,7 @@
                 // If we've reached max blocks, stop spawning but keep the interval running
                 // in case blocks get destroyed and we need to spawn more
             }, 300); // Add new block every 300ms
-            
+
             // Create "YOU" circle (initially at bottom, static) - responsive sizing
             const youRadius = Math.max(30, Math.min(50, canvasWidth * 0.06)); // Responsive radius
             const youBody = Bodies.circle(canvasWidth / 2, canvasHeight - youRadius - 20, youRadius, {
@@ -2716,56 +2839,56 @@
                     visible: false // Hide Matter.js default rendering
                 }
             });
-            
+
             // Create walls (invisible) - responsive positioning
-            const ground = Bodies.rectangle(canvasWidth / 2, canvasHeight - 10, canvasWidth, 20, { 
+            const ground = Bodies.rectangle(canvasWidth / 2, canvasHeight - 10, canvasWidth, 20, {
                 isStatic: true,
                 render: { visible: false }
             });
-            const leftWall = Bodies.rectangle(0, canvasHeight / 2, 20, canvasHeight, { 
+            const leftWall = Bodies.rectangle(0, canvasHeight / 2, 20, canvasHeight, {
                 isStatic: true,
                 render: { visible: false }
             });
-            const rightWall = Bodies.rectangle(canvasWidth, canvasHeight / 2, 20, canvasHeight, { 
+            const rightWall = Bodies.rectangle(canvasWidth, canvasHeight / 2, 20, canvasHeight, {
                 isStatic: true,
                 render: { visible: false }
             });
-            
+
             // Add static bodies to the world (blocks will be added dynamically)
             Composite.add(engine.world, [youBody, ground, leftWall, rightWall]);
-            
+
             // Track crushed blocks
             const crushedPieces = [];
-            
+
             // Handle collisions to detect crushing
-            Events.on(engine, 'collisionStart', function(event) {
+            Events.on(engine, 'collisionStart', function (event) {
                 const pairs = event.pairs;
-                
+
                 pairs.forEach(pair => {
                     // Check if YOU collided with a demand block
                     if ((pair.bodyA === youBody || pair.bodyB === youBody) && !youBody.isStatic) {
                         const block = pair.bodyA === youBody ? pair.bodyB : pair.bodyA;
-                        
+
                         // Only crush demand blocks, not walls
                         if (block && block.demandData && !block.isCrushed) {
                             // Calculate impact force based on relative velocity
                             const relativeVelocity = Math.abs(youBody.velocity.y - block.velocity.y);
-                            
+
                             if (relativeVelocity > 15) { // High impact threshold
                                 // Mark as crushed
                                 block.isCrushed = true;
-                                
+
                                 // Create debris pieces
                                 const x = block.position.x;
                                 const y = block.position.y;
-                                
+
                                 // Remove the original block
                                 setTimeout(() => {
                                     Composite.remove(engine.world, block);
                                     const index = demandBodies.indexOf(block);
                                     if (index > -1) demandBodies.splice(index, 1);
                                 }, 10);
-                                
+
                                 // Create 4-6 smaller pieces (25% of original size)
                                 const numPieces = 4 + Math.floor(Math.random() * 3);
                                 for (let i = 0; i < numPieces; i++) {
@@ -2783,17 +2906,17 @@
                                             opacity: 0.7
                                         }
                                     );
-                                    
+
                                     // Give pieces explosive velocity
                                     Body.setVelocity(piece, {
                                         x: (Math.random() - 0.5) * 20,
                                         y: -Math.random() * 15 - 5
                                     });
                                     Body.setAngularVelocity(piece, (Math.random() - 0.5) * 0.5);
-                                    
+
                                     Composite.add(engine.world, piece);
                                     crushedPieces.push(piece);
-                                    
+
                                     // Start fading after 15 seconds
                                     setTimeout(() => {
                                         // Fade out over 5 seconds
@@ -2813,14 +2936,14 @@
                     }
                 });
             });
-            
+
             // Custom renderer to draw text and icons
-            Events.on(render, 'afterRender', function() {
+            Events.on(render, 'afterRender', function () {
                 const context = render.canvas.getContext('2d');
-                
+
                 // Clear the entire canvas first
                 context.clearRect(0, 0, render.canvas.width, render.canvas.height);
-                
+
                 // Draw demand items with text
                 demandBodies.forEach((body) => {
                     if (body.demandData && !body.isCrushed) {
@@ -2828,30 +2951,30 @@
                         context.save();
                         context.translate(body.position.x, body.position.y);
                         context.rotate(body.angle);
-                        
+
                         // Draw white background with subtle border - responsive sizing
                         const width = Math.max(60, canvasWidth * 0.1);
                         const height = Math.max(25, canvasHeight * 0.07);
                         const radius = 5;
-                        
+
                         // Rounded rectangle
                         context.beginPath();
-                        context.moveTo(-width/2 + radius, -height/2);
-                        context.arcTo(width/2, -height/2, width/2, -height/2 + radius, radius);
-                        context.arcTo(width/2, height/2, width/2 - radius, height/2, radius);
-                        context.arcTo(-width/2, height/2, -width/2, height/2 - radius, radius);
-                        context.arcTo(-width/2, -height/2, -width/2 + radius, -height/2, radius);
+                        context.moveTo(-width / 2 + radius, -height / 2);
+                        context.arcTo(width / 2, -height / 2, width / 2, -height / 2 + radius, radius);
+                        context.arcTo(width / 2, height / 2, width / 2 - radius, height / 2, radius);
+                        context.arcTo(-width / 2, height / 2, -width / 2, height / 2 - radius, radius);
+                        context.arcTo(-width / 2, -height / 2, -width / 2 + radius, -height / 2, radius);
                         context.closePath();
-                        
+
                         // Fill with white
                         context.fillStyle = '#ffffff';
                         context.fill();
-                        
+
                         // Very subtle border
                         context.strokeStyle = '#e5e7eb';
                         context.lineWidth = 1;
                         context.stroke();
-                        
+
                         // Draw text - responsive font size
                         const fontSize = Math.max(8, Math.min(11, canvasWidth * 0.014));
                         context.font = `${fontSize}px Arial`;
@@ -2859,22 +2982,22 @@
                         context.textAlign = 'center';
                         context.textBaseline = 'middle';
                         context.fillText(demand.text, 0, 0);
-                        
+
                         context.restore();
                     }
                 });
-                
+
                 // Draw YOU circle
                 const you = youBody;
                 context.save();
                 context.translate(you.position.x, you.position.y);
                 context.rotate(you.angle);
-                
+
                 // Create gradient with responsive radius
                 const gradient = context.createRadialGradient(0, 0, 0, 0, 0, youRadius);
                 gradient.addColorStop(0, '#E2B93B');
                 gradient.addColorStop(1, '#47B5A5');
-                
+
                 context.beginPath();
                 context.arc(0, 0, youRadius, 0, 2 * Math.PI);
                 context.fillStyle = gradient;
@@ -2882,14 +3005,14 @@
                 context.strokeStyle = '#E2B93B';
                 context.lineWidth = Math.max(2, youRadius * 0.06);
                 context.stroke();
-                
+
                 // Add glow effect when moving
                 if (Math.abs(you.velocity.y) > 1) {
                     context.shadowBlur = 30;
                     context.shadowColor = '#E2B93B';
                     context.stroke();
                 }
-                
+
                 // Draw text with responsive font size
                 context.shadowBlur = 0;
                 const youFontSize = Math.max(16, Math.min(24, youRadius * 0.48));
@@ -2898,49 +3021,49 @@
                 context.textAlign = 'center';
                 context.textBaseline = 'middle';
                 context.fillText('YOU', 0, 0);
-                
+
                 context.restore();
-                
+
                 // Draw debris pieces
                 crushedPieces.forEach(piece => {
                     if (piece.isDebris) {
                         context.save();
                         context.translate(piece.position.x, piece.position.y);
                         context.rotate(piece.angle);
-                        
+
                         const width = piece.bounds.max.x - piece.bounds.min.x;
                         const height = piece.bounds.max.y - piece.bounds.min.y;
-                        
+
                         // Draw debris as broken white fragments (like the original blocks)
                         context.fillStyle = 'rgba(255, 255, 255, ' + (piece.opacity || 0.9) + ')';
-                        context.fillRect(-width/2, -height/2, width, height);
-                        
+                        context.fillRect(-width / 2, -height / 2, width, height);
+
                         // Jagged/broken edge effect
                         context.strokeStyle = 'rgba(229, 231, 235, ' + (piece.opacity || 0.9) + ')';
                         context.lineWidth = 1;
-                        context.strokeRect(-width/2, -height/2, width, height);
-                        
+                        context.strokeRect(-width / 2, -height / 2, width, height);
+
                         // Add some cracks
                         context.beginPath();
-                        context.moveTo(-width/2 + width * 0.3, -height/2);
-                        context.lineTo(-width/2 + width * 0.4, 0);
-                        context.lineTo(-width/2 + width * 0.3, height/2);
+                        context.moveTo(-width / 2 + width * 0.3, -height / 2);
+                        context.lineTo(-width / 2 + width * 0.4, 0);
+                        context.lineTo(-width / 2 + width * 0.3, height / 2);
                         context.strokeStyle = 'rgba(200, 200, 200, 0.5)';
                         context.lineWidth = 0.5;
                         context.stroke();
-                        
+
                         context.restore();
                     }
                 });
             });
-            
+
             // Run the renderer
             Render.run(render);
-            
+
             // Create runner
             const runner = Runner.create();
             Runner.run(runner, engine);
-            
+
             // Click to break free
             let hasBreakthrough = false;
             canvas.addEventListener('click', (event) => {
@@ -2948,11 +3071,11 @@
                 const rect = canvas.getBoundingClientRect();
                 const mouseX = (event.clientX - rect.left) * (canvasWidth / rect.width);
                 const mouseY = (event.clientY - rect.top) * (canvasHeight / rect.height);
-                
+
                 // Check if click is near the YOU element
                 const youPos = youBody.position;
                 const distance = Math.sqrt(Math.pow(mouseX - youPos.x, 2) + Math.pow(mouseY - youPos.y, 2));
-                
+
                 if (distance <= youRadius + 20) { // Click within YOU radius + buffer
                     // Reset YOU to static position if it's not already
                     if (!youBody.isStatic) {
@@ -2961,18 +3084,18 @@
                         Body.setVelocity(youBody, { x: 0, y: 0 });
                         Body.setAngularVelocity(youBody, 0);
                     }
-                    
+
                     // Make YOU non-static and apply TREMENDOUS upward force
                     Body.setStatic(youBody, false);
-                    
+
                     // Apply extreme upward force - scale with canvas size
                     const forceScale = canvasHeight / 500; // Scale force based on canvas height
                     Body.applyForce(youBody, youBody.position, { x: 0, y: -5 * forceScale });
                     Body.setVelocity(youBody, { x: 0, y: -60 * forceScale }); // Extreme upward velocity
-                    
+
                     // Make YOU super heavy for maximum impact
                     Body.setDensity(youBody, 0.5); // 5x heavier when launching
-                    
+
                     // Update messages
                     if (!hasBreakthrough) {
                         hasBreakthrough = true;
@@ -2984,7 +3107,7 @@
                     }
                 }
             });
-            
+
             // Handle window resize
             window.addEventListener('resize', () => {
                 render.canvas.width = canvas.offsetWidth;
@@ -3005,7 +3128,7 @@
 
         // Simple scroll animations
         gsap.registerPlugin(ScrollTrigger);
-        
+
         // Fade in elements as they come into view
         gsap.utils.toArray('.wisdom-card').forEach((card, i) => {
             gsap.from(card, {
@@ -3041,7 +3164,7 @@
             // Animate title and subtitle
             const timelineTitle = cinematicTimeline.querySelector('.timeline-title');
             const timelineSubtitle = cinematicTimeline.querySelector('.timeline-subtitle');
-            
+
             ScrollTrigger.create({
                 trigger: cinematicTimeline,
                 start: "top 80%",
@@ -3054,14 +3177,14 @@
             // Animate timeline moments
             const timelineMoments = cinematicTimeline.querySelectorAll('.timeline-moment');
             const timelineProgress = cinematicTimeline.querySelector('.timeline-progress');
-            
+
             timelineMoments.forEach((moment, index) => {
                 ScrollTrigger.create({
                     trigger: moment,
                     start: "top 70%",
                     onEnter: () => {
                         moment.classList.add('active');
-                        
+
                         // Update progress bar
                         if (timelineProgress) {
                             const progress = ((index + 1) / timelineMoments.length) * 100;
@@ -3083,7 +3206,7 @@
             gsap.utils.toArray('.moment-time').forEach((time, index) => {
                 // Different parallax speeds for variety
                 const speed = time.textContent.includes('MOMENT') ? -80 : -60;
-                
+
                 gsap.to(time, {
                     yPercent: speed,
                     scale: 0.85,
@@ -3096,7 +3219,7 @@
                         scrub: 1
                     }
                 });
-                
+
                 // Add subtle rotation for "THE MOMENT"
                 if (time.textContent.includes('MOMENT')) {
                     gsap.to(time, {
@@ -3130,7 +3253,7 @@
         const emailForm = document.getElementById('emailForm');
         const emailInput = document.getElementById('emailInput');
         const nameInput = document.getElementById('nameInput');
-        
+
         // Add click handlers to all CTA buttons
         document.querySelectorAll('.primary-btn').forEach(button => {
             button.addEventListener('click', (e) => {
@@ -3138,7 +3261,7 @@
                 emailModal.classList.remove('hidden');
                 emailModal.classList.add('flex');
                 emailInput.focus();
-                
+
                 // Track button click with PostHog
                 const buttonText = button.textContent.trim();
                 posthog.capture('cta_clicked', {
@@ -3147,7 +3270,7 @@
                 });
             });
         });
-        
+
         // Close modal when clicking outside
         emailModal.addEventListener('click', (e) => {
             if (e.target === emailModal) {
@@ -3155,26 +3278,26 @@
                 emailModal.classList.remove('flex');
             }
         });
-        
+
         // Close modal with close button
         document.getElementById('closeModal').addEventListener('click', () => {
             emailModal.classList.add('hidden');
             emailModal.classList.remove('flex');
         });
-        
+
         // Handle form submission
         emailForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const email = emailInput.value;
             const name = nameInput.value;
             const submitButton = emailForm.querySelector('button[type="submit"]');
             const originalText = submitButton.innerHTML;
-            
+
             // Update button state
             submitButton.disabled = true;
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processing...';
-            
+
             try {
                 // Track email capture with PostHog
                 posthog.capture('email_captured', {
@@ -3183,22 +3306,22 @@
                     source: 'modal',
                     timestamp: new Date().toISOString()
                 });
-                
+
                 // Identify the user in PostHog
                 posthog.identify(email, {
                     email: email,
                     name: name,
                     signup_date: new Date().toISOString()
                 });
-                
+
                 // Simulate API call delay
                 await new Promise(resolve => setTimeout(resolve, 1000));
-                
+
                 // Show success state
                 submitButton.innerHTML = '<i class="fas fa-check mr-2"></i>Success!';
                 submitButton.classList.remove('bg-[#E2B93B]');
                 submitButton.classList.add('bg-green-500');
-                
+
                 // Close modal after success
                 setTimeout(() => {
                     emailModal.classList.add('hidden');
@@ -3209,13 +3332,13 @@
                     submitButton.classList.add('bg-[#E2B93B]');
                     submitButton.classList.remove('bg-green-500');
                 }, 1500);
-                
+
             } catch (error) {
                 // Handle error
                 submitButton.innerHTML = '<i class="fas fa-times mr-2"></i>Error, try again';
                 submitButton.classList.remove('bg-[#E2B93B]');
                 submitButton.classList.add('bg-red-500');
-                
+
                 setTimeout(() => {
                     submitButton.disabled = false;
                     submitButton.innerHTML = originalText;
@@ -3233,48 +3356,40 @@
             <button id="closeModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
                 <i class="fas fa-times text-xl"></i>
             </button>
-            
+
             <!-- Modal content -->
             <div class="text-center mb-6">
-                <div class="w-16 h-16 bg-[#E2B93B] bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div
+                    class="w-16 h-16 bg-[#E2B93B] bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <i class="fas fa-rocket text-[#E2B93B] text-2xl"></i>
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">Ready to Transform Your Life?</h3>
                 <p class="text-gray-600">Join thousands of men on their journey to become their best selves.</p>
             </div>
-            
+
             <!-- Email form -->
             <form id="emailForm" class="space-y-4">
                 <div>
                     <label for="nameInput" class="block text-sm font-medium text-gray-700 mb-2">
                         Your name
                     </label>
-                    <input 
-                        type="text" 
-                        id="nameInput" 
-                        required 
-                        placeholder="John Smith"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2B93B] focus:border-transparent outline-none transition-all"
-                    >
+                    <input type="text" id="nameInput" required placeholder="John Smith"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2B93B] focus:border-transparent outline-none transition-all">
                 </div>
                 <div>
                     <label for="emailInput" class="block text-sm font-medium text-gray-700 mb-2">
                         Your email
                     </label>
-                    <input 
-                        type="email" 
-                        id="emailInput" 
-                        required 
-                        placeholder="your@email.com"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2B93B] focus:border-transparent outline-none transition-all"
-                    >
+                    <input type="email" id="emailInput" required placeholder="your@email.com"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2B93B] focus:border-transparent outline-none transition-all">
                 </div>
-                
-                <button type="submit" class="w-full bg-[#E2B93B] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#d4a635] transition-colors flex items-center justify-center">
+
+                <button type="submit"
+                    class="w-full bg-[#E2B93B] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#d4a635] transition-colors flex items-center justify-center">
                     Start Your Free Trial
                     <i class="fas fa-arrow-right ml-2"></i>
                 </button>
-                
+
                 <div class="text-center text-xs text-gray-500 space-y-1">
                     <p>
                         <i class="fas fa-lock mr-1"></i>
@@ -3286,7 +3401,7 @@
                     </p>
                 </div>
             </form>
-            
+
             <!-- Benefits -->
             <div class="mt-6 pt-6 border-t border-gray-200">
                 <p class="text-sm font-medium text-gray-700 mb-3">What you'll get:</p>
@@ -3314,15 +3429,19 @@
                 opacity: 0;
                 transform: scale(0.9);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1);
             }
         }
-        
+
         .animate-fadeIn {
             animation: fadeIn 0.3s ease-out;
         }
     </style>
 </body>
+<script
+    id="mcjs">!function (c, h, i, m, p) { m = c.createElement(h), p = c.getElementsByTagName(h)[0], m.async = 1, m.src = i, p.parentNode.insertBefore(m, p) }(document, "script", "https://chimpstatic.com/mcjs-connected/js/users/f4680638487903c69dc6b1e3e/148b52f47a14ebdeba3782c62.js");</script>
+
 </html>
