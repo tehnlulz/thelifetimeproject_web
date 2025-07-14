@@ -41,11 +41,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
-        @font-face {
-            font-family: 'Funnel Sans';
-            src: url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
-            font-display: swap;
-        }
+        /* Remove problematic font-face declaration - using Google Fonts link instead */
 
         :root {
             /* App Color Scheme */
@@ -80,7 +76,7 @@
         }
 
         body {
-            font-family: 'Outfit', 'Funnel Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
             background: var(--canvas);
             color: var(--text-primary);
             line-height: 1.6;
@@ -3263,44 +3259,59 @@
         document.querySelectorAll('.primary-btn').forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
-                emailModal.classList.remove('hidden');
-                emailModal.classList.add('flex');
-                if (nameInput) nameInput.focus();
+                if (emailModal) {
+                    emailModal.classList.remove('hidden');
+                    emailModal.classList.add('flex');
+                    if (nameInput) nameInput.focus();
 
-                // Track button click
-                const buttonText = button.textContent.trim();
-                console.log('CTA clicked:', buttonText);
+                    // Track button click
+                    const buttonText = button.textContent.trim();
+                    console.log('CTA clicked:', buttonText);
+                }
             });
         });
 
         // Close modal when clicking outside
-        emailModal.addEventListener('click', (e) => {
-            if (e.target === emailModal) {
-                emailModal.classList.add('hidden');
-                emailModal.classList.remove('flex');
-            }
-        });
+        if (emailModal) {
+            emailModal.addEventListener('click', (e) => {
+                if (e.target === emailModal) {
+                    emailModal.classList.add('hidden');
+                    emailModal.classList.remove('flex');
+                }
+            });
+        }
 
         // Close modal with close button
-        document.getElementById('closeModal').addEventListener('click', () => {
-            emailModal.classList.add('hidden');
-            emailModal.classList.remove('flex');
-        });
+        const closeButton = document.getElementById('closeModal');
+        if (closeButton) {
+            closeButton.addEventListener('click', () => {
+                if (emailModal) {
+                    emailModal.classList.add('hidden');
+                    emailModal.classList.remove('flex');
+                }
+            });
+        }
 
         // Handle successful Mailchimp submission
         if (mailchimpForm) {
             mailchimpForm.addEventListener('submit', function (e) {
-                // Track email capture
-                const email = emailInput ? emailInput.value : '';
-                const name = nameInput ? nameInput.value : '';
+                try {
+                    // Track email capture
+                    const email = emailInput ? emailInput.value : '';
+                    const name = nameInput ? nameInput.value : '';
 
-                console.log('Mailchimp form submitted:', { email, name });
+                    console.log('Mailchimp form submitted:', { email, name });
 
-                // Close modal after a short delay to allow form submission
-                setTimeout(() => {
-                    emailModal.classList.add('hidden');
-                    emailModal.classList.remove('flex');
-                }, 1000);
+                    // Close modal after a short delay to allow form submission
+                    setTimeout(() => {
+                        if (emailModal) {
+                            emailModal.classList.add('hidden');
+                            emailModal.classList.remove('flex');
+                        }
+                    }, 1000);
+                } catch (error) {
+                    console.error('Error handling form submission:', error);
+                }
             });
         }
     </script>
@@ -3406,27 +3417,46 @@
     </div>
 
     <!-- Mailchimp Validation Script -->
-    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
     <script type="text/javascript">
-        (function ($) {
-            window.fnames = new Array();
-            window.ftypes = new Array();
-            fnames[0] = 'EMAIL';
-            ftypes[0] = 'email';
-            fnames[1] = 'FNAME';
-            ftypes[1] = 'text';
-            fnames[2] = 'LNAME';
-            ftypes[2] = 'text';
-            fnames[3] = 'ADDRESS';
-            ftypes[3] = 'address';
-            fnames[4] = 'PHONE';
-            ftypes[4] = 'phone';
-            fnames[5] = 'BIRTHDAY';
-            ftypes[5] = 'birthday';
-            fnames[6] = 'COMPANY';
-            ftypes[6] = 'text';
-        }(jQuery));
-        var $mcj = jQuery.noConflict(true);
+        // Load Mailchimp validation script with fallback
+        (function () {
+            try {
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = '//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js';
+                script.onerror = function () {
+                    console.log('Mailchimp validation script blocked or failed to load');
+                };
+                document.head.appendChild(script);
+            } catch (e) {
+                console.log('Error loading Mailchimp script:', e);
+            }
+        })();
+
+        // Initialize Mailchimp form configuration
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof jQuery !== 'undefined') {
+                (function ($) {
+                    window.fnames = new Array();
+                    window.ftypes = new Array();
+                    fnames[0] = 'EMAIL';
+                    ftypes[0] = 'email';
+                    fnames[1] = 'FNAME';
+                    ftypes[1] = 'text';
+                    fnames[2] = 'LNAME';
+                    ftypes[2] = 'text';
+                    fnames[3] = 'ADDRESS';
+                    ftypes[3] = 'address';
+                    fnames[4] = 'PHONE';
+                    ftypes[4] = 'phone';
+                    fnames[5] = 'BIRTHDAY';
+                    ftypes[5] = 'birthday';
+                    fnames[6] = 'COMPANY';
+                    ftypes[6] = 'text';
+                }(jQuery));
+                var $mcj = jQuery.noConflict(true);
+            }
+        });
     </script>
 
     <style>
