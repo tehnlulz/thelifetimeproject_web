@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - The Lifetime Project</title>
+    <meta name="description"
+        content="Insights, wisdom, and practical guidance for men on their journey of personal development and transformation.">
+    <meta property="og:title" content="Blog - The Lifetime Project">
+    <meta property="og:description"
+        content="Insights, wisdom, and practical guidance for men on their journey of personal development and transformation.">
+    <meta property="og:image" content="https://thelifetimeproject.com/assets/images/logo.svg">
+    <meta property="og:url" content="https://thelifetimeproject.com/blog.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blog - The Lifetime Project">
+    <meta name="twitter:description"
+        content="Insights, wisdom, and practical guidance for men on their journey of personal development and transformation.">
+    <meta name="twitter:image" content="https://thelifetimeproject.com/assets/images/logo.svg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/images/android-chrome-512x512.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+
+    <style>
+        /* CSS Variables for immediate availability */
+        :root {
+            /* App Colour Scheme */
+            --canvas: #FAFAFC;
+            --surface: #FFFFFF;
+            --surface-dark: #F0F0F5;
+            --text-primary: #1F2937;
+            --text-secondary: #4B5563;
+            --text-tertiary: #9CA3AF;
+            --text-on-dark: #FFFFFF;
+            --accent-gold: #E2B93B;
+            --accent-mint: #47B5A5;
+            --accent-beige: #F5E8C7;
+            --success: #16A34A;
+            --error: #DC2626;
+            --warning: #D97706;
+            --info: #2563EB;
+            --border: rgba(31, 41, 55, 0.10);
+            --border-light: rgba(31, 41, 55, 0.05);
+            --disabled: rgba(31, 41, 55, 0.20);
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(31, 41, 55, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(31, 41, 55, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(31, 41, 55, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(31, 41, 55, 0.1);
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Enhanced global styles */
+        body {
+            font-family: 'Outfit', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Blog-specific styles */
+        .blog-post {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            pointer-events: auto;
+        }
+
+        .blog-post::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(226, 185, 59, 0.05), rgba(71, 181, 165, 0.05));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .blog-post:hover::before {
+            opacity: 1;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--accent-gold);
+        }
+
+        .blog-post h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-post p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-post ul,
+        .blog-post ol {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .blog-post li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post blockquote {
+            border-left: 4px solid var(--accent-gold);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-secondary);
+            background: var(--accent-beige);
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .blog-post code {
+            background: var(--surface-dark);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: var(--text-primary);
+        }
+
+        .blog-post pre {
+            background: var(--surface-dark);
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .blog-post pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .blog-post a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .blog-post a:hover {
+            border-bottom-color: var(--accent-gold);
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .blog-date {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        .blog-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .blog-tag {
+            background: var(--accent-beige);
+            color: var(--text-primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--border-light);
+            border-radius: 50%;
+            border-top-color: var(--accent-gold);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error-message {
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            color: #DC2626;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .blog-header {
+            background: linear-gradient(135deg, var(--canvas) 0%, var(--surface-dark) 50%, var(--accent-beige) 100%);
+            padding: 6rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(226,185,59,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            pointer-events: none;
+        }
+
+        .blog-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .blog-header p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .blog-header h1 {
+                font-size: 2rem;
+            }
+
+            .blog-header p {
+                font-size: 1rem;
+            }
+
+            .blog-post {
+                padding: 1.5rem;
+            }
+
+            .blog-post h1 {
+                font-size: 1.5rem;
+            }
+
+            .blog-post h2 {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav
+        class="fixed top-0 left-0 right-0 w-full bg-[#FAFAFC]/95 backdrop-blur-lg border-b border-[rgba(31,41,55,0.10)] z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3 group">
+                    <a href="index.html">
+                        <img src="assets/images/logo.svg" alt="The Lifetime Project"
+                            class="w-12 h-12 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                    </a>
+                    <a href="index.html" class="text-gray-900 font-bold text-lg">The Lifetime Project</a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#wisdom"
+                        class="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium relative group">
+                        Our Approach
+                        <span
+                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#E2B93B] to-[#47B5A5] group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="index.html#how"
+                        class="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium relative group">
+                        How It Works
+                        <span
+                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#E2B93B] to-[#47B5A5] group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="index.html#journey"
+                        class="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium relative group">
+                        Your Journey
+                        <span
+                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#E2B93B] to-[#47B5A5] group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="blog.html" class="text-gray-900 font-medium relative group">
+                        Blog
+                        <span
+                            class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#E2B93B] to-[#47B5A5]"></span>
+                    </a>
+                    <a href="index.html#testimonials"
+                        class="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium relative group">
+                        Success Stories
+                        <span
+                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#E2B93B] to-[#47B5A5] group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </div>
+
+                <a href="index.html" class="primary-btn group">
+                    <span class="hidden sm:inline">Start Your Journey</span>
+                    <span class="sm:hidden">Start</span>
+                    <i class="fas fa-arrow-right transition-transform duration-300 group-hover:translate-x-1"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Header -->
+    <section class="blog-header">
+        <div class="container mx-auto px-6">
+            <h1>Insights & Wisdom</h1>
+            <p>Practical guidance for men on their journey of personal development and transformation</p>
+        </div>
+    </section>
+
+    <!-- Blog Posts -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <!-- Loading State -->
+                <div id="loading" class="text-center py-12">
+                    <div class="loading-spinner mx-auto mb-4"></div>
+                    <p class="text-gray-600">Loading blog posts...</p>
+                </div>
+
+                <!-- Error State -->
+                <div id="error" class="error-message hidden">
+                    <h3 class="font-semibold mb-2">Unable to load blog posts</h3>
+                    <p>Please check your internet connection and try again.</p>
+                </div>
+
+                <!-- Blog Posts Container -->
+                <div id="blog-posts" class="space-y-8">
+                    <!-- Posts will be dynamically loaded here -->
+                </div>
+
+                <!-- No Posts State -->
+                <div id="no-posts" class="text-center py-12 hidden">
+                    <i class="fas fa-book-open text-6xl text-gray-300 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-600 mb-2">No posts yet</h3>
+                    <p class="text-gray-500">Check back soon for insightful content!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+        class="bg-gradient-to-br from-white to-gray-50 border-t border-gray-200 py-12 full-width relative overflow-hidden">
+        <!-- Decorative gradient line -->
+        <div
+            class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#E2B93B] to-transparent opacity-50">
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-3 mb-4 md:mb-0 group">
+                    <a href="index.html">
+                        <img src="assets/images/logo.svg" alt="The Lifetime Project"
+                            class="w-10 h-10 transition-transform duration-300 group-hover:scale-110">
+                    </a>
+                    <span class="text-gray-900 font-semibold">The Lifetime Project</span>
+                </div>
+
+                <div class="flex space-x-6 text-sm text-gray-600">
+                    <a href="privacy-policy.html"
+                        class="hover:text-gray-900 transition-all duration-300 relative group">
+                        Privacy Policy
+                        <span
+                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#E2B93B] group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="terms-conditions.html"
+                        class="hover:text-gray-900 transition-all duration-300 relative group">
+                        Terms of Service
+                        <span
+                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#E2B93B] group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#" class="hover:text-gray-900 transition-all duration-300 relative group">
+                        Contact
+                        <span
+                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#E2B93B] group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center text-sm text-gray-500">
+                <p>© 2025 The Lifetime Project. Empowering men to become who they truly are.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Blog JavaScript -->
+    <script>
+        // Blog functionality
+        class BlogManager {
+            constructor() {
+                this.posts = [];
+                this.currentPost = null;
+                this.init();
+            }
+
+            async init() {
+                try {
+                    await this.loadPosts();
+                    this.renderPosts();
+                } catch (error) {
+                    console.error('Error initializing blog:', error);
+                    this.showError();
+                }
+            }
+
+            async loadPosts() {
+                try {
+                    // Hardcoded list of post files
+                    const postFiles = [
+                        '2025-01-20-purpose-discovery.md',
+                        '2025-01-15-vulnerability-guide.md',
+                        '2025-01-10-building-confidence.md',
+                        '2025-01-05-stoic-approach.md'
+                    ];
+
+                    // Load each post
+                    const postPromises = postFiles.map(filename => this.loadPost(filename));
+                    const posts = await Promise.all(postPromises);
+
+                    // Filter out failed loads and sort by date
+                    this.posts = posts
+                        .filter(post => post !== null)
+                        .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                } catch (error) {
+                    console.error('Error loading posts:', error);
+                    // Fallback to sample posts if directory doesn't exist
+                    this.posts = this.getSamplePosts();
+                }
+            }
+
+            async loadPost(filename) {
+                try {
+                    const response = await fetch(`posts/${filename}`);
+                    if (!response.ok) {
+                        throw new Error(`Failed to load ${filename}`);
+                    }
+
+                    const markdown = await response.text();
+                    const post = this.parseMarkdownPost(markdown, filename);
+                    return post;
+                } catch (error) {
+                    console.error(`Error loading post ${filename}:`, error);
+                    return null;
+                }
+            }
+
+            parseMarkdownPost(markdown, filename) {
+                // Extract frontmatter if present
+                const frontmatterMatch = markdown.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+                let frontmatter = {};
+                let content = markdown;
+
+                if (frontmatterMatch) {
+                    const frontmatterText = frontmatterMatch[1];
+                    content = frontmatterMatch[2];
+
+                    // Parse frontmatter
+                    frontmatterText.split('\n').forEach(line => {
+                        const [key, ...valueParts] = line.split(':');
+                        if (key && valueParts.length > 0) {
+                            frontmatter[key.trim()] = valueParts.join(':').trim();
+                        }
+                    });
+                }
+
+                // Extract title from first heading or use filename
+                const titleMatch = content.match(/^#\s+(.+)$/m);
+                const title = titleMatch ? titleMatch[1] : filename.replace('.md', '').replace(/-/g, ' ');
+
+                // Extract excerpt (first paragraph after title)
+                const excerptMatch = content.match(/^#\s+.+$\n\n(.+?)(?:\n\n|$)/m);
+                const excerpt = excerptMatch ? excerptMatch[1].substring(0, 200) + '...' : '';
+
+                // Parse date from frontmatter or filename
+                let date = frontmatter.date || new Date().toISOString().split('T')[0];
+                if (filename.match(/^\d{4}-\d{2}-\d{2}/)) {
+                    date = filename.substring(0, 10);
+                }
+
+                // Parse tags
+                const tags = frontmatter.tags ? frontmatter.tags.split(',').map(tag => tag.trim()) : [];
+
+                const slug = filename.replace('.md', '');
+
+                return {
+                    title,
+                    content,
+                    excerpt,
+                    date,
+                    tags,
+                    filename,
+                    slug
+                };
+            }
+
+            getSamplePosts() {
+                return [
+                    {
+                        title: "The Art of Vulnerability: A Man's Guide to Emotional Authenticity",
+                        excerpt: "In a world that often equates masculinity with stoicism, learning to embrace vulnerability becomes a revolutionary act. This isn't about weakness—it's about strength through authenticity.",
+                        content: `# The Art of Vulnerability: A Man's Guide to Emotional Authenticity
+
+In a world that often equates masculinity with stoicism, learning to embrace vulnerability becomes a revolutionary act. This isn't about weakness—it's about strength through authenticity.
+
+## What Vulnerability Really Means
+
+Vulnerability isn't about oversharing or emotional dumping. It's about:
+
+- **Showing up authentically** in your relationships
+- **Asking for help** when you need it
+- **Expressing your feelings** without shame
+- **Being willing to be seen** as imperfect
+
+## The Masculine Misconception
+
+Many men have been taught that vulnerability equals weakness. But consider this: it takes tremendous courage to:
+
+- Admit when you're wrong
+- Share your fears and insecurities
+- Ask for support
+- Show your emotions
+
+## Practical Steps Forward
+
+### 1. Start Small
+Begin with low-stakes situations. Share something personal with a trusted friend or partner.
+
+### 2. Practice Self-Compassion
+Before you can be vulnerable with others, you need to be kind to yourself about your own imperfections.
+
+### 3. Reframe Your Thinking
+Instead of "I'm weak for feeling this," try "I'm human for feeling this."
+
+## The Ripple Effect
+
+When you model vulnerability, you give others permission to do the same. This creates deeper, more meaningful connections in all areas of your life.
+
+Remember: vulnerability is not the absence of strength—it's the presence of courage.`,
+                        date: "2025-01-15",
+                        tags: ["vulnerability", "emotional intelligence", "relationships"],
+                        filename: "vulnerability-guide.md",
+                        slug: "vulnerability-guide"
+                    },
+                    {
+                        title: "Building Unshakeable Confidence: Beyond the Surface",
+                        excerpt: "True confidence isn't about never feeling doubt—it's about moving forward despite it. Learn the difference between confidence and arrogance, and how to build the kind of confidence that serves you in every area of life.",
+                        content: `# Building Unshakeable Confidence: Beyond the Surface
+
+True confidence isn't about never feeling doubt—it's about moving forward despite it. Learn the difference between confidence and arrogance, and how to build the kind of confidence that serves you in every area of life.
+
+## The Confidence Spectrum
+
+Confidence exists on a spectrum:
+
+- **Arrogance**: Overestimating your abilities
+- **Confidence**: Accurate assessment of your abilities
+- **Self-doubt**: Underestimating your abilities
+
+## The Foundation of Real Confidence
+
+### 1. Competence
+Confidence without competence is just wishful thinking. Focus on developing real skills.
+
+### 2. Self-Awareness
+Know your strengths and weaknesses. This creates authentic confidence.
+
+### 3. Preparation
+The more prepared you are, the more confident you'll feel.
+
+## Daily Confidence Builders
+
+### Morning Routine
+Start each day with a small win. Make your bed, complete a workout, or finish a task.
+
+### Evening Reflection
+End each day by acknowledging three things you did well.
+
+### Weekly Challenges
+Push yourself slightly outside your comfort zone each week.
+
+## The Confidence Paradox
+
+The more confident you become, the more comfortable you'll be with uncertainty. This is the mark of true confidence—knowing you can handle whatever comes your way.
+
+Remember: confidence is a skill, not a trait. Practice it daily.`,
+                        date: "2025-01-10",
+                        tags: ["confidence", "personal development", "mindset"],
+                        filename: "building-confidence.md",
+                        slug: "building-confidence"
+                    },
+                    {
+                        title: "The Stoic Approach to Modern Challenges",
+                        excerpt: "Ancient wisdom meets modern problems. Discover how Stoic principles can help you navigate the complexities of 21st-century life with grace and resilience.",
+                        content: `# The Stoic Approach to Modern Challenges
+
+Ancient wisdom meets modern problems. Discover how Stoic principles can help you navigate the complexities of 21st-century life with grace and resilience.
+
+## Core Stoic Principles
+
+### 1. The Dichotomy of Control
+Focus on what you can control, accept what you cannot.
+
+**What you can control:**
+- Your thoughts and actions
+- Your responses to events
+- Your values and principles
+
+**What you cannot control:**
+- Other people's opinions
+- Market fluctuations
+- Traffic and weather
+
+### 2. Amor Fati (Love of Fate)
+Embrace whatever happens as necessary for your growth.
+
+### 3. Memento Mori (Remember Death)
+Use mortality as motivation to live fully and authentically.
+
+## Modern Applications
+
+### In Relationships
+Apply the dichotomy of control to communication. Focus on expressing yourself clearly rather than controlling others' responses.
+
+### In Career
+Use Stoic principles to handle setbacks and criticism with equanimity.
+
+### In Health
+Practice discipline in your habits while accepting the natural aging process.
+
+## Daily Stoic Practices
+
+### Morning Meditation
+Start each day by considering what challenges you might face and how you'll respond.
+
+### Evening Review
+Reflect on the day: What went well? What could you improve? What did you learn?
+
+### Weekly Planning
+Plan for the week ahead while remaining flexible about outcomes.
+
+## The Stoic Advantage
+
+Stoicism provides a framework for maintaining inner peace regardless of external circumstances. In our chaotic world, this is invaluable.
+
+Remember: Stoicism isn't about suppressing emotions—it's about managing them wisely.`,
+                        date: "2025-01-05",
+                        tags: ["stoicism", "philosophy", "resilience"],
+                        filename: "stoic-approach.md",
+                        slug: "stoic-approach"
+                    }
+                ];
+            }
+
+            renderPosts() {
+                const container = document.getElementById('blog-posts');
+                const loading = document.getElementById('loading');
+                const noPosts = document.getElementById('no-posts');
+
+                // Hide loading
+                loading.classList.add('hidden');
+
+                if (this.posts.length === 0) {
+                    noPosts.classList.remove('hidden');
+                    return;
+                }
+
+                // Render posts
+                this.posts.forEach((post, index) => {
+                    const postElement = this.createPostElement(post, index);
+                    container.appendChild(postElement);
+                });
+
+                // Animate posts
+                this.animatePosts();
+            }
+
+            createPostElement(post, index) {
+                const postDiv = document.createElement('div');
+                postDiv.className = 'blog-post';
+                postDiv.style.opacity = '0';
+                postDiv.style.transform = 'translateY(20px)';
+
+                // Format date
+                const date = new Date(post.date);
+                const formattedDate = date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+
+                // Create excerpt from content (first paragraph or excerpt from frontmatter)
+                let excerpt = post.excerpt;
+                if (!excerpt) {
+                    // Extract first paragraph from markdown content
+                    const firstParagraphMatch = post.content.match(/^#\s+.+$\n\n(.+?)(?:\n\n|$)/m);
+                    if (firstParagraphMatch) {
+                        excerpt = firstParagraphMatch[1].substring(0, 200) + '...';
+                    } else {
+                        excerpt = 'Read more about this topic...';
+                    }
+                }
+
+                const postUrl = `post.html?post=${post.slug}`;
+
+                postDiv.innerHTML = `
+                    <div class="blog-meta">
+                        <span class="blog-date">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            ${formattedDate}
+                        </span>
+                        <div class="blog-tags">
+                            ${post.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <h2 class="text-2xl font-bold mb-4 text-gray-900">${post.title}</h2>
+                        <p class="text-gray-600 mb-6 leading-relaxed">${excerpt}</p>
+                        <a href="${postUrl}" target="_blank" class="inline-flex items-center text-[#E2B93B] font-semibold hover:text-[#d4a635] transition-colors duration-300">
+                            Read More
+                            <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                        </a>
+                    </div>
+                `;
+
+                return postDiv;
+            }
+
+            animatePosts() {
+                const posts = document.querySelectorAll('.blog-post');
+                posts.forEach((post, index) => {
+                    setTimeout(() => {
+                        post.style.transition = 'all 0.6s ease-out';
+                        post.style.opacity = '1';
+                        post.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }
+
+            showError() {
+                const loading = document.getElementById('loading');
+                const error = document.getElementById('error');
+
+                loading.classList.add('hidden');
+                error.classList.remove('hidden');
+            }
+        }
+
+        // Initialize blog when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded, initializing blog...');
+            console.log('Marked library available:', typeof marked !== 'undefined');
+            try {
+                new BlogManager();
+            } catch (error) {
+                console.error('Error initializing blog manager:', error);
+            }
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // GSAP animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate blog header
+        gsap.from('.blog-header h1', {
+            scrollTrigger: {
+                trigger: '.blog-header',
+                start: 'top 80%',
+            },
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            ease: 'power2.out'
+        });
+
+        gsap.from('.blog-header p', {
+            scrollTrigger: {
+                trigger: '.blog-header',
+                start: 'top 80%',
+            },
+            opacity: 0,
+            y: 20,
+            duration: 0.8,
+            delay: 0.2,
+            ease: 'power2.out'
+        });
+    </script>
+</body>
+
+</html>
