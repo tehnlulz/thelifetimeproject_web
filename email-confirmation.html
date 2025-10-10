@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Confirmed - The Lifetime Project</title>
+    <meta name="description" content="Your email has been successfully confirmed. Welcome to The Lifetime Project.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* CSS Variables for immediate availability */
+        :root {
+            --canvas: #FAFAFC;
+            --surface: #FFFFFF;
+            --text-primary: #1F2937;
+            --text-secondary: #4B5563;
+            --accent-gold: #E2B93B;
+            --accent-mint: #47B5A5;
+            --accent-beige: #F5E8C7;
+            --success: #16A34A;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Success animation */
+        @keyframes checkmark {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.2) rotate(180deg);
+            }
+
+            100% {
+                transform: scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .checkmark-container {
+            animation: checkmark 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .content-fade-in {
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-mint) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Floating shapes */
+        .float-shape {
+            position: absolute;
+            opacity: 0.05;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            33% {
+                transform: translateY(-30px) rotate(120deg);
+            }
+
+            66% {
+                transform: translateY(20px) rotate(240deg);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-[#FAFAFC] min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav
+        class="fixed top-0 left-0 right-0 w-full bg-[#FAFAFC]/95 backdrop-blur-lg border-b border-[rgba(31,41,55,0.10)] z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center space-x-3 group">
+                    <img src="assets/images/logo.svg" alt="The Lifetime Project"
+                        class="w-12 h-12 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                    <span class="text-gray-900 font-bold text-lg">The Lifetime Project</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center pt-20 px-6 relative overflow-hidden">
+        <!-- Decorative background elements -->
+        <div class="float-shape w-96 h-96 rounded-full bg-[#E2B93B] opacity-20 blur-3xl" style="top: 10%; left: -10%;">
+        </div>
+        <div class="float-shape w-64 h-64 rounded-full bg-[#47B5A5] opacity-20 blur-3xl"
+            style="bottom: 20%; right: -5%; animation-delay: 5s;"></div>
+
+        <div class="max-w-2xl mx-auto text-center relative z-10 py-12">
+            <!-- Success Icon -->
+            <div class="checkmark-container mb-8">
+                <div
+                    class="w-24 h-24 bg-gradient-to-br from-[#16A34A] to-[#47B5A5] rounded-full flex items-center justify-center mx-auto shadow-2xl">
+                    <i class="fas fa-check text-white text-5xl"></i>
+                </div>
+            </div>
+
+            <!-- Success Message -->
+            <div class="content-fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                    Email Confirmed!
+                </h1>
+
+                <p class="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
+                    Thank you for confirming your email address.<br>
+                    You're all set to continue your journey.
+                </p>
+
+                <!-- Success checkmarks -->
+                <div
+                    class="bg-white rounded-2xl p-8 shadow-lg border border-[rgba(31,41,55,0.10)] mb-8 max-w-md mx-auto">
+                    <div class="space-y-4 text-left">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-[#16A34A] text-xl"></i>
+                            <span class="text-gray-700">Email verified successfully</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-[#16A34A] text-xl"></i>
+                            <span class="text-gray-700">Account activated</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-[#16A34A] text-xl"></i>
+                            <span class="text-gray-700">Ready to get started</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="space-y-4">
+                    <a href="#"
+                        class="primary-btn inline-flex text-lg px-12 py-6 shadow-2xl hover:shadow-[0_20px_50px_rgba(226,185,59,0.4)] transform hover:-translate-y-1 transition-all duration-300">
+                        <span>Open The App</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+
+                    <div class="text-sm text-gray-500">
+                        <p>You can close this page and return to the app to continue your journey.</p>
+                    </div>
+                </div>
+
+                <!-- Additional Help -->
+                <div class="mt-12 pt-8 border-t border-gray-200">
+                    <p class="text-sm text-gray-600 mb-4">Need help getting started?</p>
+                    <a href="index.html" class="text-[#E2B93B] hover:text-[#d4a635] font-semibold transition-colors">
+                        Visit our website <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-br from-white to-gray-50 border-t border-gray-200 py-8 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center space-x-3 group">
+                    <img src="assets/images/logo.svg" alt="The Lifetime Project"
+                        class="w-10 h-10 transition-transform duration-300 group-hover:scale-110">
+                    <span class="text-gray-900 font-semibold">The Lifetime Project</span>
+                </div>
+
+                <div class="flex space-x-6 text-sm text-gray-600">
+                    <a href="privacy-policy.html" class="hover:text-gray-900 transition-colors">
+                        Privacy Policy
+                    </a>
+                    <a href="terms-conditions.html" class="hover:text-gray-900 transition-colors">
+                        Terms of Service
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center text-sm text-gray-500">
+                <p>© 2025 The Lifetime Project. Empowering men to become who they truly are.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
