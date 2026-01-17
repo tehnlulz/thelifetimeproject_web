@@ -20,17 +20,47 @@
     --border-light: rgba(31, 41, 55, 0.05);
     --disabled: rgba(31, 41, 55, 0.20);
 
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgba(31, 41, 55, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(31, 41, 55, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(31, 41, 55, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(31, 41, 55, 0.1);
+    /* Vercel Guidelines: Layered Shadows (ambient + direct light) */
+    /* Each shadow combines ambient (soft, wide) + direct (sharp, focused) */
+    --shadow-sm:
+        0 1px 2px 0 rgba(31, 41, 55, 0.03),
+        0 1px 3px 0 rgba(31, 41, 55, 0.06);
+    --shadow-md:
+        0 2px 4px -1px rgba(31, 41, 55, 0.04),
+        0 4px 6px -1px rgba(31, 41, 55, 0.08);
+    --shadow-lg:
+        0 4px 6px -2px rgba(31, 41, 55, 0.03),
+        0 10px 15px -3px rgba(31, 41, 55, 0.08);
+    --shadow-xl:
+        0 8px 10px -4px rgba(31, 41, 55, 0.03),
+        0 20px 25px -5px rgba(31, 41, 55, 0.08);
+
+    /* Focus ring for accessibility */
+    --focus-ring: 0 0 0 2px var(--canvas), 0 0 0 4px var(--accent-gold);
+
+    /* Safe area insets for device notches */
+    --safe-area-inset-top: env(safe-area-inset-top, 0px);
+    --safe-area-inset-right: env(safe-area-inset-right, 0px);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-inset-left: env(safe-area-inset-left, 0px);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Vercel Guidelines: Apply color-scheme for native UI contrast */
+html {
+    color-scheme: light;
+    overflow-x: hidden;
+    overscroll-behavior: none;
+    position: relative;
+    height: 100%;
+    scroll-behavior: smooth;
+    /* Vercel Guidelines: Use 16px+ font to prevent iOS auto-zoom */
+    font-size: 16px;
 }
 
 body {
@@ -42,17 +72,13 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
-    /* Prevent overscroll bounce effect */
     overscroll-behavior: none;
     -webkit-overflow-scrolling: auto;
-}
-
-html {
-    overflow-x: hidden;
-    /* Prevent overscroll bounce effect */
-    overscroll-behavior: none;
-    position: relative;
-    height: 100%;
+    /* Vercel Guidelines: Use tabular-nums for numeric content */
+    font-variant-numeric: tabular-nums;
+    /* Vercel Guidelines: Safe area padding for notched devices */
+    padding-left: var(--safe-area-inset-left);
+    padding-right: var(--safe-area-inset-right);
 }
 
 /* Full-width wrapper */
@@ -110,21 +136,33 @@ footer {
 }
 
 /* Primary button style */
+/* Vercel Guidelines: Min 24px hit target (44px mobile), specific transitions */
 .primary-btn {
     background: linear-gradient(135deg, var(--accent-gold) 0%, #d4a635 100%);
     color: var(--text-primary);
     padding: 16px 32px;
     border-radius: 12px;
     font-weight: 700;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 14px 0 rgba(226, 185, 59, 0.39);
+    /* Vercel Guidelines: Never use transition: all - specify properties */
+    transition:
+        background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Vercel Guidelines: Layered shadow (ambient + direct) */
+    box-shadow:
+        0 2px 8px 0 rgba(226, 185, 59, 0.2),
+        0 4px 14px 0 rgba(226, 185, 59, 0.3);
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     border: none;
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    /* Vercel Guidelines: Minimum hit target 44px on touch devices */
+    min-height: 44px;
+    min-width: 44px;
 }
 
 .primary-btn::before {
@@ -135,7 +173,7 @@ footer {
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: left 0.5s;
+    transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .primary-btn:hover::before {
@@ -145,21 +183,36 @@ footer {
 .primary-btn:hover {
     background: linear-gradient(135deg, #d4a635 0%, var(--accent-gold) 100%);
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 8px 24px 0 rgba(226, 185, 59, 0.5);
+    box-shadow:
+        0 4px 12px 0 rgba(226, 185, 59, 0.25),
+        0 8px 24px 0 rgba(226, 185, 59, 0.4);
 }
 
 .primary-btn:active {
     transform: translateY(0px) scale(0.98);
 }
 
+/* Vercel Guidelines: Use :focus-visible for keyboard users */
+.primary-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring),
+        0 4px 14px 0 rgba(226, 185, 59, 0.39);
+}
+
 /* Card styles */
+/* Vercel Guidelines: Layered shadows, specific transitions */
 .wisdom-card {
     background: var(--surface);
     border-radius: 20px;
     padding: 32px;
-    box-shadow: 0 4px 6px -1px rgba(31, 41, 55, 0.1), 0 2px 4px -1px rgba(31, 41, 55, 0.06);
+    /* Vercel Guidelines: Layered shadow (ambient + direct) with semi-transparent border */
+    box-shadow: var(--shadow-md);
     border: 1px solid var(--border);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Vercel Guidelines: Specify transition properties explicitly */
+    transition:
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
 }
@@ -173,17 +226,27 @@ footer {
     bottom: 0;
     background: linear-gradient(135deg, rgba(226, 185, 59, 0.05), rgba(71, 181, 165, 0.05));
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .wisdom-card:hover::before {
     opacity: 1;
 }
 
+/* Vercel Guidelines: Hover/active states increase contrast */
 .wisdom-card:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 25px -5px rgba(31, 41, 55, 0.15), 0 10px 10px -5px rgba(31, 41, 55, 0.1);
+    /* Vercel Guidelines: Enhanced layered shadow on hover */
+    box-shadow:
+        0 8px 16px -4px rgba(31, 41, 55, 0.08),
+        0 20px 25px -5px rgba(31, 41, 55, 0.12);
     border-color: var(--accent-gold);
+}
+
+/* Vercel Guidelines: Focus-visible for keyboard navigation */
+.wisdom-card:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring), var(--shadow-lg);
 }
 
 /* Feature icon */
@@ -233,14 +296,22 @@ footer {
     justify-content: center;
     font-weight: bold;
     color: var(--accent-gold);
-    box-shadow: 0 4px 14px 0 rgba(226, 185, 59, 0.39);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Vercel Guidelines: Layered shadow */
+    box-shadow:
+        0 2px 8px 0 rgba(226, 185, 59, 0.2),
+        0 4px 14px 0 rgba(226, 185, 59, 0.3);
+    /* Vercel Guidelines: Specific transition properties */
+    transition:
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 }
 
 .journey-dot:hover {
     transform: scale(1.15) rotate(5deg);
-    box-shadow: 0 8px 24px 0 rgba(226, 185, 59, 0.5);
+    box-shadow:
+        0 4px 12px 0 rgba(226, 185, 59, 0.3),
+        0 8px 24px 0 rgba(226, 185, 59, 0.4);
 }
 
 .journey-dot::after {
@@ -663,15 +734,23 @@ html {
 }
 
 /* Character selection for mobile */
+/* Vercel Guidelines: Min hit target 44px, specific transitions */
 .character-select-btn {
     background: rgba(255, 255, 255, 0.05);
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
     padding: 20px;
-    transition: all 0.3s ease;
+    /* Vercel Guidelines: Specific transition properties */
+    transition:
+        background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     color: white;
+    /* Vercel Guidelines: Minimum 44px hit target on mobile */
     min-width: 140px;
+    min-height: 44px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -686,6 +765,12 @@ html {
     background: rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
     border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Vercel Guidelines: Focus-visible for keyboard navigation */
+.character-select-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5), 0 0 0 4px var(--accent-gold);
 }
 
 .character-select-btn.active {
@@ -996,18 +1081,47 @@ html {
 
 /* Enhanced hover effects for sections */
 section {
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Smooth transitions for all interactive elements */
-a, button, input, textarea {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* Vercel Guidelines: Specific transitions for interactive elements (never use transition: all) */
+a {
+    transition:
+        color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Focus states for accessibility */
-a:focus, button:focus, input:focus, textarea:focus {
-    outline: 2px solid var(--accent-gold);
-    outline-offset: 2px;
+button {
+    transition:
+        background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input, textarea {
+    transition:
+        border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Vercel Guidelines: Use :focus-visible for keyboard focus (not mouse clicks) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+/* Fallback for older browsers that don't support :focus-visible */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
 }
 
 /* Enhanced scrollbar for modern browsers */
@@ -1028,4 +1142,213 @@ a:focus, button:focus, input:focus, textarea:focus {
 
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(135deg, var(--accent-mint), var(--accent-gold));
+}
+
+/* ============================================
+   Vercel Guidelines: Reduced Motion Support
+   Respect prefers-reduced-motion for users who
+   have indicated they prefer minimal animations
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    /* Disable decorative floating shapes */
+    .float-shape {
+        animation: none !important;
+        opacity: 0.05;
+    }
+
+    /* Disable wave animation */
+    .audio-wave span {
+        animation: none !important;
+    }
+
+    /* Disable timeline glow pulses */
+    .timeline-glow {
+        animation: none !important;
+        opacity: 0.15;
+    }
+
+    /* Disable node pulses */
+    .timeline-node.pulse {
+        animation: none !important;
+    }
+
+    /* Disable gradient animations */
+    .animate-gradient {
+        animation: none !important;
+    }
+
+    /* Remove hover transforms but keep color changes for feedback */
+    .primary-btn:hover,
+    .wisdom-card:hover,
+    .journey-dot:hover,
+    .character-select-btn:hover {
+        transform: none !important;
+    }
+
+    /* Keep visual feedback through other means */
+    .primary-btn:hover {
+        background: linear-gradient(135deg, #d4a635 0%, var(--accent-gold) 100%);
+    }
+
+    .wisdom-card:hover {
+        border-color: var(--accent-gold);
+    }
+}
+
+/* ============================================
+   Vercel Guidelines: Loading State Utilities
+   Use show-delay and min-visible-time to prevent
+   loading state flicker
+   ============================================ */
+
+/* Loading spinner with proper delay (150-300ms show delay) */
+.loading-spinner {
+    animation: spin 1s linear infinite;
+    animation-delay: 150ms;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Skeleton loading with minimum visible time (300-500ms) */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--surface-dark) 25%,
+        var(--surface) 50%,
+        var(--surface-dark) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+    animation-delay: 150ms;
+    border-radius: 4px;
+}
+
+@keyframes skeleton-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Disable skeleton animation for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .skeleton {
+        animation: none !important;
+        background: var(--surface-dark);
+    }
+
+    .loading-spinner {
+        animation: none !important;
+    }
+}
+
+/* ============================================
+   Vercel Guidelines: Form Input Improvements
+   ============================================ */
+
+/* Ensure inputs have proper styling for focus and validation */
+input:not([type="checkbox"]):not([type="radio"]),
+textarea,
+select {
+    /* Vercel Guidelines: Minimum font size 16px to prevent iOS zoom */
+    font-size: 16px;
+    /* Ensure proper padding for touch targets */
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--surface);
+    color: var(--text-primary);
+}
+
+/* Vercel Guidelines: Windows select dark mode fix */
+select {
+    background-color: var(--surface);
+    color: var(--text-primary);
+}
+
+/* Error state for form validation */
+input:invalid:not(:placeholder-shown),
+textarea:invalid:not(:placeholder-shown) {
+    border-color: var(--error);
+}
+
+/* Success state */
+input:valid:not(:placeholder-shown),
+textarea:valid:not(:placeholder-shown) {
+    border-color: var(--success);
+}
+
+/* Placeholder styling */
+::placeholder {
+    color: var(--text-tertiary);
+    opacity: 1;
+}
+
+/* ============================================
+   Vercel Guidelines: Accessibility Improvements
+   ============================================ */
+
+/* Skip link for keyboard navigation */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent-gold);
+    color: var(--text-primary);
+    padding: 8px 16px;
+    z-index: 100000;
+    transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Screen reader only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Ensure icons have proper accessible names when used alone */
+[aria-label] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ============================================
+   Vercel Guidelines: Image Optimization
+   Reserve space for images to prevent CLS
+   ============================================ */
+img {
+    max-width: 100%;
+    height: auto;
+    /* Prevent layout shift */
+    aspect-ratio: attr(width) / attr(height);
+}
+
+/* Explicit sizing for common image containers */
+.iphone-screen {
+    /* Prevent CLS by maintaining aspect ratio */
+    aspect-ratio: 272 / 572;
+    object-fit: cover;
+    object-position: top center;
 }
