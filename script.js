@@ -729,434 +729,621 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// Matter.js Physics Simulation
-const canvas = document.getElementById('physics-canvas');
+// 3D Physics Simulation using Three.js and Cannon-es
+const physicsContainer = document.getElementById('physics-container');
+const physicsLoading = document.getElementById('physics-loading');
+const physicsHint = document.getElementById('physics-hint');
 const bottomMessage = document.getElementById('bottom-message');
 const breakthroughMessage = document.getElementById('breakthrough-message');
 
-if (canvas) {
-    // Module aliases
-    const Engine = Matter.Engine,
-        Render = Matter.Render,
-        Runner = Matter.Runner,
-        Bodies = Matter.Bodies,
-        Body = Matter.Body,
-        Composite = Matter.Composite,
-        Events = Matter.Events,
-        Mouse = Matter.Mouse,
-        MouseConstraint = Matter.MouseConstraint;
+if (physicsContainer && typeof THREE !== 'undefined' && typeof CANNON !== 'undefined') {
+    // Initialize 3D Physics Scene
+    (function init3DPhysics() {
+        // Life demands - what's weighing you down
+        const demands = [
+            "CAREER", "FAMILY", "MONEY", "HEALTH", "SOCIAL", "TIME", "STRESS", "SUCCESS",
+            "KIDS", "HOME", "STATUS", "BOSS", "BILLS", "EMAILS", "DEADLINES", "MEETINGS",
+            "COMMUTE", "EXERCISE", "DIET", "SLEEP", "ANXIETY", "MORTGAGE", "RETIREMENT",
+            "INSURANCE", "TAXES", "REPAIRS", "GROCERIES", "LAUNDRY", "CLEANING", "COOKING"
+        ];
 
-    // Create engine
-    const engine = Engine.create();
-    engine.gravity.y = 1; // Normal gravity
+        // Scene setup
+        const scene = new THREE.Scene();
 
-    // Get responsive canvas dimensions
-    const canvasContainer = canvas.parentElement;
-    const containerWidth = canvasContainer.clientWidth;
-    const containerHeight = Math.min(500, window.innerHeight * 0.6); // Responsive height
-    const canvasWidth = Math.min(800, containerWidth);
-    const canvasHeight = containerHeight;
+        // Responsive dimensions
+        const getContainerSize = () => {
+            const rect = physicsContainer.getBoundingClientRect();
+            return {
+                width: rect.width || 800,
+                height: rect.height || 500
+            };
+        };
 
-    // Create renderer with responsive dimensions
-    const render = Render.create({
-        canvas: canvas,
-        engine: engine,
-        options: {
-            width: canvasWidth,
-            height: canvasHeight,
-            wireframes: false,
-            background: 'transparent',
-            showVelocity: false
-        }
-    });
+        let { width, height } = getContainerSize();
+        const isMobile = window.innerWidth <= 768;
 
-    // Life demand items data - all the things weighing you down
-    const demands = [
-        { text: "CAREER", icon: "briefcase", weight: 3 },
-        { text: "FAMILY", icon: "heart", weight: 3 },
-        { text: "MONEY", icon: "dollar-sign", weight: 2 },
-        { text: "HEALTH", icon: "dumbbell", weight: 1 },
-        { text: "SOCIAL", icon: "users", weight: 2 },
-        { text: "TIME", icon: "clock", weight: 3 },
-        { text: "STRESS", icon: "brain", weight: 2 },
-        { text: "SUCCESS", icon: "trophy", weight: 1 },
-        { text: "KIDS", icon: "child", weight: 3 },
-        { text: "HOME", icon: "home", weight: 2 },
-        { text: "STATUS", icon: "car", weight: 1 },
-        { text: "BOSS", icon: "user-tie", weight: 2 },
-        { text: "BILLS", icon: "file-invoice-dollar", weight: 2 },
-        { text: "EMAILS", icon: "envelope", weight: 1 },
-        { text: "DEADLINES", icon: "calendar-times", weight: 3 },
-        { text: "MEETINGS", icon: "video", weight: 2 },
-        { text: "COMMUTE", icon: "route", weight: 1 },
-        { text: "EXERCISE", icon: "running", weight: 1 },
-        { text: "DIET", icon: "apple-alt", weight: 1 },
-        { text: "SLEEP", icon: "bed", weight: 2 },
-        { text: "ANXIETY", icon: "exclamation-triangle", weight: 2 },
-        { text: "MORTGAGE", icon: "house-user", weight: 3 },
-        { text: "RETIREMENT", icon: "piggy-bank", weight: 2 },
-        { text: "INSURANCE", icon: "shield-alt", weight: 1 },
-        { text: "TAXES", icon: "receipt", weight: 2 },
-        { text: "REPAIRS", icon: "tools", weight: 1 },
-        { text: "GROCERIES", icon: "shopping-cart", weight: 1 },
-        { text: "LAUNDRY", icon: "tshirt", weight: 1 },
-        { text: "CLEANING", icon: "broom", weight: 1 },
-        { text: "COOKING", icon: "utensils", weight: 1 },
-        { text: "NETWORKING", icon: "handshake", weight: 2 },
-        { text: "LEARNING", icon: "graduation-cap", weight: 1 },
-        { text: "HOBBIES", icon: "guitar", weight: 1 },
-        { text: "VACATION", icon: "plane", weight: 1 },
-        { text: "BIRTHDAY", icon: "birthday-cake", weight: 1 },
-        { text: "HOLIDAYS", icon: "gifts", weight: 2 },
-        { text: "IN-LAWS", icon: "users-cog", weight: 2 },
-        { text: "PETS", icon: "dog", weight: 1 },
-        { text: "YARD WORK", icon: "leaf", weight: 1 },
-        { text: "INVESTMENTS", icon: "chart-line", weight: 2 }
-    ];
+        // Camera - perspective for 3D depth
+        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+        camera.position.set(0, 5, isMobile ? 22 : 18);
+        camera.lookAt(0, 2, 0);
 
-    // Create demand boxes - they'll flow in over time
-    const demandBodies = [];
-    let demandIndex = 0;
-
-    // Function to create a single demand block
-    function createDemandBlock(demand, index) {
-        const x = 50 + Math.random() * (canvasWidth - 100); // Responsive random position
-        const y = -50 - Math.random() * 50; // Start above canvas
-        const width = Math.max(60, canvasWidth * 0.1); // Responsive width (min 60px, max 10% of canvas)
-        const height = Math.max(25, canvasHeight * 0.07); // Responsive height
-
-        const box = Bodies.rectangle(x, y, width, height, {
-            restitution: 0, // ZERO bounce - completely rigid
-            friction: 0.8, // High friction so they don't slide around
-            frictionStatic: 1, // High static friction
-            density: 0.01, // Heavier blocks
-            label: demand.text,
-            render: {
-                visible: false // Hide Matter.js default rendering
-            },
-            chamfer: { radius: 5 } // Rounded corners
+        // Renderer with antialiasing and transparency
+        const renderer = new THREE.WebGLRenderer({
+            antialias: !isMobile, // Disable antialiasing on mobile for performance
+            alpha: true,
+            powerPreference: isMobile ? 'low-power' : 'high-performance'
         });
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
+        renderer.shadowMap.enabled = !isMobile;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.setClearColor(0x000000, 0);
+        physicsContainer.appendChild(renderer.domElement);
 
-        // Store the demand data on the body for rendering
-        box.demandData = demand;
+        // Create gradient background
+        const bgCanvas = document.createElement('canvas');
+        bgCanvas.width = 512;
+        bgCanvas.height = 512;
+        const bgCtx = bgCanvas.getContext('2d');
+        const bgGradient = bgCtx.createLinearGradient(0, 0, 0, 512);
+        bgGradient.addColorStop(0, '#f0f4f8');
+        bgGradient.addColorStop(0.5, '#e8ecf0');
+        bgGradient.addColorStop(1, '#d8dce0');
+        bgCtx.fillStyle = bgGradient;
+        bgCtx.fillRect(0, 0, 512, 512);
+        const bgTexture = new THREE.CanvasTexture(bgCanvas);
+        scene.background = bgTexture;
 
-        return box;
-    }
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
 
-    // Initially create first 10 blocks
-    for (let i = 0; i < 10; i++) {
-        const block = createDemandBlock(demands[i], i);
-        demandBodies.push(block);
-        Composite.add(engine.world, block);
-    }
-    demandIndex = 10;
+        const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        mainLight.position.set(10, 20, 10);
+        mainLight.castShadow = !isMobile;
+        mainLight.shadow.mapSize.width = 1024;
+        mainLight.shadow.mapSize.height = 1024;
+        mainLight.shadow.camera.near = 0.5;
+        mainLight.shadow.camera.far = 50;
+        mainLight.shadow.camera.left = -15;
+        mainLight.shadow.camera.right = 15;
+        mainLight.shadow.camera.top = 15;
+        mainLight.shadow.camera.bottom = -15;
+        scene.add(mainLight);
 
-    // Continuously add more blocks (max 200 total)
-    const MAX_BLOCKS = 200;
-    const blockInterval = setInterval(() => {
-        // Count current active blocks (excluding debris)
-        const activeBlocks = demandBodies.filter(block => !block.isCrushed).length;
+        const fillLight = new THREE.DirectionalLight(0x47B5A5, 0.3);
+        fillLight.position.set(-10, 10, -10);
+        scene.add(fillLight);
 
-        if (activeBlocks < MAX_BLOCKS) {
-            if (demandIndex < demands.length) {
-                const block = createDemandBlock(demands[demandIndex], demandIndex);
-                demandBodies.push(block);
-                Composite.add(engine.world, block);
-                demandIndex++;
-            } else {
-                // Start recycling from beginning
-                demandIndex = 0;
-            }
+        // Gold accent light
+        const goldLight = new THREE.PointLight(0xE2B93B, 0.5, 20);
+        goldLight.position.set(0, 0, 5);
+        scene.add(goldLight);
+
+        // Physics world
+        const world = new CANNON.World();
+        world.gravity.set(0, -15, 0);
+        world.broadphase = new CANNON.NaiveBroadphase();
+        world.solver.iterations = 10;
+
+        // Materials
+        const groundMaterial = new CANNON.Material('ground');
+        const blockMaterial = new CANNON.Material('block');
+        const youMaterial = new CANNON.Material('you');
+
+        // Contact materials
+        world.addContactMaterial(new CANNON.ContactMaterial(groundMaterial, blockMaterial, {
+            friction: 0.6,
+            restitution: 0.1
+        }));
+        world.addContactMaterial(new CANNON.ContactMaterial(blockMaterial, blockMaterial, {
+            friction: 0.4,
+            restitution: 0.05
+        }));
+        world.addContactMaterial(new CANNON.ContactMaterial(youMaterial, blockMaterial, {
+            friction: 0.3,
+            restitution: 0.3
+        }));
+
+        // Ground plane (invisible)
+        const groundShape = new CANNON.Box(new CANNON.Vec3(20, 0.5, 20));
+        const groundBody = new CANNON.Body({ mass: 0, material: groundMaterial });
+        groundBody.addShape(groundShape);
+        groundBody.position.set(0, -0.5, 0);
+        world.addBody(groundBody);
+
+        // Visual ground with subtle shadow receiver
+        const groundGeom = new THREE.PlaneGeometry(40, 40);
+        const groundMat = new THREE.MeshStandardMaterial({
+            color: 0xe8ecf0,
+            transparent: true,
+            opacity: 0.5
+        });
+        const groundMesh = new THREE.Mesh(groundGeom, groundMat);
+        groundMesh.rotation.x = -Math.PI / 2;
+        groundMesh.position.y = 0;
+        groundMesh.receiveShadow = true;
+        scene.add(groundMesh);
+
+        // Invisible walls
+        const wallThickness = 0.5;
+        const wallHeight = 30;
+        const arenaWidth = isMobile ? 7 : 9;
+        const arenaDepth = isMobile ? 5 : 6;
+
+        const createWall = (x, y, z, w, h, d) => {
+            const shape = new CANNON.Box(new CANNON.Vec3(w / 2, h / 2, d / 2));
+            const body = new CANNON.Body({ mass: 0, material: groundMaterial });
+            body.addShape(shape);
+            body.position.set(x, y, z);
+            world.addBody(body);
+        };
+
+        // Arena walls
+        createWall(-arenaWidth, wallHeight / 2, 0, wallThickness, wallHeight, arenaDepth * 2);
+        createWall(arenaWidth, wallHeight / 2, 0, wallThickness, wallHeight, arenaDepth * 2);
+        createWall(0, wallHeight / 2, -arenaDepth, arenaWidth * 2, wallHeight, wallThickness);
+        createWall(0, wallHeight / 2, arenaDepth, arenaWidth * 2, wallHeight, wallThickness);
+
+        // Demand blocks array
+        const blocks = [];
+        const MAX_BLOCKS = isMobile ? 40 : 60;
+        let demandIndex = 0;
+
+        // Create text texture for blocks
+        function createTextTexture(text) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 256;
+            canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+
+            // Gradient background
+            const gradient = ctx.createLinearGradient(0, 0, 0, 128);
+            gradient.addColorStop(0, '#ffffff');
+            gradient.addColorStop(1, '#f5f5f5');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 256, 128);
+
+            // Border
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 4;
+            ctx.strokeRect(2, 2, 252, 124);
+
+            // Text
+            ctx.fillStyle = '#374151';
+            ctx.font = 'bold 28px Arial, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, 128, 64);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.needsUpdate = true;
+            return texture;
         }
-        // If we've reached max blocks, stop spawning but keep the interval running
-        // in case blocks get destroyed and we need to spawn more
-    }, 300); // Add new block every 300ms
 
-    // Create "YOU" circle (initially at bottom, static) - responsive sizing
-    const youRadius = Math.max(30, Math.min(50, canvasWidth * 0.06)); // Responsive radius
-    const youBody = Bodies.circle(canvasWidth / 2, canvasHeight - youRadius - 20, youRadius, {
-        isStatic: true,
-        label: 'YOU',
-        restitution: 0.8, // YOU is bouncy/resilient
-        density: 0.1, // Much heavier - 5x the weight
-        render: {
-            visible: false // Hide Matter.js default rendering
+        // Create demand block
+        function createDemandBlock(text) {
+            const blockWidth = isMobile ? 1.4 : 1.6;
+            const blockHeight = isMobile ? 0.6 : 0.7;
+            const blockDepth = isMobile ? 0.5 : 0.6;
+
+            // Physics body
+            const shape = new CANNON.Box(new CANNON.Vec3(blockWidth / 2, blockHeight / 2, blockDepth / 2));
+            const body = new CANNON.Body({
+                mass: 1,
+                material: blockMaterial,
+                linearDamping: 0.3,
+                angularDamping: 0.5
+            });
+            body.addShape(shape);
+
+            // Random spawn position above the scene
+            const spawnX = (Math.random() - 0.5) * (arenaWidth * 1.5);
+            const spawnY = 12 + Math.random() * 5;
+            const spawnZ = (Math.random() - 0.5) * (arenaDepth * 1.2);
+            body.position.set(spawnX, spawnY, spawnZ);
+            body.quaternion.setFromEuler(
+                Math.random() * 0.3 - 0.15,
+                Math.random() * Math.PI * 2,
+                Math.random() * 0.3 - 0.15
+            );
+            world.addBody(body);
+
+            // Visual mesh with text
+            const geometry = new THREE.BoxGeometry(blockWidth, blockHeight, blockDepth);
+            const texture = createTextTexture(text);
+
+            const materials = [
+                new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.3 }),
+                new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.3 }),
+                new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.3 }),
+                new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.3 }),
+                new THREE.MeshStandardMaterial({ map: texture, roughness: 0.3 }),
+                new THREE.MeshStandardMaterial({ map: texture, roughness: 0.3 })
+            ];
+
+            const mesh = new THREE.Mesh(geometry, materials);
+            mesh.castShadow = !isMobile;
+            mesh.receiveShadow = !isMobile;
+            scene.add(mesh);
+
+            return { body, mesh, text, destroyed: false };
         }
-    });
 
-    // Create walls (invisible) - responsive positioning
-    const ground = Bodies.rectangle(canvasWidth / 2, canvasHeight - 10, canvasWidth, 20, {
-        isStatic: true,
-        render: { visible: false }
-    });
-    const leftWall = Bodies.rectangle(0, canvasHeight / 2, 20, canvasHeight, {
-        isStatic: true,
-        render: { visible: false }
-    });
-    const rightWall = Bodies.rectangle(canvasWidth, canvasHeight / 2, 20, canvasHeight, {
-        isStatic: true,
-        render: { visible: false }
-    });
-
-    // Add static bodies to the world (blocks will be added dynamically)
-    Composite.add(engine.world, [youBody, ground, leftWall, rightWall]);
-
-    // Track crushed blocks
-    const crushedPieces = [];
-
-    // Handle collisions to detect crushing
-    Events.on(engine, 'collisionStart', function (event) {
-        const pairs = event.pairs;
-
-        pairs.forEach(pair => {
-            // Check if YOU collided with a demand block
-            if ((pair.bodyA === youBody || pair.bodyB === youBody) && !youBody.isStatic) {
-                const block = pair.bodyA === youBody ? pair.bodyB : pair.bodyA;
-
-                // Only crush demand blocks, not walls
-                if (block && block.demandData && !block.isCrushed) {
-                    // Calculate impact force based on relative velocity
-                    const relativeVelocity = Math.abs(youBody.velocity.y - block.velocity.y);
-
-                    if (relativeVelocity > 15) { // High impact threshold
-                        // Mark as crushed
-                        block.isCrushed = true;
-
-                        // Create debris pieces
-                        const x = block.position.x;
-                        const y = block.position.y;
-
-                        // Remove the original block
-                        setTimeout(() => {
-                            Composite.remove(engine.world, block);
-                            const index = demandBodies.indexOf(block);
-                            if (index > -1) demandBodies.splice(index, 1);
-                        }, 10);
-
-                        // Create 4-6 smaller pieces (25% of original size)
-                        const numPieces = 4 + Math.floor(Math.random() * 3);
-                        for (let i = 0; i < numPieces; i++) {
-                            const piece = Bodies.rectangle(
-                                x + (Math.random() - 0.5) * 30,
-                                y + (Math.random() - 0.5) * 20,
-                                (15 + Math.random() * 20) * 0.25,
-                                (10 + Math.random() * 15) * 0.25,
-                                {
-                                    restitution: 0.4,
-                                    friction: 0.5,
-                                    density: 0.002,
-                                    render: { visible: false },
-                                    isDebris: true,
-                                    opacity: 0.7
-                                }
-                            );
-
-                            // Give pieces explosive velocity
-                            Body.setVelocity(piece, {
-                                x: (Math.random() - 0.5) * 20,
-                                y: -Math.random() * 15 - 5
-                            });
-                            Body.setAngularVelocity(piece, (Math.random() - 0.5) * 0.5);
-
-                            Composite.add(engine.world, piece);
-                            crushedPieces.push(piece);
-
-                            // Start fading after 15 seconds
-                            setTimeout(() => {
-                                // Fade out over 5 seconds
-                                const fadeInterval = setInterval(() => {
-                                    piece.opacity = (piece.opacity || 0.9) - 0.02;
-                                    if (piece.opacity <= 0) {
-                                        clearInterval(fadeInterval);
-                                        Composite.remove(engine.world, piece);
-                                        const idx = crushedPieces.indexOf(piece);
-                                        if (idx > -1) crushedPieces.splice(idx, 1);
-                                    }
-                                }, 100);
-                            }, 15000);
-                        }
-                    }
+        // Create initial blocks
+        const initialBlocks = isMobile ? 8 : 12;
+        for (let i = 0; i < initialBlocks; i++) {
+            setTimeout(() => {
+                if (blocks.length < MAX_BLOCKS) {
+                    blocks.push(createDemandBlock(demands[demandIndex % demands.length]));
+                    demandIndex++;
                 }
-            }
-        });
-    });
-
-    // Custom renderer to draw text and icons
-    Events.on(render, 'afterRender', function () {
-        const context = render.canvas.getContext('2d');
-
-        // Clear the entire canvas first
-        context.clearRect(0, 0, render.canvas.width, render.canvas.height);
-
-        // Draw demand items with text
-        demandBodies.forEach((body) => {
-            if (body.demandData && !body.isCrushed) {
-                const demand = body.demandData;
-                context.save();
-                context.translate(body.position.x, body.position.y);
-                context.rotate(body.angle);
-
-                // Draw white background with subtle border - responsive sizing
-                const width = Math.max(60, canvasWidth * 0.1);
-                const height = Math.max(25, canvasHeight * 0.07);
-                const radius = 5;
-
-                // Rounded rectangle
-                context.beginPath();
-                context.moveTo(-width / 2 + radius, -height / 2);
-                context.arcTo(width / 2, -height / 2, width / 2, -height / 2 + radius, radius);
-                context.arcTo(width / 2, height / 2, width / 2 - radius, height / 2, radius);
-                context.arcTo(-width / 2, height / 2, -width / 2, height / 2 - radius, radius);
-                context.arcTo(-width / 2, -height / 2, -width / 2 + radius, -height / 2, radius);
-                context.closePath();
-
-                // Fill with white
-                context.fillStyle = '#ffffff';
-                context.fill();
-
-                // Very subtle border
-                context.strokeStyle = '#e5e7eb';
-                context.lineWidth = 1;
-                context.stroke();
-
-                // Draw text - responsive font size
-                const fontSize = Math.max(8, Math.min(11, canvasWidth * 0.014));
-                context.font = `${fontSize}px Arial`;
-                context.fillStyle = '#1F2937';
-                context.textAlign = 'center';
-                context.textBaseline = 'middle';
-                context.fillText(demand.text, 0, 0);
-
-                context.restore();
-            }
-        });
-
-        // Draw YOU circle
-        const you = youBody;
-        context.save();
-        context.translate(you.position.x, you.position.y);
-        context.rotate(you.angle);
-
-        // Create gradient with responsive radius
-        const gradient = context.createRadialGradient(0, 0, 0, 0, 0, youRadius);
-        gradient.addColorStop(0, '#E2B93B');
-        gradient.addColorStop(1, '#47B5A5');
-
-        context.beginPath();
-        context.arc(0, 0, youRadius, 0, 2 * Math.PI);
-        context.fillStyle = gradient;
-        context.fill();
-        context.strokeStyle = '#E2B93B';
-        context.lineWidth = Math.max(2, youRadius * 0.06);
-        context.stroke();
-
-        // Add glow effect when moving
-        if (Math.abs(you.velocity.y) > 1) {
-            context.shadowBlur = 30;
-            context.shadowColor = '#E2B93B';
-            context.stroke();
+            }, i * 100);
         }
 
-        // Draw text with responsive font size
-        context.shadowBlur = 0;
-        const youFontSize = Math.max(16, Math.min(24, youRadius * 0.48));
-        context.font = `bold ${youFontSize}px Arial`;
-        context.fillStyle = '#ffffff';
-        context.textAlign = 'center';
-        context.textBaseline = 'middle';
-        context.fillText('YOU', 0, 0);
-
-        context.restore();
-
-        // Draw debris pieces
-        crushedPieces.forEach(piece => {
-            if (piece.isDebris) {
-                context.save();
-                context.translate(piece.position.x, piece.position.y);
-                context.rotate(piece.angle);
-
-                const width = piece.bounds.max.x - piece.bounds.min.x;
-                const height = piece.bounds.max.y - piece.bounds.min.y;
-
-                // Draw debris as broken white fragments (like the original blocks)
-                context.fillStyle = 'rgba(255, 255, 255, ' + (piece.opacity || 0.9) + ')';
-                context.fillRect(-width / 2, -height / 2, width, height);
-
-                // Jagged/broken edge effect
-                context.strokeStyle = 'rgba(229, 231, 235, ' + (piece.opacity || 0.9) + ')';
-                context.lineWidth = 1;
-                context.strokeRect(-width / 2, -height / 2, width, height);
-
-                // Add some cracks
-                context.beginPath();
-                context.moveTo(-width / 2 + width * 0.3, -height / 2);
-                context.lineTo(-width / 2 + width * 0.4, 0);
-                context.lineTo(-width / 2 + width * 0.3, height / 2);
-                context.strokeStyle = 'rgba(200, 200, 200, 0.5)';
-                context.lineWidth = 0.5;
-                context.stroke();
-
-                context.restore();
+        // Spawn more blocks over time
+        const spawnInterval = setInterval(() => {
+            const activeBlocks = blocks.filter(b => !b.destroyed).length;
+            if (activeBlocks < MAX_BLOCKS) {
+                blocks.push(createDemandBlock(demands[demandIndex % demands.length]));
+                demandIndex++;
             }
+        }, isMobile ? 600 : 400);
+
+        // Create "YOU" sphere
+        const youRadius = isMobile ? 0.8 : 1.0;
+        const youShape = new CANNON.Sphere(youRadius);
+        const youBody = new CANNON.Body({
+            mass: 0, // Start static
+            material: youMaterial,
+            linearDamping: 0.1,
+            angularDamping: 0.5
         });
-    });
+        youBody.addShape(youShape);
+        youBody.position.set(0, youRadius + 0.1, 2);
+        world.addBody(youBody);
 
-    // Run the renderer
-    Render.run(render);
+        // YOU sphere visual with glow effect
+        const youGeometry = new THREE.SphereGeometry(youRadius, 32, 32);
 
-    // Create runner
-    const runner = Runner.create();
-    Runner.run(runner, engine);
+        // Create gradient texture for YOU sphere
+        const youCanvas = document.createElement('canvas');
+        youCanvas.width = 512;
+        youCanvas.height = 512;
+        const youCtx = youCanvas.getContext('2d');
+        const youGradient = youCtx.createRadialGradient(256, 256, 0, 256, 256, 256);
+        youGradient.addColorStop(0, '#FFD700');
+        youGradient.addColorStop(0.5, '#E2B93B');
+        youGradient.addColorStop(1, '#47B5A5');
+        youCtx.fillStyle = youGradient;
+        youCtx.fillRect(0, 0, 512, 512);
+        const youTexture = new THREE.CanvasTexture(youCanvas);
 
-    // Click to break free
-    let hasBreakthrough = false;
-    canvas.addEventListener('click', (event) => {
-        // Get click position relative to canvas
-        const rect = canvas.getBoundingClientRect();
-        const mouseX = (event.clientX - rect.left) * (canvasWidth / rect.width);
-        const mouseY = (event.clientY - rect.top) * (canvasHeight / rect.height);
+        const youMaterialVisual = new THREE.MeshStandardMaterial({
+            map: youTexture,
+            metalness: 0.3,
+            roughness: 0.4,
+            emissive: 0xE2B93B,
+            emissiveIntensity: 0.3
+        });
 
-        // Check if click is near the YOU element
-        const youPos = youBody.position;
-        const distance = Math.sqrt(Math.pow(mouseX - youPos.x, 2) + Math.pow(mouseY - youPos.y, 2));
+        const youMesh = new THREE.Mesh(youGeometry, youMaterialVisual);
+        youMesh.castShadow = !isMobile;
+        scene.add(youMesh);
 
-        if (distance <= youRadius + 20) { // Click within YOU radius + buffer
-            // Reset YOU to static position if it's not already
-            if (!youBody.isStatic) {
-                Body.setStatic(youBody, true);
-                Body.setPosition(youBody, { x: canvasWidth / 2, y: canvasHeight - youRadius - 20 });
-                Body.setVelocity(youBody, { x: 0, y: 0 });
-                Body.setAngularVelocity(youBody, 0);
+        // Glow effect around YOU
+        const glowGeometry = new THREE.SphereGeometry(youRadius * 1.3, 32, 32);
+        const glowMaterial = new THREE.MeshBasicMaterial({
+            color: 0xE2B93B,
+            transparent: true,
+            opacity: 0.15,
+            side: THREE.BackSide
+        });
+        const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
+        scene.add(glowMesh);
+
+        // Outer glow ring
+        const outerGlowGeometry = new THREE.SphereGeometry(youRadius * 1.6, 32, 32);
+        const outerGlowMaterial = new THREE.MeshBasicMaterial({
+            color: 0x47B5A5,
+            transparent: true,
+            opacity: 0.08,
+            side: THREE.BackSide
+        });
+        const outerGlowMesh = new THREE.Mesh(outerGlowGeometry, outerGlowMaterial);
+        scene.add(outerGlowMesh);
+
+        // "YOU" text sprite
+        function createYouSprite() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 128;
+            canvas.height = 64;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 40px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.shadowColor = 'rgba(0,0,0,0.5)';
+            ctx.shadowBlur = 4;
+            ctx.fillText('YOU', 64, 32);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            const material = new THREE.SpriteMaterial({
+                map: texture,
+                transparent: true,
+                depthWrite: false
+            });
+            const sprite = new THREE.Sprite(material);
+            sprite.scale.set(1.5, 0.75, 1);
+            return sprite;
+        }
+
+        const youSprite = createYouSprite();
+        scene.add(youSprite);
+
+        // Debris particles
+        const debris = [];
+
+        function createDebris(position, color) {
+            const count = isMobile ? 4 : 6;
+            for (let i = 0; i < count; i++) {
+                const size = 0.1 + Math.random() * 0.15;
+                const geometry = new THREE.BoxGeometry(size, size, size);
+                const material = new THREE.MeshStandardMaterial({
+                    color: color || 0xffffff,
+                    transparent: true,
+                    opacity: 1
+                });
+                const mesh = new THREE.Mesh(geometry, material);
+                mesh.position.copy(position);
+                mesh.velocity = new THREE.Vector3(
+                    (Math.random() - 0.5) * 8,
+                    Math.random() * 6 + 2,
+                    (Math.random() - 0.5) * 8
+                );
+                mesh.rotationSpeed = new THREE.Vector3(
+                    Math.random() * 10,
+                    Math.random() * 10,
+                    Math.random() * 10
+                );
+                mesh.life = 1;
+                mesh.castShadow = false;
+                scene.add(mesh);
+                debris.push(mesh);
+            }
+        }
+
+        // Interaction state
+        let hasBreakthrough = false;
+        let isLaunching = false;
+
+        // Raycaster for click detection
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        function onInteraction(event) {
+            event.preventDefault();
+
+            // Get coordinates
+            const rect = renderer.domElement.getBoundingClientRect();
+            let clientX, clientY;
+
+            if (event.touches) {
+                clientX = event.touches[0].clientX;
+                clientY = event.touches[0].clientY;
+            } else {
+                clientX = event.clientX;
+                clientY = event.clientY;
             }
 
-            // Make YOU non-static and apply TREMENDOUS upward force
-            Body.setStatic(youBody, false);
+            mouse.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((clientY - rect.top) / rect.height) * 2 + 1;
 
-            // Apply extreme upward force - scale with canvas size
-            const forceScale = canvasHeight / 500; // Scale force based on canvas height
-            Body.applyForce(youBody, youBody.position, { x: 0, y: -5 * forceScale });
-            Body.setVelocity(youBody, { x: 0, y: -60 * forceScale }); // Extreme upward velocity
+            raycaster.setFromCamera(mouse, camera);
 
-            // Make YOU super heavy for maximum impact
-            Body.setDensity(youBody, 0.5); // 5x heavier when launching
+            // Check if clicking on YOU sphere
+            const intersects = raycaster.intersectObject(youMesh);
 
-            // Update messages
+            if (intersects.length > 0 || isNearYou(mouse)) {
+                launchYou();
+            }
+        }
+
+        function isNearYou(mousePos) {
+            // Project YOU position to screen space
+            const youScreenPos = youMesh.position.clone().project(camera);
+            const distance = Math.sqrt(
+                Math.pow(mousePos.x - youScreenPos.x, 2) +
+                Math.pow(mousePos.y - youScreenPos.y, 2)
+            );
+            return distance < 0.3;
+        }
+
+        function launchYou() {
+            if (isLaunching) return;
+            isLaunching = true;
+
+            // Reset position if fallen
+            if (youBody.position.y < youRadius + 0.5) {
+                youBody.position.set(0, youRadius + 0.1, 2);
+            }
+
+            // Make dynamic and launch
+            youBody.mass = 8;
+            youBody.updateMassProperties();
+
+            // Strong upward force
+            const launchForce = isMobile ? 350 : 450;
+            youBody.velocity.set(
+                (Math.random() - 0.5) * 3,
+                launchForce / youBody.mass,
+                (Math.random() - 0.5) * 2 - 1
+            );
+
+            // Enhance glow during launch
+            youMaterialVisual.emissiveIntensity = 0.8;
+            glowMaterial.opacity = 0.4;
+            outerGlowMaterial.opacity = 0.2;
+
+            setTimeout(() => {
+                youMaterialVisual.emissiveIntensity = 0.3;
+                glowMaterial.opacity = 0.15;
+                outerGlowMaterial.opacity = 0.08;
+                isLaunching = false;
+            }, 500);
+
+            // Update UI
             if (!hasBreakthrough) {
                 hasBreakthrough = true;
-                bottomMessage.classList.add('opacity-0');
-                breakthroughMessage.classList.remove('hidden');
-                setTimeout(() => {
-                    breakthroughMessage.classList.remove('opacity-0');
-                }, 50);
+                physicsContainer.parentElement.classList.add('activated');
+                if (bottomMessage) bottomMessage.classList.add('opacity-0');
+                if (breakthroughMessage) {
+                    breakthroughMessage.classList.remove('hidden');
+                    setTimeout(() => breakthroughMessage.classList.remove('opacity-0'), 50);
+                }
             }
         }
-    });
 
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        render.canvas.width = canvas.offsetWidth;
-        render.canvas.height = canvas.offsetHeight;
-    });
+        // Event listeners for both mouse and touch
+        renderer.domElement.addEventListener('click', onInteraction);
+        renderer.domElement.addEventListener('touchstart', onInteraction, { passive: false });
+
+        // Collision detection for destroying blocks
+        world.addEventListener('postStep', () => {
+            const youVelocity = youBody.velocity.length();
+
+            if (youVelocity > 5) {
+                blocks.forEach(block => {
+                    if (block.destroyed) return;
+
+                    const distance = youBody.position.distanceTo(block.body.position);
+                    if (distance < youRadius + 1.2) {
+                        // Destroy block
+                        block.destroyed = true;
+
+                        // Create debris
+                        createDebris(
+                            new THREE.Vector3(
+                                block.body.position.x,
+                                block.body.position.y,
+                                block.body.position.z
+                            ),
+                            0xffffff
+                        );
+
+                        // Remove from physics and scene
+                        setTimeout(() => {
+                            world.removeBody(block.body);
+                            scene.remove(block.mesh);
+                            block.mesh.geometry.dispose();
+                            block.mesh.material.forEach(m => {
+                                if (m.map) m.map.dispose();
+                                m.dispose();
+                            });
+                        }, 10);
+                    }
+                });
+            }
+        });
+
+        // Animation loop
+        const clock = new THREE.Clock();
+        let time = 0;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const delta = Math.min(clock.getDelta(), 0.05);
+            time += delta;
+
+            // Step physics
+            world.step(1 / 60, delta, 3);
+
+            // Update block meshes
+            blocks.forEach(block => {
+                if (!block.destroyed) {
+                    block.mesh.position.copy(block.body.position);
+                    block.mesh.quaternion.copy(block.body.quaternion);
+
+                    // Remove blocks that fell too far
+                    if (block.body.position.y < -10) {
+                        block.destroyed = true;
+                        world.removeBody(block.body);
+                        scene.remove(block.mesh);
+                    }
+                }
+            });
+
+            // Update YOU sphere
+            youMesh.position.copy(youBody.position);
+            youMesh.quaternion.copy(youBody.quaternion);
+
+            // Update glow positions
+            glowMesh.position.copy(youBody.position);
+            outerGlowMesh.position.copy(youBody.position);
+            youSprite.position.copy(youBody.position);
+            goldLight.position.copy(youBody.position);
+
+            // Pulsing glow effect
+            const pulse = Math.sin(time * 3) * 0.05 + 0.15;
+            glowMaterial.opacity = pulse;
+            glowMesh.scale.setScalar(1 + Math.sin(time * 2) * 0.05);
+
+            // Update debris
+            for (let i = debris.length - 1; i >= 0; i--) {
+                const d = debris[i];
+                d.velocity.y -= 20 * delta; // gravity
+                d.position.add(d.velocity.clone().multiplyScalar(delta));
+                d.rotation.x += d.rotationSpeed.x * delta;
+                d.rotation.y += d.rotationSpeed.y * delta;
+                d.rotation.z += d.rotationSpeed.z * delta;
+                d.life -= delta * 0.5;
+                d.material.opacity = d.life;
+
+                if (d.life <= 0) {
+                    scene.remove(d);
+                    d.geometry.dispose();
+                    d.material.dispose();
+                    debris.splice(i, 1);
+                }
+            }
+
+            // Keep YOU from falling through ground
+            if (youBody.position.y < youRadius) {
+                youBody.position.y = youRadius;
+                youBody.velocity.y = Math.max(0, youBody.velocity.y);
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // Handle resize
+        function onResize() {
+            const size = getContainerSize();
+            width = size.width;
+            height = size.height;
+
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        }
+
+        window.addEventListener('resize', onResize);
+
+        // Hide loading indicator
+        setTimeout(() => {
+            if (physicsLoading) physicsLoading.classList.add('hidden');
+        }, 500);
+
+        // Start animation
+        animate();
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            clearInterval(spawnInterval);
+            renderer.dispose();
+        });
+    })();
 }
 
 // Smooth scroll for navigation

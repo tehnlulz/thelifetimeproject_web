@@ -42,7 +42,9 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <!-- Three.js and Cannon-es for 3D physics -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
@@ -283,14 +285,21 @@
                         you.</p>
                 </div>
 
-                <!-- Physics visualization -->
-                <div class="relative mx-auto" id="physics-wrapper" style="max-width: 800px; height: 500px;">
-                    <canvas id="physics-canvas"
-                        style="width: 100%; height: 100%; border-radius: 20px; background: linear-gradient(to bottom, #f8f8f8, #e8e8e8);"></canvas>
+                <!-- 3D Physics visualization -->
+                <div class="relative mx-auto" id="physics-wrapper">
+                    <div id="physics-container"></div>
 
                     <!-- Hover instruction -->
-                    <div class="hover-hint absolute bottom-4 left-0 right-0 text-center pointer-events-none">
-                        <p class="text-sm text-gray-500 italic">Click to break free</p>
+                    <div class="hover-hint absolute bottom-4 left-0 right-0 text-center pointer-events-none z-10">
+                        <p class="text-sm text-gray-500 italic" id="physics-hint">Tap the glowing sphere to break free</p>
+                    </div>
+
+                    <!-- Loading indicator -->
+                    <div id="physics-loading" class="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-gray-100 to-gray-200 rounded-2xl">
+                        <div class="text-center">
+                            <div class="inline-block w-8 h-8 border-2 border-gray-300 border-t-amber-500 rounded-full animate-spin mb-2"></div>
+                            <p class="text-sm text-gray-500">Loading 3D experience...</p>
+                        </div>
                     </div>
                 </div>
 
@@ -309,23 +318,63 @@
     </section>
 
     <style>
-        /* Physics canvas styles */
+        /* 3D Physics container styles */
         #physics-wrapper {
             cursor: pointer;
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16 / 10;
+            max-height: 70vh;
+            min-height: 300px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
 
-        #physics-canvas {
+        #physics-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        #physics-container canvas {
             display: block;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
         }
 
         .hover-hint {
             opacity: 1;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.5s ease;
         }
 
         #physics-wrapper.activated .hover-hint {
             opacity: 0;
+        }
+
+        #physics-loading {
+            transition: opacity 0.5s ease;
+        }
+
+        #physics-loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            #physics-wrapper {
+                aspect-ratio: 4 / 5;
+                max-height: 60vh;
+                min-height: 350px;
+                border-radius: 16px;
+            }
+
+            #physics-container,
+            #physics-container canvas {
+                border-radius: 16px;
+            }
         }
 
         /* iPhone Mockup - Desktop First */
