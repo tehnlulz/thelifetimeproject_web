@@ -3,23 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Lifetime Project - Where Ancient Wisdom Meets Modern Science</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>The Lifetime Project – Where Ancient Wisdom Meets Modern Science</title>
     <meta name="description"
         content="The ultimate personal development platform for men. Synthesizing wisdom from Marcus Aurelius to modern neuroscience, personalized just for you with AI-generated daily practices.">
-    <meta property="og:title" content="The Lifetime Project - Where Ancient Wisdom Meets Modern Science">
+
+    <!-- Vercel Guidelines: Theme color to match page background -->
+    <meta name="theme-color" content="#FAFAFC">
+    <!-- Vercel Guidelines: Color scheme for native UI contrast -->
+    <meta name="color-scheme" content="light">
+
+    <meta property="og:title" content="The Lifetime Project – Where Ancient Wisdom Meets Modern Science">
     <meta property="og:description"
         content="The ultimate personal development platform for men. Synthesizing wisdom from Marcus Aurelius to modern neuroscience, personalized just for you with AI-generated daily practices.">
     <meta property="og:image" content="https://thelifetimeproject.com/assets/images/logo.svg">
-    <!-- Update with actual image URL -->
     <meta property="og:url" content="https://thelifetimeproject.com/">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="The Lifetime Project - Where Ancient Wisdom Meets Modern Science">
+    <meta name="twitter:title" content="The Lifetime Project – Where Ancient Wisdom Meets Modern Science">
     <meta name="twitter:description"
         content="The ultimate personal development platform for men. Synthesizing wisdom from Marcus Aurelius to modern neuroscience, personalized just for you with AI-generated daily practices.">
     <meta name="twitter:image" content="https://thelifetimeproject.com/assets/images/logo.svg">
-    <!-- Update with actual image URL -->
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
@@ -70,12 +74,7 @@
             --shadow-xl: 0 20px 25px -5px rgba(31, 41, 55, 0.1);
         }
 
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Enhanced global styles */
+        /* Enhanced global styles (complementing styles.css) */
         body {
             font-family: 'Outfit', sans-serif;
             -webkit-font-smoothing: antialiased;
@@ -105,9 +104,14 @@
 </head>
 
 <body>
+    <!-- Vercel Guidelines: Skip link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Navigation -->
     <nav
-        class="fixed top-0 left-0 right-0 w-full bg-[#FAFAFC]/95 backdrop-blur-lg border-b border-[rgba(31,41,55,0.10)] z-50 shadow-sm">
+        class="fixed top-0 left-0 right-0 w-full bg-[#FAFAFC]/95 backdrop-blur-lg border-b border-[rgba(31,41,55,0.10)] z-50 shadow-sm"
+        role="navigation"
+        aria-label="Main navigation">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-3 group">
@@ -149,17 +153,18 @@
                     </a>
                 </div>
 
-                <button class="primary-btn group">
+                <button class="primary-btn group" aria-label="Start Your Journey">
                     <span class="hidden sm:inline">Start Your Journey</span>
                     <span class="sm:hidden">Start</span>
-                    <i class="fas fa-arrow-right transition-transform duration-300 group-hover:translate-x-1"></i>
+                    <i class="fas fa-arrow-right transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-gradient min-h-screen flex items-center pt-20 relative overflow-hidden">
+    <main id="main-content">
+    <section class="hero-gradient min-h-screen flex items-center pt-20 relative overflow-hidden" aria-labelledby="hero-heading">
         <!-- Enhanced geometric shapes with blur -->
         <div class="float-shape w-96 h-96 rounded-full bg-[#E2B93B] opacity-20 blur-3xl" style="top: 10%; left: -10%;">
         </div>
@@ -179,7 +184,7 @@
                 </div>
 
                 <!-- Main headline -->
-                <h1 class="text-5xl md:text-7xl font-bold mb-8 leading-tight animate-fade-in-up">
+                <h1 id="hero-heading" class="text-5xl md:text-7xl font-bold mb-8 leading-tight animate-fade-in-up">
                     Cut Through The Noise.<br>
                     <span
                         class="gradient-text bg-clip-text text-transparent bg-gradient-to-r from-[#E2B93B] via-[#47B5A5] to-[#E2B93B] bg-[length:200%_auto] animate-gradient">Become
@@ -189,31 +194,31 @@
 
                 <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed">
                     Deep down, you know you're capable of more. But between work pressure, family needs,
-                    and conflicting advice everywhere – you've lost sight of who you really are.
+                    and conflicting advice everywhere&nbsp;– you've lost sight of who you really are.
                     Time to reconnect with the man you're meant to be.
                 </p>
 
                 <!-- Value props -->
                 <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
                     <div
-                        class="flex items-center justify-center space-x-3 text-left bg-white/60 backdrop-blur-sm p-4 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105">
-                        <i class="fas fa-brain text-2xl text-[#E2B93B]"></i>
+                        class="flex items-center justify-center space-x-3 text-left bg-white/60 backdrop-blur-sm p-4 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 hover:scale-105">
+                        <i class="fas fa-brain text-2xl text-[#E2B93B]" aria-hidden="true"></i>
                         <div>
                             <p class="font-semibold text-[#1F2937]">Not One System</p>
                             <p class="text-sm text-[#4B5563]">Synthesizes all frameworks</p>
                         </div>
                     </div>
                     <div
-                        class="flex items-center justify-center space-x-3 text-left bg-white/60 backdrop-blur-sm p-4 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105">
-                        <i class="fas fa-magic text-2xl text-[#47B5A5]"></i>
+                        class="flex items-center justify-center space-x-3 text-left bg-white/60 backdrop-blur-sm p-4 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 hover:scale-105">
+                        <i class="fas fa-magic text-2xl text-[#47B5A5]" aria-hidden="true"></i>
                         <div>
                             <p class="font-semibold text-[#1F2937]">100% Personalized</p>
                             <p class="text-sm text-[#4B5563]">AI creates unique content daily</p>
                         </div>
                     </div>
                     <div
-                        class="flex items-center justify-center space-x-3 text-left bg-white/60 backdrop-blur-sm p-4 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105">
-                        <i class="fas fa-chart-line text-2xl text-[#16A34A]"></i>
+                        class="flex items-center justify-center space-x-3 text-left bg-white/60 backdrop-blur-sm p-4 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 hover:scale-105">
+                        <i class="fas fa-chart-line text-2xl text-[#16A34A]" aria-hidden="true"></i>
                         <div>
                             <p class="font-semibold text-[#1F2937]">Real Growth</p>
                             <p class="text-sm text-[#4B5563]">Structured journey system</p>
@@ -224,35 +229,36 @@
                 <!-- CTA section -->
                 <div class="space-y-4">
                     <button
-                        class="primary-btn text-lg px-12 py-6 shadow-2xl hover:shadow-[0_20px_50px_rgba(226,185,59,0.4)] transform hover:-translate-y-1 transition-all duration-300">
-                        Take the Assessment - It's Free
+                        class="primary-btn text-lg px-12 py-6 shadow-2xl hover:shadow-[0_20px_50px_rgba(226,185,59,0.4)] transform hover:-translate-y-1 transition-transform duration-300"
+                        aria-label="Take the Free Assessment">
+                        Take the Assessment&nbsp;– It's Free
                         <i
-                            class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i>
+                            class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
                     </button>
                     <p class="text-sm text-[#4B5563] flex flex-wrap justify-center gap-x-4 gap-y-2">
-                        <span><i class="fas fa-check text-[#16A34A] mr-2"></i>No credit card required</span>
-                        <span><i class="fas fa-check text-[#16A34A] mr-2"></i>7-day free trial</span>
-                        <span><i class="fas fa-check text-[#16A34A] mr-2"></i>Cancel anytime</span>
+                        <span><i class="fas fa-check text-[#16A34A] mr-2" aria-hidden="true"></i>No credit card required</span>
+                        <span><i class="fas fa-check text-[#16A34A] mr-2" aria-hidden="true"></i>7-day free trial</span>
+                        <span><i class="fas fa-check text-[#16A34A] mr-2" aria-hidden="true"></i>Cancel anytime</span>
                     </p>
                 </div>
             </div>
 
             <!-- App Screenshots -->
-            <div class="absolute top-1/2 -translate-y-1/2 -right-[100px] hidden xl:block">
+            <div class="absolute top-1/2 -translate-y-1/2 -right-[100px] hidden xl:block" aria-hidden="true">
                 <div class="relative">
                     <!-- iPhone mockup -->
                     <div class="iphone-mockup">
                         <div class="iphone-power-button"></div>
                         <div class="iphone-screen-wrapper">
-                            <img src="assets/images/home_screen.png" alt="Home Screen" class="iphone-screen"
-                                loading="lazy">
+                            <img src="assets/images/home_screen.png" alt="The Lifetime Project app home screen showing daily guidance" class="iphone-screen"
+                                loading="lazy" width="272" height="572">
                         </div>
                     </div>
                     <!-- Second phone slightly behind -->
                     <div class="iphone-mockup absolute -left-24 top-10 -z-10">
                         <div class="iphone-power-button"></div>
                         <div class="iphone-screen-wrapper">
-                            <img src="assets/images/home2.png" alt="Home Screen 2" class="iphone-screen" loading="lazy">
+                            <img src="assets/images/home2.png" alt="App personalization features" class="iphone-screen" loading="lazy" width="272" height="572">
                         </div>
                     </div>
                 </div>
@@ -1340,9 +1346,13 @@
         </div>
     </section>
 
+    </main>
+    <!-- End of main content -->
+
     <!-- Footer -->
     <footer
-        class="bg-gradient-to-br from-white to-gray-50 border-t border-gray-200 py-12 full-width relative overflow-hidden">
+        class="bg-gradient-to-br from-white to-gray-50 border-t border-gray-200 py-12 full-width relative overflow-hidden"
+        role="contentinfo">
         <!-- Decorative gradient line -->
         <div
             class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#E2B93B] to-transparent opacity-50">
@@ -1411,29 +1421,40 @@
                 <form
                     action="https://thelifetimeproject.us4.list-manage.com/subscribe/post?u=f4680638487903c69dc6b1e3e&amp;id=5ccc065eaa&amp;f_id=000456e2f0"
                     method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
-                    class="validate space-y-4" target="_blank">
+                    class="validate space-y-4" target="_blank" novalidate>
                     <div id="mc_embed_signup_scroll">
                         <div class="mc-field-group">
                             <label for="mce-FNAME" class="block text-sm font-medium text-gray-700 mb-2">
                                 Your Name
                             </label>
+                            <!-- Vercel Guidelines: Proper autocomplete and placeholder format -->
                             <input type="text" name="FNAME"
-                                class="text w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2B93B] focus:border-transparent outline-none transition-all"
-                                id="mce-FNAME" placeholder="John Smith" value="">
+                                class="text w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2B93B] focus:border-transparent outline-none transition-border-color transition-box-shadow"
+                                id="mce-FNAME" placeholder="John Smith…" value=""
+                                autocomplete="given-name"
+                                aria-describedby="fname-hint">
+                            <span id="fname-hint" class="sr-only">Enter your first name</span>
                         </div>
 
                         <div class="mc-field-group">
                             <label for="mce-EMAIL" class="block text-sm font-medium text-gray-700 mb-2">
-                                Email Address <span class="text-red-500">*</span>
+                                Email Address <span class="text-red-500" aria-hidden="true">*</span>
+                                <span class="sr-only">(required)</span>
                             </label>
+                            <!-- Vercel Guidelines: Proper autocomplete for email -->
                             <input type="email" name="EMAIL"
-                                class="required email w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2B93B] focus:border-transparent outline-none transition-all"
-                                id="mce-EMAIL" required="" placeholder="your@email.com" value="">
+                                class="required email w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2B93B] focus:border-transparent outline-none transition-border-color transition-box-shadow"
+                                id="mce-EMAIL" required placeholder="your@email.com…" value=""
+                                autocomplete="email"
+                                aria-describedby="email-hint"
+                                aria-required="true">
+                            <span id="email-hint" class="sr-only">Enter your email address to subscribe</span>
                         </div>
 
-                        <div id="mce-responses" class="clear foot">
+                        <!-- Vercel Guidelines: Use aria-live for async announcements -->
+                        <div id="mce-responses" class="clear foot" role="status" aria-live="polite">
                             <div class="response text-red-600 text-sm mt-2" id="mce-error-response"
-                                style="display: none;"></div>
+                                style="display: none;" role="alert"></div>
                             <div class="response text-green-600 text-sm mt-2" id="mce-success-response"
                                 style="display: none;"></div>
                         </div>
