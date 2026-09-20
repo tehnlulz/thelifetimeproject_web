@@ -1,0 +1,612 @@
+/* ============================================================
+   legal.css — Privacy Policy and Terms & Conditions
+
+   Long-form legal reading in the site's voice: off-white canvas,
+   Outfit, near-black ink, gold and mint used only as accents.
+
+   Every colour, shadow and focus ring comes from the tokens in
+   styles.css :root. Nothing new is invented here.
+
+   Tailwind's Play CDN injects Preflight at runtime, after these
+   stylesheets, so bare element selectors (h2, ul, a, table) lose
+   to it. Every rule below is therefore anchored on a class —
+   (0,1,1) beats Preflight's (0,0,1) whatever the load order.
+   ============================================================ */
+
+/* ---------- Page shell ---------- */
+
+.legal {
+    /* Clears the fixed header. */
+    padding-block: 7rem 4.5rem;
+}
+
+@media (min-width: 768px) {
+    .legal {
+        padding-block: 9rem 6rem;
+    }
+}
+
+.legal:focus {
+    /* The skip link moves focus here; it needs no ring of its own. */
+    outline: none;
+}
+
+.legal-shell {
+    width: 100%;
+    /* 42rem of measure once the 1.25rem gutters are removed: ~68ch at
+       the 17px body size below. */
+    max-width: 44.5rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+    .legal-shell {
+        padding-inline: 1.5rem;
+    }
+}
+
+/* In-page anchors land below the fixed header rather than under it. */
+.legal-hero,
+.legal-section,
+.legal h2,
+.legal h3 {
+    scroll-margin-top: calc(var(--header-clearance) + 0.5rem);
+}
+
+/* ---------- Typography ---------- */
+
+.legal h1 {
+    font-size: clamp(2rem, 1.35rem + 3.1vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    text-wrap: balance;
+}
+
+.legal h2 {
+    font-size: clamp(1.375rem, 1.19rem + 0.9vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    text-wrap: balance;
+}
+
+.legal h3 {
+    font-size: clamp(1.0625rem, 1.01rem + 0.28vw, 1.1875rem);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin-top: 2.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.legal p,
+.legal li {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+}
+
+.legal p {
+    margin-bottom: 1.125rem;
+}
+
+.legal p:last-child {
+    margin-bottom: 0;
+}
+
+.legal strong {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* ---------- Lists ---------- */
+
+.legal ul,
+.legal ol {
+    margin: 0 0 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.legal ul {
+    list-style: disc;
+}
+
+.legal ol {
+    list-style: decimal;
+}
+
+.legal li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.25rem;
+}
+
+.legal li:last-child {
+    margin-bottom: 0;
+}
+
+.legal li::marker {
+    color: var(--accent-gold-ink);
+}
+
+/* ---------- Links ---------- */
+
+/* Near-black ink (14:1 on the canvas) carries the contrast; the gold
+   underline carries the "this is a link" signal, so the affordance
+   never depends on colour alone. */
+.legal a:not(.legal-toc__list a) {
+    color: var(--text-primary);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--accent-gold);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+    transition:
+        text-decoration-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        text-decoration-thickness 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.legal a:not(.legal-toc__list a):hover {
+    text-decoration-color: var(--accent-mint);
+    text-decoration-thickness: 3px;
+}
+
+.legal a:focus-visible {
+    outline: none;
+    border-radius: 4px;
+    box-shadow: var(--focus-ring);
+}
+
+/* ---------- Page header ---------- */
+
+.legal-hero {
+    margin-bottom: 2.25rem;
+}
+
+.legal-hero h1::after {
+    content: '';
+    display: block;
+    width: 4.5rem;
+    height: 3px;
+    margin-top: 1.5rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent-gold), var(--accent-mint));
+}
+
+/* Effective / last-updated dates. Scoped twice to outrank `.legal p`. */
+.legal .legal-meta {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.legal .legal-meta strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+@media (min-width: 640px) {
+    .legal .legal-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 2.25rem;
+    }
+
+    .legal .legal-meta br {
+        display: none;
+    }
+}
+
+/* ---------- Table of contents ---------- */
+
+.legal-toc {
+    margin: 2.5rem 0 3.5rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Doubled-up scope throughout this block: the generic `.legal h2`,
+   `.legal ol` and `.legal li` rules above are (0,1,1) and would otherwise
+   outrank a single ToC class. */
+.legal .legal-toc__title {
+    margin: 0 0 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.legal .legal-toc__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media (min-width: 45rem) {
+    .legal .legal-toc__list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 2rem;
+    }
+}
+
+.legal .legal-toc__list li {
+    margin: 0;
+    padding: 0;
+    font-size: 0.9375rem;
+}
+
+.legal .legal-toc__list a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.25rem 0;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-light);
+    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.legal .legal-toc__list li:last-child a {
+    border-bottom: 0;
+}
+
+@media (min-width: 45rem) {
+
+    /* The two columns each end on their own last row, so the final
+       border is cleared per column rather than per list. */
+    .legal .legal-toc__list li:nth-last-child(-n+2) a {
+        border-bottom: 0;
+    }
+}
+
+.legal .legal-toc__list a:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--accent-gold);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+}
+
+/* ---------- Sections ---------- */
+
+.legal-section {
+    margin-top: 3.25rem;
+}
+
+/* The separator and the gold accent in one mark, replacing the old
+   blue divider rules. */
+.legal-section::before {
+    content: '';
+    display: block;
+    width: 3rem;
+    height: 3px;
+    margin-bottom: 1.75rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent-gold), var(--accent-mint));
+}
+
+.legal-section:first-of-type {
+    margin-top: 0;
+}
+
+.legal-section > h3:first-of-type {
+    margin-top: 1.75rem;
+}
+
+/* ---------- Callouts ---------- */
+
+.legal-callout {
+    margin: 2rem 0;
+    padding: 1.25rem 1.5rem;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-gold);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.legal-callout > :first-child {
+    margin-top: 0;
+}
+
+.legal-callout > :last-child {
+    margin-bottom: 0;
+}
+
+.legal-callout h3 {
+    margin-top: 1.75rem;
+}
+
+.legal-callout ul,
+.legal-callout ol {
+    margin-bottom: 0;
+}
+
+.legal-callout p + ul,
+.legal-callout p + ol {
+    margin-top: -0.25rem;
+}
+
+.legal-callout--gold {
+    border-left-color: var(--accent-gold);
+    background: var(--surface);
+    background: color-mix(in srgb, var(--accent-gold) 7%, var(--surface));
+}
+
+.legal-callout--mint {
+    border-left-color: var(--accent-mint);
+    background: var(--surface);
+    background: color-mix(in srgb, var(--accent-mint) 6%, var(--surface));
+}
+
+/* Reserved for the notices the source set in red: the strongest
+   language in each document. Weight and ink carry it, not hue. */
+.legal-callout--strong {
+    border-left-color: var(--text-primary);
+    background: var(--surface-dark);
+}
+
+.legal-callout--strong p:first-child strong {
+    letter-spacing: 0.01em;
+}
+
+/* ---------- Tables ---------- */
+
+.legal-table-wrap {
+    margin: 1.75rem 0 2rem;
+}
+
+.legal-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--text-secondary);
+}
+
+/* `break-word`, not `anywhere`: `anywhere` feeds into intrinsic min-content
+   sizing, so auto table layout squeezes the first column and splits words
+   like "Assessment" across lines. */
+.legal-table td,
+.legal-table th {
+    overflow-wrap: break-word;
+}
+
+/* Stacked label / value cards wherever the measure is too narrow for
+   four columns. Explicit ARIA roles are on the markup so the table
+   semantics survive `display: block`, and each cell shows its column
+   header through data-label. */
+@media (max-width: 63.999em) {
+    /* The header row stays in the accessibility tree — it is what the
+       explicit columnheader roles pair each cell with — but every box in
+       it collapses to 1px. Clipping alone is not enough: an unclipped
+       `th` still lays out at its content width and reports a rect past
+       the viewport edge, which reads as an overflow to any audit. */
+    .legal-table thead,
+    .legal-table thead tr,
+    .legal-table thead th {
+        display: block;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .legal-table thead {
+        position: absolute;
+        padding: 0;
+        margin: -1px;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+
+    .legal-table thead th {
+        padding: 0;
+        border: 0;
+    }
+
+    .legal-table tbody,
+    .legal-table tr,
+    .legal-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .legal-table tr {
+        margin-bottom: 1rem;
+        padding: 0.25rem 1.125rem 0.875rem;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .legal-table tr:last-child {
+        margin-bottom: 0;
+    }
+
+    .legal-table td {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--border-light);
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .legal-table tr td:last-child {
+        padding-bottom: 0;
+        border-bottom: 0;
+    }
+
+    .legal-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.2rem;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        line-height: 1.4;
+        color: var(--text-primary);
+    }
+}
+
+@media (min-width: 64em) {
+    /* The measure is set for prose; the tables borrow a little room
+       back from the margins the centred column leaves behind. */
+    .legal-table-wrap {
+        margin-inline: -4rem;
+        overflow-x: auto;
+    }
+
+    .legal-table {
+        font-size: 0.9375rem;
+        line-height: 1.6;
+    }
+
+    .legal-table th,
+    .legal-table td {
+        padding: 0.875rem 1rem;
+        text-align: left;
+        vertical-align: top;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .legal-table thead th {
+        font-weight: 600;
+        color: var(--text-primary);
+        background: var(--surface-dark);
+        border-bottom: 2px solid var(--accent-gold);
+    }
+
+    .legal-table thead th:first-child {
+        border-top-left-radius: 10px;
+    }
+
+    .legal-table thead th:last-child {
+        border-top-right-radius: 10px;
+    }
+
+    .legal-table tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+    .legal-table tbody tr:nth-child(even) {
+        background: var(--border-light);
+    }
+}
+
+/* ---------- Footer: mark the page you are already on ---------- */
+
+/* legal.css only loads on the two legal pages, so this can key off the
+   footer's own markup without a page-scoping class. */
+footer nav a[aria-current="page"] {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+footer nav a[aria-current="page"] span {
+    width: 100%;
+}
+
+/* ---------- Motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .legal a,
+    .legal-toc__list a {
+        transition: none;
+    }
+}
+
+/* ---------- Print ---------- */
+
+@media print {
+
+    nav,
+    footer,
+    .skip-link,
+    .legal-toc {
+        display: none !important;
+    }
+
+    body {
+        background: #fff;
+        color: #000;
+    }
+
+    .legal {
+        padding-block: 0;
+    }
+
+    .legal-shell {
+        max-width: none;
+        padding-inline: 0;
+    }
+
+    .legal h1,
+    .legal h2,
+    .legal h3,
+    .legal p,
+    .legal li,
+    .legal strong,
+    .legal a,
+    .legal-meta,
+    .legal-table,
+    .legal-table td::before {
+        color: #000;
+    }
+
+    .legal a {
+        text-decoration: underline;
+        text-decoration-color: #000;
+        text-decoration-thickness: 1px;
+    }
+
+    /* Paper has no hover, so the destination has to be on the page. */
+    .legal a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.85em;
+        font-weight: 400;
+        word-break: break-all;
+    }
+
+    .legal a[href^="mailto:"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.85em;
+        font-weight: 400;
+    }
+
+    .legal-hero h1::after,
+    .legal-section::before {
+        background: #000;
+    }
+
+    .legal-callout,
+    .legal-table tr {
+        border: 1px solid #000;
+        background: none;
+        box-shadow: none;
+    }
+
+    .legal-section,
+    .legal-callout,
+    .legal-table tr {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .legal h2,
+    .legal h3 {
+        break-after: avoid;
+        page-break-after: avoid;
+    }
+}

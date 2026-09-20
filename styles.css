@@ -13,6 +13,14 @@
     --accent-mint: #47B5A5;
     --accent-beige: #F5E8C7;
     --success: #16A34A;
+
+    /* Ink variants: the accents are surface colours and fail contrast as text.
+       Use these whenever an accent has to carry words on a light background. */
+    --accent-gold-ink: #907215;
+    --accent-mint-ink: #338378;
+    --success-ink: #12883E;
+    --text-placeholder: #6B7280;
+
     --error: #DC2626;
     --warning: #D97706;
     --info: #2563EB;
@@ -35,14 +43,21 @@
         0 8px 10px -4px rgba(31, 41, 55, 0.03),
         0 20px 25px -5px rgba(31, 41, 55, 0.08);
 
-    /* Focus ring for accessibility */
+    /* Focus ring for accessibility. The inset twin is the same ring drawn
+       inward, for controls that run edge to edge and would otherwise have
+       their ring fall off the side of the viewport. */
     --focus-ring: 0 0 0 2px var(--canvas), 0 0 0 4px var(--accent-gold);
+    --focus-ring-inset: inset 0 0 0 2px var(--canvas), inset 0 0 0 4px var(--accent-gold);
 
     /* Safe area insets for device notches */
     --safe-area-inset-top: env(safe-area-inset-top, 0px);
     --safe-area-inset-right: env(safe-area-inset-right, 0px);
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
     --safe-area-inset-left: env(safe-area-inset-left, 0px);
+
+    /* How far below the fixed header in-page anchors should land. Shared
+       with legal.css, which loads after this file on the legal pages. */
+    --header-clearance: 6rem;
 }
 
 * {
@@ -51,15 +66,59 @@
     box-sizing: border-box;
 }
 
+/* Base heading scale. Tailwind Preflight resets h1-h6 to inherit size, and
+   nothing below sets one, so any heading without an explicit text-* class
+   would otherwise render at body size. :where() keeps this at zero
+   specificity so any utility class, and every classed selector in
+   legal.css (e.g. .legal h1), overrides it without a fight. */
+:where(h1) {
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+:where(h2) {
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+:where(h3) {
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+/* In-page anchors (index.html's #wisdom, #how, #journey, etc.) land below
+   the fixed header instead of under it. Header height: nav's py-4 (32px)
+   plus the tallest inline element (48px logo / 44px min-height buttons)
+   = ~80px (5rem), plus 1rem breathing room. legal.css's own
+   .legal h2/.legal h3 scroll-margin-top (a classed selector) wins over
+   this attribute selector regardless of source order. */
+[id] {
+    scroll-margin-top: var(--header-clearance);
+}
+
+/* Browser surfaces carry the design too */
+::selection {
+    background: var(--accent-beige);
+    color: var(--text-primary);
+}
+
+::-moz-selection {
+    background: var(--accent-beige);
+    color: var(--text-primary);
+}
+
 /* Vercel Guidelines: Apply color-scheme for native UI contrast */
 html {
     color-scheme: light;
-    overflow-x: hidden;
     overscroll-behavior: none;
     position: relative;
     height: 100%;
     scroll-behavior: smooth;
     /* Vercel Guidelines: Use 16px+ font to prevent iOS auto-zoom */
+    /* Pinned at 16px, so px and em media query breakpoints agree everywhere below. */
     font-size: 16px;
 }
 
@@ -68,11 +127,12 @@ body {
     background: var(--canvas);
     color: var(--text-primary);
     line-height: 1.6;
-    overflow-x: hidden;
+    caret-color: var(--accent-gold-ink);
     margin: 0;
     padding: 0;
     width: 100%;
-    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     -webkit-overflow-scrolling: auto;
     /* Vercel Guidelines: Use tabular-nums for numeric content */
     font-variant-numeric: tabular-nums;
@@ -81,29 +141,78 @@ body {
     padding-right: var(--safe-area-inset-right);
 }
 
-/* Full-width wrapper */
-.full-width-wrapper {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
+/* Sections and the footer are direct children of <body>/<main>, so they are
+   already full-bleed. No 100vw / negative-margin trickery required. */
+
+/* Base heading scale.
+   Tailwind's Preflight resets h1-h6 to `font-size: inherit; font-weight: inherit`,
+   so a heading with no size utility on it renders at body size. These rules put
+   the default scale back for exactly those headings.
+
+   Two deliberate details:
+   - `:where(:not([class]))` contributes no specificity but still excludes every
+     heading that carries a class, so a `text-4xl` heading is never touched.
+   - the leading `html` is the one element of specificity needed to outrank
+     Preflight, which the Play CDN injects after this file. That leaves these at
+     (0,0,2) — below every page rule such as `.blog-header h1` or
+     `.post-content h2`, which keep their own sizes. */
+html h1:where(:not([class])) {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.2;
 }
 
-/* Ensure all sections stretch full width */
-section,
-footer {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
+html h2:where(:not([class])) {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.25;
 }
 
-.serif {
-    font-family: 'Crimson Text', serif;
+html h3:where(:not([class])) {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+html h4:where(:not([class])) {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+html h5:where(:not([class])),
+html h6:where(:not([class])) {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* Display type: tighten tracking as size grows, so headings set as one shape */
+h1 {
+    letter-spacing: -0.03em;
+}
+
+h2,
+h3 {
+    letter-spacing: -0.02em;
+}
+
+/* Long words (German compounds, URLs, addresses) wrap instead of spilling out
+   of their container and being clipped by a section's overflow. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li,
+a,
+label,
+button,
+figcaption,
+blockquote {
+    overflow-wrap: break-word;
 }
 
 /* Hero gradient background */
@@ -199,6 +308,106 @@ footer {
         0 4px 14px 0 rgba(226, 185, 59, 0.39);
 }
 
+/* ---------------------------------------------------------------------- *
+ * Site navigation
+ *
+ * The hamburger and the menu it controls are identical on every page, so the
+ * rules live here rather than in four page-local <style> blocks. Behaviour is
+ * in nav.js. 1024px is where the desktop link row plus the wordmark and the
+ * CTA stop fitting, measured, not guessed — nav.js watches the same width.
+ * ---------------------------------------------------------------------- */
+.nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-toggle:hover {
+    background: var(--surface-dark);
+    color: var(--text-primary);
+}
+
+.mobile-menu {
+    display: none;
+    border-top: 1px solid var(--border-light);
+    background: var(--canvas);
+    padding-bottom: 0.5rem;
+}
+
+.mobile-menu.is-open {
+    display: block;
+}
+
+.mobile-menu a {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 1.5rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.mobile-menu a:hover {
+    background: var(--surface-dark);
+    color: var(--text-primary);
+}
+
+.mobile-menu a[aria-current] {
+    color: var(--text-primary);
+    background: var(--accent-beige);
+}
+
+/* Each row spans the full viewport width, so the standard outset ring lands
+   off both edges of the screen and a keyboard user sees only its top and
+   bottom slivers. Same ring, drawn inward. */
+.mobile-menu a:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring-inset);
+}
+
+@media (min-width: 1024px) {
+
+    .nav-toggle,
+    .mobile-menu,
+    .mobile-menu.is-open {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .nav-toggle,
+    .mobile-menu a {
+        transition: none;
+    }
+}
+
+/* ---------------------------------------------------------------------- *
+ * Site footer
+ * ---------------------------------------------------------------------- */
+
+/* The footer links set at 14px in a flex row, which renders a 20px-tall hit
+   target — under the 24px minimum. The pseudo-element lifts it to 28px
+   without moving the text or the hover underline, and -4px is exactly half
+   the row's 8px gap, so stacked rows never overlap each other's targets. */
+footer nav[aria-label="Footer navigation"] a::before {
+    content: '';
+    position: absolute;
+    inset-block: -4px;
+    inset-inline: 0;
+}
+
 /* Card styles */
 /* Vercel Guidelines: Layered shadows, specific transitions */
 .wisdom-card {
@@ -247,18 +456,6 @@ footer {
 .wisdom-card:focus-visible {
     outline: none;
     box-shadow: var(--focus-ring), var(--shadow-lg);
-}
-
-/* Feature icon */
-.feature-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    margin-bottom: 20px;
 }
 
 /* Gradient text */
@@ -383,20 +580,20 @@ footer {
 
 /* Trust badges */
 .trust-badge {
-    background: #F0F9FF;
-    border: 1px solid #DBEAFE;
+    background: var(--accent-beige);
+    border: 1px solid rgba(226, 185, 59, 0.35);
     border-radius: 999px;
     padding: 8px 20px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
     font-size: 14px;
-    color: var(--accent-gold);
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
-/* Smooth scroll */
-html {
-    scroll-behavior: smooth;
+.trust-badge i {
+    color: var(--accent-gold-ink);
 }
 
 /* Cinematic day timeline */
@@ -417,50 +614,6 @@ html {
     bottom: 0;
     background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
     pointer-events: none;
-}
-
-.timeline-glow {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0;
-    animation: glowPulse 4s ease-in-out infinite;
-    pointer-events: none !important;
-    z-index: -1 !important;
-    will-change: auto !important;
-    transform-style: flat !important;
-}
-
-/* Force all timeline glows to never interfere */
-.timeline-glow,
-.timeline-glow::before,
-.timeline-glow::after {
-    pointer-events: none !important;
-    z-index: -10 !important;
-}
-
-/* Completely disable glow elements that interfere with character selection */
-.cinematic-timeline>.timeline-glow {
-    visibility: hidden !important;
-    pointer-events: none !important;
-    z-index: -1000 !important;
-    display: none !important;
-}
-
-@keyframes glowPulse {
-
-    0%,
-    100% {
-        opacity: 0.15;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 0.25;
-        transform: scale(1.1);
-    }
 }
 
 .timeline-title {
@@ -516,18 +669,21 @@ html {
     top: 0;
     width: 100%;
     background: linear-gradient(to bottom,
-            rgba(37, 99, 235, 0) 0%,
-            rgba(37, 99, 235, 0.8) 20%,
-            rgba(16, 185, 129, 0.8) 80%,
-            rgba(16, 185, 129, 0) 100%);
+            rgba(226, 185, 59, 0) 0%,
+            rgba(226, 185, 59, 0.8) 20%,
+            rgba(71, 181, 165, 0.8) 80%,
+            rgba(71, 181, 165, 0) 100%);
     height: 0%;
     transition: height 2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
+    box-shadow: 0 0 20px rgba(226, 185, 59, 0.5);
 }
 
 .timeline-moment {
     position: relative;
-    min-height: 100vh;
+    /* A full viewport per moment left 300-450px of empty navy around content
+       that is rarely taller than 600px. Tall enough for the parallax, not so
+       tall that the section reads as dead space. */
+    min-height: 70vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -595,20 +751,6 @@ html {
     }
 }
 
-.moment-icon {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, var(--accent-gold), var(--accent-mint));
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-    color: white;
-    margin-bottom: 24px;
-    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
-}
-
 .conversation-bubble {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -662,6 +804,7 @@ html {
 
 .timeline-node {
     position: absolute;
+    top: 50%;
     left: 50%;
     transform: translateX(-50%);
     width: 24px;
@@ -669,7 +812,7 @@ html {
     background: white;
     border: 4px solid var(--accent-gold);
     border-radius: 50%;
-    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.2);
+    box-shadow: 0 0 0 8px rgba(226, 185, 59, 0.2);
     z-index: 1;
 }
 
@@ -681,55 +824,13 @@ html {
 
     0%,
     100% {
-        box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.2);
+        box-shadow: 0 0 0 8px rgba(226, 185, 59, 0.2);
         transform: translateX(-50%) scale(1);
     }
 
     50% {
-        box-shadow: 0 0 0 16px rgba(37, 99, 235, 0.1);
+        box-shadow: 0 0 0 16px rgba(226, 185, 59, 0.1);
         transform: translateX(-50%) scale(1.2);
-    }
-}
-
-.outcome-card {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(37, 99, 235, 0.1));
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    border-radius: 16px;
-    padding: 32px;
-    margin-top: 32px;
-    position: relative;
-    overflow: hidden;
-}
-
-.outcome-card::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg,
-            var(--accent-mint),
-            var(--accent-gold),
-            var(--accent-mint));
-    border-radius: 16px;
-    opacity: 0;
-    z-index: -1;
-    transition: opacity 0.5s ease;
-}
-
-.outcome-card:hover::before {
-    opacity: 0.3;
-    animation: shimmer 2s linear infinite;
-}
-
-@keyframes shimmer {
-    0% {
-        transform: translateX(-100%);
-    }
-
-    100% {
-        transform: translateX(100%);
     }
 }
 
@@ -755,9 +856,7 @@ html {
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    position: relative !important;
-    z-index: 10000 !important;
-    pointer-events: auto !important;
+    position: relative;
 }
 
 .character-select-btn:hover,
@@ -773,11 +872,12 @@ html {
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5), 0 0 0 4px var(--accent-gold);
 }
 
-.character-select-btn.active {
-    border-color: var(--accent-gold) !important;
-    background: rgba(226, 185, 59, 0.3) !important;
-    box-shadow: 0 0 20px rgba(226, 185, 59, 0.4) !important;
-    transform: scale(1.05) !important;
+.character-select-btn.active,
+.character-select-btn.active:hover {
+    border-color: var(--accent-gold);
+    background: rgba(226, 185, 59, 0.3);
+    box-shadow: 0 0 20px rgba(226, 185, 59, 0.4);
+    transform: scale(1.05);
 }
 
 .character-select-btn span {
@@ -810,11 +910,11 @@ html {
 /* Hide non-selected character on mobile */
 @media (max-width: 768px) {
     .character-intro-grid .character-card {
-        display: none !important;
+        display: none;
     }
 
     .character-intro-grid .character-card.show-mobile {
-        display: block !important;
+        display: block;
     }
 }
 
@@ -823,12 +923,6 @@ html {
 @media (max-width: 768px) {
     .wisdom-card {
         padding: 24px;
-    }
-
-    .feature-icon {
-        width: 48px;
-        height: 48px;
-        font-size: 20px;
     }
 
     /* Cinematic timeline mobile adjustments */
@@ -852,31 +946,67 @@ html {
     .moment-content {
         padding: 24px;
     }
-
-    .moment-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 24px;
-    }
 }
 
-/* Physics canvas styles */
+/* ============================================
+   3D physics visualisation ("focus on you")
+   ============================================ */
 #physics-wrapper {
     cursor: pointer;
+    width: 100%;
+    max-width: 900px;
+    aspect-ratio: 16 / 10;
+    max-height: 70vh;
+    min-height: 300px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
-#physics-canvas {
+#physics-container,
+#physics-container canvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#physics-container canvas {
     display: block;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .hover-hint {
     opacity: 1;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.5s ease;
 }
 
 #physics-wrapper.activated .hover-hint {
     opacity: 0;
+}
+
+#physics-loading {
+    transition: opacity 0.5s ease;
+}
+
+/* script.js hides the loader with .is-hidden so the fade can play.
+   (Tailwind's .hidden would set display:none and kill the transition.) */
+#physics-loading.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    #physics-wrapper {
+        aspect-ratio: 4 / 5;
+        max-height: 60vh;
+        min-height: 350px;
+        border-radius: 16px;
+    }
+
+    #physics-container,
+    #physics-container canvas {
+        border-radius: 16px;
+    }
 }
 
 /* iPhone Mockup - Desktop First */
@@ -930,16 +1060,18 @@ html {
     border-radius: 0 0.5rem 0.5rem 0;
 }
 
+/* Absolutely positioned percentages resolve against the mockup's padding box,
+   which is exactly the area inside the bezel. Sizing the screen this way means
+   a mockup resizes from its own width/height alone. */
 .iphone-screen-wrapper {
     border-radius: 2rem;
     overflow: hidden;
-    width: 272px;
-    height: 572px;
+    width: 100%;
+    height: 100%;
     background: black;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
 }
 
 .iphone-screen {
@@ -949,29 +1081,97 @@ html {
     object-position: top center;
 }
 
-/* MOBILE OVERRIDES - Completely reset for mobile */
+/* Two mockups sharing a half-width column (steps 1 and 2 of "How It Works").
+   At full size the pair is 616px wide inside a ~488px column and, because
+   .iphone-mockup cannot shrink, it spilled sideways over the step copy.
+   Size the pair to the room it actually has. */
+@media (min-width: 769px) {
+    .iphone-pair .iphone-mockup {
+        width: 150px;
+        height: 300px;
+        border-width: 7px;
+        border-radius: 1.25rem;
+    }
+
+    .iphone-pair .iphone-screen-wrapper {
+        border-radius: 0.9rem;
+    }
+
+    .iphone-pair .iphone-mockup::before {
+        width: 74px;
+        height: 9px;
+        border-radius: 0 0 0.5rem 0.5rem;
+    }
+
+    .iphone-pair .iphone-power-button {
+        height: 32px;
+        width: 2px;
+        right: -9px;
+        top: 71px;
+    }
+
+    .iphone-pair .iphone-mockup::after {
+        height: 23px;
+        width: 2px;
+        left: -9px;
+        top: 62px;
+        box-shadow: 0 23px 0 0 #1a1a1a, 0 50px 0 0 #1a1a1a;
+    }
+}
+
+/* Once the content column reaches its 1024px cap there is room for a larger pair */
+@media (min-width: 1072px) {
+    .iphone-pair .iphone-mockup {
+        width: 232px;
+        height: 464px;
+        border-width: 11px;
+        border-radius: 1.9rem;
+    }
+
+    .iphone-pair .iphone-screen-wrapper {
+        border-radius: 1.4rem;
+    }
+
+    .iphone-pair .iphone-mockup::before {
+        width: 114px;
+        height: 14px;
+        border-radius: 0 0 0.75rem 0.75rem;
+    }
+
+    .iphone-pair .iphone-power-button {
+        height: 50px;
+        width: 3px;
+        right: -14px;
+        top: 110px;
+    }
+
+    .iphone-pair .iphone-mockup::after {
+        height: 36px;
+        width: 3px;
+        left: -14px;
+        top: 96px;
+        box-shadow: 0 36px 0 0 #1a1a1a, 0 77px 0 0 #1a1a1a;
+    }
+}
+
+/* Mobile sizing for the iPhone mockups */
 @media (max-width: 768px) {
     .iphone-mockup {
-        width: 160px !important;
-        height: 320px !important;
-        min-width: 160px !important;
-        max-width: 160px !important;
-        min-height: 320px !important;
+        width: 160px;
+        height: 320px;
+        min-width: 160px;
+        max-width: 160px;
+        min-height: 320px;
         border: 6px solid #1a1a1a;
         border-radius: 1.5rem;
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        flex-shrink: 0 !important;
-        flex-grow: 0 !important;
-        flex-basis: auto !important;
+        flex-shrink: 0;
+        flex-grow: 0;
+        flex-basis: auto;
     }
 
     .iphone-screen-wrapper {
-        width: 148px;
-        height: 308px;
         border-radius: 1.2rem;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
     }
 
     .iphone-mockup::before {
@@ -999,20 +1199,15 @@ html {
 /* VERY SMALL MOBILE */
 @media (max-width: 480px) {
     .iphone-mockup {
-        width: 140px !important;
-        height: 280px !important;
-        min-width: 140px !important;
-        max-width: 140px !important;
-        min-height: 280px !important;
+        width: 140px;
+        height: 280px;
+        min-width: 140px;
+        max-width: 140px;
+        min-height: 280px;
         border: 5px solid #1a1a1a;
-        flex-shrink: 0 !important;
-        flex-grow: 0 !important;
-        flex-basis: auto !important;
-    }
-
-    .iphone-screen-wrapper {
-        width: 130px;
-        height: 270px;
+        flex-shrink: 0;
+        flex-grow: 0;
+        flex-basis: auto;
     }
 
     .iphone-mockup::before {
@@ -1170,12 +1365,6 @@ textarea:focus:not(:focus-visible) {
         animation: none !important;
     }
 
-    /* Disable timeline glow pulses */
-    .timeline-glow {
-        animation: none !important;
-        opacity: 0.15;
-    }
-
     /* Disable node pulses */
     .timeline-node.pulse {
         animation: none !important;
@@ -1205,59 +1394,11 @@ textarea:focus:not(:focus-visible) {
 }
 
 /* ============================================
-   Vercel Guidelines: Loading State Utilities
-   Use show-delay and min-visible-time to prevent
-   loading state flicker
-   ============================================ */
-
-/* Loading spinner with proper delay (150-300ms show delay) */
-.loading-spinner {
-    animation: spin 1s linear infinite;
-    animation-delay: 150ms;
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* Skeleton loading with minimum visible time (300-500ms) */
-.skeleton {
-    background: linear-gradient(
-        90deg,
-        var(--surface-dark) 25%,
-        var(--surface) 50%,
-        var(--surface-dark) 75%
-    );
-    background-size: 200% 100%;
-    animation: skeleton-shimmer 1.5s ease-in-out infinite;
-    animation-delay: 150ms;
-    border-radius: 4px;
-}
-
-@keyframes skeleton-shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
-/* Disable skeleton animation for reduced motion */
-@media (prefers-reduced-motion: reduce) {
-    .skeleton {
-        animation: none !important;
-        background: var(--surface-dark);
-    }
-
-    .loading-spinner {
-        animation: none !important;
-    }
-}
-
-/* ============================================
    Vercel Guidelines: Form Input Improvements
    ============================================ */
 
-/* Ensure inputs have proper styling for focus and validation */
-input:not([type="checkbox"]):not([type="radio"]),
+/* Text-entry fields only: button-like inputs keep their own styling */
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="file"]),
 textarea,
 select {
     /* Vercel Guidelines: Minimum font size 16px to prevent iOS zoom */
@@ -1270,27 +1411,24 @@ select {
     color: var(--text-primary);
 }
 
-/* Vercel Guidelines: Windows select dark mode fix */
-select {
-    background-color: var(--surface);
-    color: var(--text-primary);
-}
-
-/* Error state for form validation */
-input:invalid:not(:placeholder-shown),
+/* Validation states, once the field has actually been filled in */
+input:not([type="submit"]):not([type="button"]):not([type="reset"]):invalid:not(:placeholder-shown),
 textarea:invalid:not(:placeholder-shown) {
     border-color: var(--error);
 }
 
-/* Success state */
-input:valid:not(:placeholder-shown),
+input:not([type="submit"]):not([type="button"]):not([type="reset"]):valid:not(:placeholder-shown),
 textarea:valid:not(:placeholder-shown) {
     border-color: var(--success);
 }
 
-/* Placeholder styling */
-::placeholder {
-    color: var(--text-tertiary);
+/* Placeholder styling. --text-tertiary is a 2.5:1 hint colour and fails as
+   text, so placeholders use the dimmest ink that still clears 4.5:1.
+   Tailwind's Preflight ships the identical selector and is injected after this
+   file, so the body prefix is what wins the cascade. */
+body input::placeholder,
+body textarea::placeholder {
+    color: var(--text-placeholder);
     opacity: 1;
 }
 
@@ -1314,6 +1452,28 @@ textarea:valid:not(:placeholder-shown) {
     top: 0;
 }
 
+/* Windows High Contrast / forced-colors: the custom box-shadow focus ring is
+   stripped by the OS palette, so fall back to a real outline. */
+@media (forced-colors: active) {
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible,
+    .primary-btn:focus-visible,
+    .character-select-btn:focus-visible,
+    .wisdom-card:focus-visible {
+        outline: 3px solid Highlight;
+        outline-offset: 2px;
+    }
+
+    .primary-btn,
+    .character-select-btn.active {
+        border: 1px solid ButtonText;
+    }
+}
+
 /* Screen reader only text */
 .sr-only {
     position: absolute;
@@ -1327,28 +1487,115 @@ textarea:valid:not(:placeholder-shown) {
     border: 0;
 }
 
-/* Ensure icons have proper accessible names when used alone */
-[aria-label] {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
 /* ============================================
    Vercel Guidelines: Image Optimization
-   Reserve space for images to prevent CLS
+   Space is reserved via width/height attributes on each <img>.
    ============================================ */
 img {
     max-width: 100%;
     height: auto;
-    /* Prevent layout shift */
-    aspect-ratio: attr(width) / attr(height);
 }
 
-/* Explicit sizing for common image containers */
-.iphone-screen {
-    /* Prevent CLS by maintaining aspect ratio */
-    aspect-ratio: 272 / 572;
-    object-fit: cover;
-    object-position: top center;
+/* ============================================
+   Decorative hero shapes
+   ============================================ */
+.float-shape--gold {
+    top: 10%;
+    left: -10%;
+}
+
+.float-shape--mint {
+    right: -5%;
+    bottom: 20%;
+    animation-delay: 5s;
+}
+
+.float-shape--beige {
+    top: 60%;
+    left: 80%;
+    animation-delay: 10s;
+}
+
+/* ============================================
+   Signup modal (#emailModal)
+   Open state  = class "flex", no "hidden"
+   Closed state = class "hidden", no "flex"
+   Both come from Tailwind utilities on the element itself.
+   ============================================ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Mailchimp boilerplate inside the modal form that we never show */
+#mc_embed_signup .brandingLogo,
+#mc_embed_signup .optionalParent {
+    display: none;
+}
+
+/* Off-screen honeypot field required by Mailchimp */
+.mc-honeypot {
+    position: absolute;
+    left: -5000px;
+}
+
+/* Response messages reveal themselves once JS fills them in */
+#mce-responses .response:empty {
+    display: none;
+}
+
+/* Shared by blog.html and post.html's loading-skeleton placeholders. */
+.skeleton-line {
+    height: 0.75rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--surface-dark) 25%, rgba(31, 41, 55, 0.04) 37%, var(--surface-dark) 63%);
+    background-size: 400% 100%;
+    animation: skeleton-shimmer 1.4s ease infinite;
+    margin-bottom: 0.875rem;
+}
+
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+/* Shared by blog.html's .blog-header and post.html's .post-header, which
+   both carry this class alongside their own. Page-specific padding, title
+   sizing and breadcrumb layout stay in each page's own inline <style>. */
+.page-header {
+    background: linear-gradient(135deg, var(--canvas) 0%, var(--surface-dark) 50%, var(--accent-beige) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(226,185,59,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+    pointer-events: none;
+}
+
+/* Tailwind utility classes used in the markup that aren't part of the
+   default v3 scale, so the prebuilt assets/tailwind.css never generates
+   them. Hand-defined here to match what they rendered as under the CDN's
+   in-browser JIT. (.scrollbar-hide is defined once, further up.) */
+.border-3 {
+    border-width: 3px;
 }
